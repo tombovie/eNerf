@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 movementDirection = Vector3.zero;
     private bool playerGrounded;
 
+    private bool isWalkingBackwards = false;
+    private int count = 0;
+    private bool movingBackwards = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +35,39 @@ public class PlayerController : MonoBehaviour
 
         //movement
         Vector3 inputMovement = transform.forward * movementSpeed * Input.GetAxisRaw("Vertical");
-        characterController.Move(inputMovement * Time.deltaTime);
+
+        if (Vector3.Dot(transform.forward, inputMovement) < 0)
+        {
+            movingBackwards = true;
+        }
+        else
+        {
+            movingBackwards = false;
+        }
+
+        
+
+        if (movingBackwards == false)
+        {
+            characterController.Move(inputMovement * Time.deltaTime);
+        }
+        
 
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Horizontal") * rotationSpeed);
 
+        count++;
+        if (inputMovement != Vector3.zero && count > 30)
+        {
+            isWalkingBackwards = false; //Reset trigger
+        }
+
+        // If down arrow key is pressed, rotate character 180 degrees
+        if (movingBackwards && isWalkingBackwards == false)
+        {
+            transform.Rotate(Vector3.up, 180f);
+            isWalkingBackwards = true;
+            count = 0; //reset count
+        }
 
         //jumping
         if (Input.GetButton("Jump") && playerGrounded)
@@ -56,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //animations
-        animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0);
+        animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards==false);
         animator.SetBool("isJumping", !characterController.isGrounded);
         Debug.Log("" + characterController.isGrounded);
     }

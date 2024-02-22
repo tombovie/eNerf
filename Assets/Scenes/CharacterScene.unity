@@ -158,8 +158,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 769533032}
+  m_Follow: {fileID: 769533032}
   m_Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -187,8 +187,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647303461}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.124751434, y: -0.00000001672616, z: 0.000000002103041, w: 0.99218804}
-  m_LocalPosition: {x: 0.4333026, y: 2.2431972, z: -4.4922543}
+  m_LocalRotation: {x: 0.12475146, y: -0.000000018130386, z: 0.0000000022796003, w: 0.99218804}
+  m_LocalPosition: {x: 0.6797706, y: 3.7200758, z: -3.73284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 1
-  rotationSpeed: 0.2
+  rotationSpeed: 1.05
   jumpSpeed: 8
   gravity: 20
 --- !u!95 &769533030
@@ -474,8 +474,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508066618}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.124751434, y: -0.00000001672616, z: 0.000000002103041, w: 0.99218804}
-  m_LocalPosition: {x: 0.4333026, y: 2.2431972, z: -4.4922543}
+  m_LocalRotation: {x: 0.12475146, y: -0.000000018130386, z: 0.0000000022796003, w: 0.99218804}
+  m_LocalPosition: {x: 0.6797706, y: 3.7200758, z: -3.73284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -617,6 +617,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 769533032}
     m_Modifications:
+    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e0afa79d6205ec74485996c44146394b, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -8799106466961368553, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
       propertyPath: m_DirtyAABB
       value: 0
@@ -913,6 +929,34 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.0035326206
       objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.26285744
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: -5.225212
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.8314867
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 38.853745
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 86.24902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186614923624942275, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 16.691109
+      objectReference: {fileID: 0}
     - target: {fileID: 6505148034082506916, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.95797217
@@ -1012,22 +1056,6 @@ PrefabInstance:
     - target: {fileID: 9163915862842202506, guid: 437536822be9b1f4ab1c62d4ec30d15d, type: 3}
       propertyPath: m_AABB.m_Extent.z
       value: 19.240807
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: e0afa79d6205ec74485996c44146394b, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
-      propertyPath: m_WarningMessage
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 587d045578c90594d885e4e0c301a6c5, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8691159933939214003, guid: 45d03a3421e9c9642a66366cf4417091, type: 3}
       propertyPath: m_DirtyAABB
