@@ -58,6 +58,6 @@ public class PlayerController : MonoBehaviour
         //animations
         animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0);
         animator.SetBool("isJumping", !characterController.isGrounded);
-        Debug.Log("" + characterController.isGrounded);
+        //Debug.Log("" + characterController.isGrounded);
     }
 }
