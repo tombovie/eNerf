@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
 
         //movement
         Vector3 inputMovement = transform.forward * movementSpeed * Input.GetAxisRaw("Vertical");
-        characterController.Move(inputMovement * Time.deltaTime);
 
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Horizontal") * rotationSpeed);
 
@@ -56,7 +55,6 @@ public class PlayerController : MonoBehaviour
         }
 
         //animations
-        animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0);
         animator.SetBool("isJumping", !characterController.isGrounded);
         //Debug.Log("" + characterController.isGrounded);
     }
