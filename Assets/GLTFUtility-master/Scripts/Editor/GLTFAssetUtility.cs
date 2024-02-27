@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 #if !UNITY_2020_2_OR_NEWER
 using UnityEditor.Experimental.AssetImporters;
@@ -8,10 +7,13 @@ using UnityEditor.AssetImporters;
 #endif
 using UnityEngine;
 
-namespace Siccity.GLTFUtility {
+namespace Siccity.GLTFUtility
+{
 	/// <summary> Contains methods for saving a gameobject as an asset </summary>
-	public static class GLTFAssetUtility {
-		public static void SaveToAsset(GameObject root, AnimationClip[] animations, AssetImportContext ctx, ImportSettings settings) {
+	public static class GLTFAssetUtility
+	{
+		public static void SaveToAsset(GameObject root, AnimationClip[] animations, AssetImportContext ctx, ImportSettings settings)
+		{
 #if UNITY_2018_2_OR_NEWER
 			ctx.AddObjectToAsset("main", root);
 			ctx.SetMainObject(root);
@@ -34,16 +36,19 @@ namespace Siccity.GLTFUtility {
 			AddAnimations(animations, ctx, settings.animationSettings);
 		}
 
-		public static void AddMeshes(MeshFilter[] filters, SkinnedMeshRenderer[] skinnedRenderers, AssetImportContext ctx, UnwrapParam? lightmapUnwrapInfo) {
+		public static void AddMeshes(MeshFilter[] filters, SkinnedMeshRenderer[] skinnedRenderers, AssetImportContext ctx, UnwrapParam? lightmapUnwrapInfo)
+		{
 			HashSet<Mesh> visitedMeshes = new HashSet<Mesh>();
-			for (int i = 0; i < filters.Length; i++) {
+			for (int i = 0; i < filters.Length; i++)
+			{
 				Mesh mesh = filters[i].sharedMesh;
 				if (lightmapUnwrapInfo.HasValue) Unwrapping.GenerateSecondaryUVSet(mesh, lightmapUnwrapInfo.Value);
 				if (visitedMeshes.Contains(mesh)) continue;
 				ctx.AddAsset(mesh.name, mesh);
 				visitedMeshes.Add(mesh);
 			}
-			for (int i = 0; i < skinnedRenderers.Length; i++) {
+			for (int i = 0; i < skinnedRenderers.Length; i++)
+			{
 				Mesh mesh = skinnedRenderers[i].sharedMesh;
 				if (visitedMeshes.Contains(mesh)) continue;
 				ctx.AddAsset(mesh.name, mesh);
@@ -51,18 +56,21 @@ namespace Siccity.GLTFUtility {
 			}
 		}
 
-		public static void AddAnimations(AnimationClip[] animations, AssetImportContext ctx, AnimationSettings settings) {
+		public static void AddAnimations(AnimationClip[] animations, AssetImportContext ctx, AnimationSettings settings)
+		{
 			if (animations == null) return;
 
 			// Editor-only animation settings
-			foreach (AnimationClip clip in animations) {
+			foreach (AnimationClip clip in animations)
+			{
 				AnimationClipSettings clipSettings = AnimationUtility.GetAnimationClipSettings(clip);
 				clipSettings.loopTime = settings.looping;
 				AnimationUtility.SetAnimationClipSettings(clip, clipSettings);
 			}
 
 			HashSet<AnimationClip> visitedAnimations = new HashSet<AnimationClip>();
-			for (int i = 0; i < animations.Length; i++) {
+			for (int i = 0; i < animations.Length; i++)
+			{
 				AnimationClip clip = animations[i];
 				if (visitedAnimations.Contains(clip)) continue;
 				ctx.AddAsset(clip.name, clip);
@@ -70,11 +78,14 @@ namespace Siccity.GLTFUtility {
 			}
 		}
 
-		public static void AddMaterials(MeshRenderer[] renderers, SkinnedMeshRenderer[] skinnedRenderers, AssetImportContext ctx) {
+		public static void AddMaterials(MeshRenderer[] renderers, SkinnedMeshRenderer[] skinnedRenderers, AssetImportContext ctx)
+		{
 			HashSet<Material> visitedMaterials = new HashSet<Material>();
 			HashSet<Texture2D> visitedTextures = new HashSet<Texture2D>();
-			for (int i = 0; i < renderers.Length; i++) {
-				foreach (Material mat in renderers[i].sharedMaterials) {
+			for (int i = 0; i < renderers.Length; i++)
+			{
+				foreach (Material mat in renderers[i].sharedMaterials)
+				{
 					if (mat == GLTFMaterial.defaultMaterial) continue;
 					if (visitedMaterials.Contains(mat)) continue;
 					if (string.IsNullOrEmpty(mat.name)) mat.name = "material" + visitedMaterials.Count;
@@ -82,7 +93,8 @@ namespace Siccity.GLTFUtility {
 					visitedMaterials.Add(mat);
 
 					// Add textures
-					foreach (Texture2D tex in mat.AllTextures()) {
+					foreach (Texture2D tex in mat.AllTextures())
+					{
 						// Dont add asset textures
 						//if (images[i].isAsset) continue;
 						if (visitedTextures.Contains(tex)) continue;
@@ -93,15 +105,18 @@ namespace Siccity.GLTFUtility {
 					}
 				}
 			}
-			for (int i = 0; i < skinnedRenderers.Length; i++) {
-				foreach (Material mat in skinnedRenderers[i].sharedMaterials) {
+			for (int i = 0; i < skinnedRenderers.Length; i++)
+			{
+				foreach (Material mat in skinnedRenderers[i].sharedMaterials)
+				{
 					if (visitedMaterials.Contains(mat)) continue;
 					if (string.IsNullOrEmpty(mat.name)) mat.name = "material" + visitedMaterials.Count;
 					ctx.AddAsset(mat.name, mat);
 					visitedMaterials.Add(mat);
 
 					// Add textures
-					foreach (Texture2D tex in mat.AllTextures()) {
+					foreach (Texture2D tex in mat.AllTextures())
+					{
 						// Dont add asset textures
 						//if (images[i].isAsset) continue;
 						if (visitedTextures.Contains(tex)) continue;
@@ -114,7 +129,8 @@ namespace Siccity.GLTFUtility {
 			}
 		}
 
-		public static void AddAsset(this AssetImportContext ctx, string identifier, Object obj) {
+		public static void AddAsset(this AssetImportContext ctx, string identifier, Object obj)
+		{
 #if UNITY_2018_2_OR_NEWER
 			ctx.AddObjectToAsset(identifier, obj);
 #else
@@ -122,9 +138,11 @@ namespace Siccity.GLTFUtility {
 #endif
 		}
 
-		public static IEnumerable<Texture2D> AllTextures(this Material mat) {
+		public static IEnumerable<Texture2D> AllTextures(this Material mat)
+		{
 			int[] ids = mat.GetTexturePropertyNameIDs();
-			for (int i = 0; i < ids.Length; i++) {
+			for (int i = 0; i < ids.Length; i++)
+			{
 				Texture2D tex = mat.GetTexture(ids[i]) as Texture2D;
 				if (tex != null) yield return tex;
 			}

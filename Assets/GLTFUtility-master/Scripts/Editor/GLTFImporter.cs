@@ -16,17 +16,20 @@ using UnityEditor.AssetImporters;
 #endif
 using UnityEngine;
 
-namespace Siccity.GLTFUtility {
+namespace Siccity.GLTFUtility
+{
 #if ENABLE_DEFAULT_GLB_IMPORTER
 	[ScriptedImporter(1, "gltf")]
 #else
     [ScriptedImporter(1, null, overrideExts: new[] { "gltf" })]
 #endif
-	public class GLTFImporter : ScriptedImporter {
+	public class GLTFImporter : ScriptedImporter
+	{
 
 		public ImportSettings importSettings;
 
-		public override void OnImportAsset(AssetImportContext ctx) {
+		public override void OnImportAsset(AssetImportContext ctx)
+		{
 			// Load asset
 			AnimationClip[] animations;
 			if (importSettings == null) importSettings = new ImportSettings();

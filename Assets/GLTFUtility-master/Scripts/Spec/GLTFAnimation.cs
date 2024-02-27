@@ -1,25 +1,30 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Siccity.GLTFUtility.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Siccity.GLTFUtility.Converters;
 using UnityEngine;
 using UnityEngine.Scripting;
-using Newtonsoft.Json.Linq;
 
-namespace Siccity.GLTFUtility {
+namespace Siccity.GLTFUtility
+{
 	// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#animation
 	/// <summary> Contains info for a single animation clip </summary>
-	[Preserve] public class GLTFAnimation {
+	[Preserve]
+	public class GLTFAnimation
+	{
 		/// <summary> Connects the output values of the key frame animation to a specific node in the hierarchy </summary>
 		[JsonProperty(Required = Required.Always)] public Channel[] channels;
 		[JsonProperty(Required = Required.Always)] public Sampler[] samplers;
 		public string name;
 		public JObject extras;
 
-#region Classes
+		#region Classes
 		// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#animation-sampler
-		[Preserve] public class Sampler {
+		[Preserve]
+		public class Sampler
+		{
 			/// <summary> The index of an accessor containing keyframe input values, e.g., time. </summary>
 			[JsonProperty(Required = Required.Always)] public int input;
 			/// <summary> The index of an accessor containing keyframe output values. </summary>
@@ -30,7 +35,9 @@ namespace Siccity.GLTFUtility {
 
 		// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#channel
 		/// <summary> Connects the output values of the key frame animation to a specific node in the hierarchy </summary>
-		[Preserve] public class Channel {
+		[Preserve]
+		public class Channel
+		{
 			/// <summary> Target sampler index </summary>
 			[JsonProperty(Required = Required.Always)] public int sampler;
 			/// <summary> Target sampler index </summary>
@@ -39,19 +46,24 @@ namespace Siccity.GLTFUtility {
 
 		// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#target
 		/// <summary> Identifies which node and property to animate </summary>
-		[Preserve] public class Target {
+		[Preserve]
+		public class Target
+		{
 			/// <summary> Target node index.</summary>
 			public int? node;
 			/// <summary> Which property to animate. Valid names are: "translation", "rotation", "scale", "weights" </summary>
 			[JsonProperty(Required = Required.Always)] public string path;
 		}
 
-		[Preserve] public class ImportResult {
+		[Preserve]
+		public class ImportResult
+		{
 			public AnimationClip clip;
 		}
-#endregion
+		#endregion
 
-		public ImportResult Import(GLTFAccessor.ImportResult[] accessors, GLTFNode.ImportResult[] nodes, ImportSettings importSettings) {
+		public ImportResult Import(GLTFAccessor.ImportResult[] accessors, GLTFNode.ImportResult[] nodes, ImportSettings importSettings)
+		{
 			bool multiRoots = nodes.Where(x => x.IsRoot).Count() > 1;
 
 			ImportResult result = new ImportResult();
@@ -66,9 +78,11 @@ namespace Siccity.GLTFUtility {
 				result.clip.wrapMode = WrapMode.Loop;
 			}
 
-			for (int i = 0; i < channels.Length; i++) {
+			for (int i = 0; i < channels.Length; i++)
+			{
 				Channel channel = channels[i];
-				if (samplers.Length <= channel.sampler) {
+				if (samplers.Length <= channel.sampler)
+				{
 					Debug.LogWarning($"GLTFUtility: Animation channel points to sampler at index {channel.sampler} which doesn't exist. Skipping animation clip.");
 					continue;
 				}
@@ -76,7 +90,8 @@ namespace Siccity.GLTFUtility {
 
 				// Get interpolation mode
 				InterpolationMode interpolationMode = importSettings.animationSettings.interpolationMode;
-				if (interpolationMode == InterpolationMode.ImportFromFile) {
+				if (interpolationMode == InterpolationMode.ImportFromFile)
+				{
 					interpolationMode = sampler.interpolation;
 				}
 				if (interpolationMode == InterpolationMode.CUBICSPLINE) Debug.LogWarning("Animation interpolation mode CUBICSPLINE not fully supported, result might look different.");
@@ -84,7 +99,8 @@ namespace Siccity.GLTFUtility {
 				string relativePath = "";
 
 				GLTFNode.ImportResult node = nodes[channel.target.node.Value];
-				while (node != null && !node.IsRoot) {
+				while (node != null && !node.IsRoot)
+				{
 					if (string.IsNullOrEmpty(relativePath)) relativePath = node.transform.name;
 					else relativePath = node.transform.name + "/" + relativePath;
 
@@ -99,13 +115,15 @@ namespace Siccity.GLTFUtility {
 
 				System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 				float[] keyframeInput = accessors[sampler.input].ReadFloat().ToArray();
-				switch (channel.target.path) {
+				switch (channel.target.path)
+				{
 					case "translation":
 						Vector3[] pos = accessors[sampler.output].ReadVec3().ToArray();
 						AnimationCurve posX = new AnimationCurve();
 						AnimationCurve posY = new AnimationCurve();
 						AnimationCurve posZ = new AnimationCurve();
-						for (int k = 0; k < keyframeInput.Length; k++) {
+						for (int k = 0; k < keyframeInput.Length; k++)
+						{
 							posX.AddKey(CreateKeyframe(k, keyframeInput, pos, x => -x.x, interpolationMode));
 							posY.AddKey(CreateKeyframe(k, keyframeInput, pos, x => x.y, interpolationMode));
 							posZ.AddKey(CreateKeyframe(k, keyframeInput, pos, x => x.z, interpolationMode));
@@ -120,7 +138,8 @@ namespace Siccity.GLTFUtility {
 						AnimationCurve rotY = new AnimationCurve();
 						AnimationCurve rotZ = new AnimationCurve();
 						AnimationCurve rotW = new AnimationCurve();
-						for (int k = 0; k < keyframeInput.Length; k++) {
+						for (int k = 0; k < keyframeInput.Length; k++)
+						{
 							// The Animation window in Unity shows keyframes incorrectly converted to euler. This is only to deceive you. The quaternions underneath work correctly
 							rotX.AddKey(CreateKeyframe(k, keyframeInput, rot, x => x.x, interpolationMode));
 							rotY.AddKey(CreateKeyframe(k, keyframeInput, rot, x => -x.y, interpolationMode));
@@ -137,7 +156,8 @@ namespace Siccity.GLTFUtility {
 						AnimationCurve scaleX = new AnimationCurve();
 						AnimationCurve scaleY = new AnimationCurve();
 						AnimationCurve scaleZ = new AnimationCurve();
-						for (int k = 0; k < keyframeInput.Length; k++) {
+						for (int k = 0; k < keyframeInput.Length; k++)
+						{
 							scaleX.AddKey(CreateKeyframe(k, keyframeInput, scale, x => x.x, interpolationMode));
 							scaleY.AddKey(CreateKeyframe(k, keyframeInput, scale, x => x.y, interpolationMode));
 							scaleZ.AddKey(CreateKeyframe(k, keyframeInput, scale, x => x.z, interpolationMode));
@@ -152,7 +172,8 @@ namespace Siccity.GLTFUtility {
 
 						int numberOfBlendShapes = skinnedMeshRenderer.sharedMesh.blendShapeCount;
 						AnimationCurve[] blendShapeCurves = new AnimationCurve[numberOfBlendShapes];
-						for(int j = 0; j < numberOfBlendShapes; ++j) {
+						for (int j = 0; j < numberOfBlendShapes; ++j)
+						{
 							blendShapeCurves[j] = new AnimationCurve();
 						}
 
@@ -168,32 +189,41 @@ namespace Siccity.GLTFUtility {
 						// weights[ j ] = actual animated weight of a specific blend shape
 						// (index into weights[] array accounts for keyframe index and blend shape index)
 
-						for(int k = 0; k < keyframeInput.Length; ++k) {
-							for(int j = 0; j < numberOfBlendShapes; ++j) {
+						for (int k = 0; k < keyframeInput.Length; ++k)
+						{
+							for (int j = 0; j < numberOfBlendShapes; ++j)
+							{
 								int weightIndex = (k * numberOfBlendShapes) + j;
 								weightValues[k] = weights[weightIndex];
 
 								bool addKey = true;
-								if(importSettings.animationSettings.compressBlendShapeKeyFrames) {
-									if(k == 0 || !Mathf.Approximately(weightValues[k], previouslyKeyedValues[j])) {
-										if(k > 0) {
-											weightValues[k-1] = previouslyKeyedValues[j];
-											blendShapeCurves[j].AddKey(CreateKeyframe(k-1, keyframeInput, weightValues, x => x, interpolationMode));
+								if (importSettings.animationSettings.compressBlendShapeKeyFrames)
+								{
+									if (k == 0 || !Mathf.Approximately(weightValues[k], previouslyKeyedValues[j]))
+									{
+										if (k > 0)
+										{
+											weightValues[k - 1] = previouslyKeyedValues[j];
+											blendShapeCurves[j].AddKey(CreateKeyframe(k - 1, keyframeInput, weightValues, x => x, interpolationMode));
 										}
 										addKey = true;
 										previouslyKeyedValues[j] = weightValues[k];
-									} else {
+									}
+									else
+									{
 										addKey = false;
 									}
 								}
 
-								if(addKey) {
+								if (addKey)
+								{
 									blendShapeCurves[j].AddKey(CreateKeyframe(k, keyframeInput, weightValues, x => x, interpolationMode));
 								}
 							}
 						}
 
-						for(int j = 0; j < numberOfBlendShapes; ++j) {
+						for (int j = 0; j < numberOfBlendShapes; ++j)
+						{
 							string propertyName = "blendShape." + skinnedMeshRenderer.sharedMesh.GetBlendShapeName(j);
 							result.clip.SetCurve(relativePath, typeof(SkinnedMeshRenderer), propertyName, blendShapeCurves[j]);
 						}
@@ -203,18 +233,24 @@ namespace Siccity.GLTFUtility {
 			return result;
 		}
 
-		public static Keyframe CreateKeyframe<T>(int index, float[] timeArray, T[] valueArray, Func<T, float> getValue, InterpolationMode interpolationMode) {
+		public static Keyframe CreateKeyframe<T>(int index, float[] timeArray, T[] valueArray, Func<T, float> getValue, InterpolationMode interpolationMode)
+		{
 			float time = timeArray[index];
 			Keyframe keyframe;
 #pragma warning disable CS0618
-			if (interpolationMode == InterpolationMode.STEP) {
+			if (interpolationMode == InterpolationMode.STEP)
+			{
 				keyframe = new Keyframe(time, getValue(valueArray[index]), float.PositiveInfinity, float.PositiveInfinity, 1, 1);
-			} else if (interpolationMode == InterpolationMode.CUBICSPLINE) {
+			}
+			else if (interpolationMode == InterpolationMode.CUBICSPLINE)
+			{
 				// @TODO: Find out what the right math is to calculate the tangent/weight values.
 				float inTangent = getValue(valueArray[index * 3]);
 				float outTangent = getValue(valueArray[(index * 3) + 2]);
 				keyframe = new Keyframe(time, getValue(valueArray[(index * 3) + 1]), inTangent, outTangent, 1, 1);
-			} else { // LINEAR
+			}
+			else
+			{ // LINEAR
 				keyframe = new Keyframe(time, getValue(valueArray[index]), 0, 0, 0, 0);
 			}
 #pragma warning restore CS0618
@@ -222,12 +258,15 @@ namespace Siccity.GLTFUtility {
 		}
 	}
 
-	public static class GLTFAnimationExtensions {
-		public static GLTFAnimation.ImportResult[] Import(this List<GLTFAnimation> animations, GLTFAccessor.ImportResult[] accessors, GLTFNode.ImportResult[] nodes, ImportSettings importSettings) {
+	public static class GLTFAnimationExtensions
+	{
+		public static GLTFAnimation.ImportResult[] Import(this List<GLTFAnimation> animations, GLTFAccessor.ImportResult[] accessors, GLTFNode.ImportResult[] nodes, ImportSettings importSettings)
+		{
 			if (animations == null) return null;
 
 			GLTFAnimation.ImportResult[] results = new GLTFAnimation.ImportResult[animations.Count];
-			for (int i = 0; i < results.Length; i++) {
+			for (int i = 0; i < results.Length; i++)
+			{
 				results[i] = animations[i].Import(accessors, nodes, importSettings);
 				if (string.IsNullOrEmpty(results[i].clip.name)) results[i].clip.name = "animation" + i;
 			}

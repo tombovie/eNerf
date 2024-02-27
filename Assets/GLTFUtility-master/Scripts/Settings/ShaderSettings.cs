@@ -2,10 +2,12 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Siccity.GLTFUtility {
+namespace Siccity.GLTFUtility
+{
 	/// <summary> Defines which shaders to use in the gltf import process </summary>
 	[Serializable]
-	public class ShaderSettings {
+	public class ShaderSettings
+	{
 		[SerializeField] private Shader metallic;
 		public Shader Metallic { get { return metallic != null ? metallic : GetDefaultMetallic(); } }
 
@@ -19,14 +21,16 @@ namespace Siccity.GLTFUtility {
 		public Shader SpecularBlend { get { return specularBlend != null ? specularBlend : GetDefaultSpecularBlend(); } }
 
 		/// <summary> Caches default shaders so that async import won't try to search for them while on a separate thread </summary>
-		public void CacheDefaultShaders() {
+		public void CacheDefaultShaders()
+		{
 			metallic = Metallic;
 			metallicBlend = MetallicBlend;
 			specular = Specular;
 			specularBlend = SpecularBlend;
 		}
 
-		public Shader GetDefaultMetallic() {
+		public Shader GetDefaultMetallic()
+		{
 #if UNITY_2019_1_OR_NEWER
 			if (GraphicsSettings.renderPipelineAsset) return Shader.Find("GLTFUtility/URP/Standard (Metallic)");
 			else
@@ -34,7 +38,8 @@ namespace Siccity.GLTFUtility {
 				return Shader.Find("GLTFUtility/Standard (Metallic)");
 		}
 
-		public Shader GetDefaultMetallicBlend() {
+		public Shader GetDefaultMetallicBlend()
+		{
 #if UNITY_2019_1_OR_NEWER
 			if (GraphicsSettings.renderPipelineAsset) return Shader.Find("GLTFUtility/URP/Standard Transparent (Metallic)");
 			else
@@ -42,7 +47,8 @@ namespace Siccity.GLTFUtility {
 				return Shader.Find("GLTFUtility/Standard Transparent (Metallic)");
 		}
 
-		public Shader GetDefaultSpecular() {
+		public Shader GetDefaultSpecular()
+		{
 #if UNITY_2019_1_OR_NEWER
 			if (GraphicsSettings.renderPipelineAsset) return Shader.Find("GLTFUtility/URP/Standard (Specular)");
 			else
@@ -50,7 +56,8 @@ namespace Siccity.GLTFUtility {
 				return Shader.Find("GLTFUtility/Standard (Specular)");
 		}
 
-		public Shader GetDefaultSpecularBlend() {
+		public Shader GetDefaultSpecularBlend()
+		{
 #if UNITY_2019_1_OR_NEWER
 			if (GraphicsSettings.renderPipelineAsset) return Shader.Find("GLTFUtility/URP/Standard Transparent (Specular)");
 			else

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Scripting;
 
-namespace Siccity.GLTFUtility {
-	[Preserve] public class GLTFObject {
+namespace Siccity.GLTFUtility
+{
+	[Preserve]
+	public class GLTFObject
+	{
 		public int? scene;
 		[JsonProperty(Required = Required.Always)] public GLTFAsset asset;
 		public List<GLTFScene> scenes;

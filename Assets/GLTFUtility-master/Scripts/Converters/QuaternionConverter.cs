@@ -1,16 +1,20 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace Siccity.GLTFUtility.Converters {
+namespace Siccity.GLTFUtility.Converters
+{
 	/// <summary>
 	/// Converts from float array to Quaternion during deserialization, and back.
 	/// Compensates for differing coordinate systems as well.
 	/// </summary>
-	[Preserve] public class QuaternionConverter : JsonConverter {
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
-			Quaternion q = (Quaternion) value;
+	[Preserve]
+	public class QuaternionConverter : JsonConverter
+	{
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			Quaternion q = (Quaternion)value;
 			writer.WriteStartArray();
 			writer.WriteValue(q.x);
 			writer.WriteValue(-q.y);
@@ -19,12 +23,14 @@ namespace Siccity.GLTFUtility.Converters {
 			writer.WriteEndArray();
 		}
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		{
 			float[] floatArray = serializer.Deserialize<float[]>(reader);
 			return new Quaternion(floatArray[0], -floatArray[1], -floatArray[2], floatArray[3]);
 		}
 
-		public override bool CanConvert(Type objectType) {
+		public override bool CanConvert(Type objectType)
+		{
 			return objectType == typeof(Quaternion);
 		}
 	}

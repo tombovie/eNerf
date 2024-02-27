@@ -2,11 +2,11 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using UnityEngine;
 
 // This is a modified version of the script from: https://jacksondunstan.com/articles/3568
 /// <summary> Much faster than BinaryReader </summary>
-public class BufferedBinaryReader : IDisposable {
+public class BufferedBinaryReader : IDisposable
+{
 	private readonly Stream stream;
 	private readonly byte[] buffer;
 	private readonly int bufferSize;
@@ -19,7 +19,8 @@ public class BufferedBinaryReader : IDisposable {
 
 	public long Position { get { return stream.Position + bufferOffset; } set { stream.Position = value; bufferedBytes = 0; bufferOffset = 0; } }
 
-	public BufferedBinaryReader(Stream stream, int bufferSize) {
+	public BufferedBinaryReader(Stream stream, int bufferSize)
+	{
 		this.stream = stream;
 		this.bufferSize = bufferSize;
 		buffer = new byte[bufferSize];
@@ -27,12 +28,15 @@ public class BufferedBinaryReader : IDisposable {
 		bufferedBytes = 0;
 	}
 
-	private void FillBuffer(int byteCount) {
+	private void FillBuffer(int byteCount)
+	{
 		int unreadBytes = bufferedBytes - bufferOffset;
 
-		if (unreadBytes < byteCount) {
+		if (unreadBytes < byteCount)
+		{
 			// If not enough bytes left in buffer
-			if (unreadBytes != 0) {
+			if (unreadBytes != 0)
+			{
 				// If buffer still has unread bytes, move them to start of buffer
 				Buffer.BlockCopy(buffer, bufferOffset, buffer, 0, unreadBytes);
 			}
@@ -41,55 +45,65 @@ public class BufferedBinaryReader : IDisposable {
 		}
 	}
 
-	public byte ReadByte() {
+	public byte ReadByte()
+	{
 		FillBuffer(1);
 		return buffer[bufferOffset++];
 	}
 
-	public sbyte ReadSByte() {
+	public sbyte ReadSByte()
+	{
 		FillBuffer(1);
-		return (sbyte) buffer[bufferOffset++];
+		return (sbyte)buffer[bufferOffset++];
 	}
 
-	public ushort ReadUInt16() {
+	public ushort ReadUInt16()
+	{
 		FillBuffer(sizeof(ushort));
 		return bit2Converter.Read(buffer, ref bufferOffset).@ushort;
 	}
 
-	public short ReadInt16() {
+	public short ReadInt16()
+	{
 		FillBuffer(sizeof(short));
 		return bit2Converter.Read(buffer, ref bufferOffset).@short;
 	}
 
-	public uint ReadUInt32() {
+	public uint ReadUInt32()
+	{
 		FillBuffer(sizeof(uint));
 		return bit4Converter.Read(buffer, ref bufferOffset).@uint;
 	}
 
-	public int ReadInt32() {
+	public int ReadInt32()
+	{
 		FillBuffer(sizeof(int));
 		return bit4Converter.Read(buffer, ref bufferOffset).@int;
 	}
 
-	public float ReadSingle() {
+	public float ReadSingle()
+	{
 		FillBuffer(sizeof(float));
 		return bit4Converter.Read(buffer, ref bufferOffset).@float;
 	}
 
-	public void Skip(int bytes) {
+	public void Skip(int bytes)
+	{
 		FillBuffer(bytes);
 		bufferOffset += bytes;
 	}
 
 	[StructLayout(LayoutKind.Explicit)]
-	public struct Bit2Converter {
+	public struct Bit2Converter
+	{
 		[FieldOffset(0)] public byte b0;
 		[FieldOffset(1)] public byte b1;
 		[FieldOffset(0)] public short @short;
 		[FieldOffset(0)] public ushort @ushort;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Bit2Converter Read(byte[] buffer, ref int bufferOffset) {
+		public Bit2Converter Read(byte[] buffer, ref int bufferOffset)
+		{
 			b0 = buffer[bufferOffset++];
 			b1 = buffer[bufferOffset++];
 			return this;
@@ -97,7 +111,8 @@ public class BufferedBinaryReader : IDisposable {
 	}
 
 	[StructLayout(LayoutKind.Explicit)]
-	public struct Bit4Converter {
+	public struct Bit4Converter
+	{
 		[FieldOffset(0)] public byte b0;
 		[FieldOffset(1)] public byte b1;
 		[FieldOffset(2)] public byte b2;
@@ -107,7 +122,8 @@ public class BufferedBinaryReader : IDisposable {
 		[FieldOffset(0)] public uint @uint;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public Bit4Converter Read(byte[] buffer, ref int bufferOffset) {
+		public Bit4Converter Read(byte[] buffer, ref int bufferOffset)
+		{
 			b0 = buffer[bufferOffset++];
 			b1 = buffer[bufferOffset++];
 			b2 = buffer[bufferOffset++];
@@ -116,7 +132,8 @@ public class BufferedBinaryReader : IDisposable {
 		}
 	}
 
-	public void Dispose() {
+	public void Dispose()
+	{
 		stream.Close();
 	}
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Siccity.GLTFUtility {
+namespace Siccity.GLTFUtility
+{
 	[Serializable]
 	public class GLTFExtrasProcessor
 	{

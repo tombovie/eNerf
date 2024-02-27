@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-namespace Siccity.GLTFUtility {
+namespace Siccity.GLTFUtility
+{
 	/// <summary> Defines how animations are imported </summary>
 	[Serializable]
-	public class AnimationSettings {
+	public class AnimationSettings
+	{
 		public bool looping;
 		[Tooltip("Sample rate set on all imported animation clips.")]
 		public float frameRate = 24;
