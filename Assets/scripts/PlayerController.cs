@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 movementDirection = Vector3.zero;
     private bool playerGrounded;
 
-    private bool isWalkingBackwards = false;
-    private int count = 0;
+    private int count;
     private bool movingBackwards = false;
 
     // Start is called before the first frame update
@@ -22,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        count = 0;
     }
 
     // Update is called once per frame
@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviour
             movingBackwards = false;
         }
 
-
-
         if (movingBackwards == false)
         {
             characterController.Move(inputMovement * Time.deltaTime);
@@ -51,16 +49,11 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Horizontal") * rotationSpeed);
 
         count++;
-        if (inputMovement != Vector3.zero && count > 30)
-        {
-            isWalkingBackwards = false; //Reset trigger
-        }
 
         // If down arrow key is pressed, rotate character 180 degrees
-        if (movingBackwards && isWalkingBackwards == false)
+        if (movingBackwards && count>60)
         {
             transform.Rotate(Vector3.up, 180f);
-            isWalkingBackwards = true;
             count = 0; //reset count
         }
 
