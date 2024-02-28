@@ -36,6 +36,11 @@ public class swapShoes : MonoBehaviour
         newRightShoe.transform.localRotation = Quaternion.Euler(rightShoeRotation);
         newRightShoe.transform.localScale = shoeScale;
 
+        SkinnedMeshRenderer skinnedMeshRenderer = oldLeftShoe.GetComponent<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer skinnedMeshRenderer2 = oldRightShoe.GetComponent<SkinnedMeshRenderer>();
+        skinnedMeshRenderer.enabled = false;
+        skinnedMeshRenderer2.enabled = false;
+
         // Remove the old shoes
         //Destroy(oldLeftShoe);
         //Destroy(oldRightShoe);
@@ -66,11 +71,10 @@ public class swapShoes : MonoBehaviour
     }*/
 
     private int count = 0;
-
     private void Update()
     {
         count++;
-        if (count > 60)
+        if (count > 200)
         {
             SwapShoes();
             count = 0;
