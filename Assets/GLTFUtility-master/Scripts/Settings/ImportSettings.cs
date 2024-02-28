@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 
-namespace Siccity.GLTFUtility
-{
+namespace Siccity.GLTFUtility {
 	[Serializable]
-	public class ImportSettings
-	{
+	public class ImportSettings {
 
 		public bool materials = true;
 		[FormerlySerializedAs("shaders")]

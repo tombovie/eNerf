@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
@@ -86,6 +89,6 @@ public class PlayerController : MonoBehaviour
         //animations
         animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
         animator.SetBool("isJumping", !characterController.isGrounded);
-        //Debug.Log("on ground: " + characterController.isGrounded);
+        Debug.Log("on ground: " + characterController.isGrounded);
     }
 }

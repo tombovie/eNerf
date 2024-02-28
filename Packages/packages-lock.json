@@ -1,18 +1,13 @@
 {
   "dependencies": {
-    "com.unity.addressables": {
-      "version": "1.21.20",
+    "com.siccity.gltfutility": {
+      "version": "https://github.com/siccity/gltfutility.git",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {
-        "com.unity.scriptablebuildpipeline": "1.21.22",
-        "com.unity.modules.assetbundle": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+        "com.unity.nuget.newtonsoft-json": "2.0.0"
       },
-      "url": "https://packages.unity.com"
+      "hash": "96619fcd48ffe5c4ad122837a21601a6f7c20080"
     },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
@@ -127,15 +122,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.performance.profile-analyzer": {
-      "version": "1.2.2",
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.22",
+    "com.unity.performance.profile-analyzer": {
+      "version": "1.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {},

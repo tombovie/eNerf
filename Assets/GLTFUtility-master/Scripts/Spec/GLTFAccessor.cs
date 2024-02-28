@@ -1,19 +1,17 @@
-﻿using Newtonsoft.Json;
-using Siccity.GLTFUtility.Converters;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Siccity.GLTFUtility.Converters;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace Siccity.GLTFUtility
-{
+namespace Siccity.GLTFUtility {
 	// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#accessor
 	/// <summary> Reads data from BufferViews </summary>
-	[Preserve]
-	public class GLTFAccessor
-	{
-		#region Serialized fields
+	[Preserve] public class GLTFAccessor {
+#region Serialized fields
 		public int? bufferView;
 		public int byteOffset = 0;
 		[JsonProperty(Required = Required.Always), JsonConverter(typeof(EnumConverter))] public AccessorType type;
@@ -22,37 +20,30 @@ namespace Siccity.GLTFUtility
 		public float[] min;
 		public float[] max;
 		public Sparse sparse;
-		#endregion
+#endregion
 
 		// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#sparse
-		[Preserve]
-		public class Sparse
-		{
+		[Preserve] public class Sparse {
 			[JsonProperty(Required = Required.Always)] public int count;
 			[JsonProperty(Required = Required.Always)] public Indices indices;
 			[JsonProperty(Required = Required.Always)] public Values values;
 
 			// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#values
-			[Preserve]
-			public class Values
-			{
+			[Preserve] public class Values {
 				[JsonProperty(Required = Required.Always)] public int bufferView;
 				public int byteOffset = 0;
 			}
 
 			// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#indices
-			[Preserve]
-			public class Indices
-			{
+			[Preserve] public class Indices {
 				[JsonProperty(Required = Required.Always)] public int bufferView;
 				[JsonProperty(Required = Required.Always)] public GLType componentType;
 				public int byteOffset = 0;
 			}
 		}
 
-		#region Import
-		public class ImportResult
-		{
+#region Import
+		public class ImportResult {
 
 			private const float byteNormalize = 1f / byte.MaxValue;
 			private const float shortNormalize = 1f / short.MaxValue;
@@ -68,40 +59,34 @@ namespace Siccity.GLTFUtility
 			public int byteOffset;
 			public Sparse sparse;
 
-			public class Sparse
-			{
+			public class Sparse {
 				public int count;
 				public Indices indices;
 				public Values values;
 
-				public class Values
-				{
+				public class Values {
 					public GLTFBufferView.ImportResult bufferView;
 					public int byteOffset = 0;
 				}
 
-				public class Indices
-				{
+				public class Indices {
 					public GLTFBufferView.ImportResult bufferView;
 					public GLType componentType;
 					public int byteOffset = 0;
 				}
 			}
 
-			public Matrix4x4[] ReadMatrix4x4()
-			{
+			public Matrix4x4[] ReadMatrix4x4() {
 				if (!ValidateAccessorType(type, AccessorType.MAT4)) return new Matrix4x4[count];
 
 				Func<BufferedBinaryReader, float> floatReader = GetFloatReader(componentType);
 
 				Matrix4x4[] m = new Matrix4x4[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					for (int i = 0; i < count; i++)
-					{
+					for (int i = 0; i < count; i++) {
 						m[i].m00 = floatReader(reader);
 						m[i].m01 = floatReader(reader);
 						m[i].m02 = floatReader(reader);
@@ -121,20 +106,17 @@ namespace Siccity.GLTFUtility
 						reader.Skip(byteSkip);
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					indexReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						int index = indices[i];
 						m[index].m00 = floatReader(valueReader);
 						m[index].m01 = floatReader(valueReader);
@@ -157,20 +139,17 @@ namespace Siccity.GLTFUtility
 				return m;
 			}
 
-			public Vector4[] ReadVec4(bool normalize = false)
-			{
+			public Vector4[] ReadVec4(bool normalize = false) {
 				if (!ValidateAccessorType(type, AccessorType.VEC4)) return new Vector4[count];
 
 				Func<BufferedBinaryReader, float> floatReader = normalize ? GetNormalizedFloatReader(componentType) : GetFloatReader(componentType);
 
 				Vector4[] v = new Vector4[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					for (int i = 0; i < count; i++)
-					{
+					for (int i = 0; i < count; i++) {
 						v[i].x = floatReader(reader);
 						v[i].y = floatReader(reader);
 						v[i].z = floatReader(reader);
@@ -178,20 +157,17 @@ namespace Siccity.GLTFUtility
 						reader.Skip(byteSkip);
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					indexReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						int index = indices[i];
 						v[index].x = floatReader(valueReader);
 						v[index].y = floatReader(valueReader);
@@ -202,32 +178,25 @@ namespace Siccity.GLTFUtility
 				return v;
 			}
 
-			public Color[] ReadColor()
-			{
+			public Color[] ReadColor() {
 				if (!ValidateAccessorTypeAny(type, AccessorType.VEC3, AccessorType.VEC4)) return new Color[count];
 
 				Func<BufferedBinaryReader, float> floatReader = GetNormalizedFloatReader(componentType);
 
 				Color[] c = new Color[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					if (type == AccessorType.VEC3)
-					{
-						for (int i = 0; i < count; i++)
-						{
+					if (type == AccessorType.VEC3) {
+						for (int i = 0; i < count; i++) {
 							c[i].r = floatReader(reader);
 							c[i].g = floatReader(reader);
 							c[i].b = floatReader(reader);
 							reader.Skip(byteSkip);
 						}
-					}
-					else if (type == AccessorType.VEC4)
-					{
-						for (int i = 0; i < count; i++)
-						{
+					} else if (type == AccessorType.VEC4) {
+						for (int i = 0; i < count; i++) {
 							c[i].r = floatReader(reader);
 							c[i].g = floatReader(reader);
 							c[i].b = floatReader(reader);
@@ -236,32 +205,25 @@ namespace Siccity.GLTFUtility
 						}
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					indexReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					if (type == AccessorType.VEC3)
-					{
-						for (int i = 0; i < sparse.count; i++)
-						{
+					if (type == AccessorType.VEC3) {
+						for (int i = 0; i < sparse.count; i++) {
 							int index = indices[i];
 							c[index].r = floatReader(valueReader);
 							c[index].g = floatReader(valueReader);
 							c[index].b = floatReader(valueReader);
 						}
-					}
-					else if (type == AccessorType.VEC4)
-					{
-						for (int i = 0; i < sparse.count; i++)
-						{
+					} else if (type == AccessorType.VEC4) {
+						for (int i = 0; i < sparse.count; i++) {
 							int index = indices[i];
 							c[index].r = floatReader(valueReader);
 							c[index].g = floatReader(valueReader);
@@ -273,40 +235,34 @@ namespace Siccity.GLTFUtility
 				return c;
 			}
 
-			public Vector3[] ReadVec3(bool normalize = false)
-			{
+			public Vector3[] ReadVec3(bool normalize = false) {
 				if (!ValidateAccessorType(type, AccessorType.VEC3)) return new Vector3[count];
 
 				Func<BufferedBinaryReader, float> floatReader = normalize ? GetNormalizedFloatReader(componentType) : GetFloatReader(componentType);
 
 				Vector3[] v = new Vector3[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					for (int i = 0; i < count; i++)
-					{
+					for (int i = 0; i < count; i++) {
 						v[i].x = floatReader(reader);
 						v[i].y = floatReader(reader);
 						v[i].z = floatReader(reader);
 						reader.Skip(byteSkip);
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					valueReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						int index = indices[i];
 						v[index].x = floatReader(valueReader);
 						v[index].y = floatReader(valueReader);
@@ -316,39 +272,33 @@ namespace Siccity.GLTFUtility
 				return v;
 			}
 
-			public Vector2[] ReadVec2(bool normalize = false)
-			{
+			public Vector2[] ReadVec2(bool normalize = false) {
 				if (!ValidateAccessorType(type, AccessorType.VEC2)) return new Vector2[count];
 
 				Func<BufferedBinaryReader, float> floatReader = normalize ? GetNormalizedFloatReader(componentType) : GetFloatReader(componentType);
 
 				Vector2[] v = new Vector2[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					for (int i = 0; i < count; i++)
-					{
+					for (int i = 0; i < count; i++) {
 						v[i].x = floatReader(reader);
 						v[i].y = floatReader(reader);
 						reader.Skip(byteSkip);
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					indexReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						int index = indices[i];
 						v[index].x = floatReader(valueReader);
 						v[index].y = floatReader(valueReader);
@@ -357,38 +307,32 @@ namespace Siccity.GLTFUtility
 				return v;
 			}
 
-			public float[] ReadFloat()
-			{
+			public float[] ReadFloat() {
 				if (!ValidateAccessorType(type, AccessorType.SCALAR)) return new float[count];
 
 				Func<BufferedBinaryReader, float> floatReader = GetFloatReader(componentType);
 
 				float[] f = new float[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					for (int i = 0; i < count; i++)
-					{
+					for (int i = 0; i < count; i++) {
 						f[i] = floatReader(reader);
 						reader.Skip(byteSkip);
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					indexReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						int index = indices[i];
 						f[index] = floatReader(valueReader);
 					}
@@ -396,38 +340,32 @@ namespace Siccity.GLTFUtility
 				return f;
 			}
 
-			public int[] ReadInt()
-			{
+			public int[] ReadInt() {
 				if (!ValidateAccessorType(type, AccessorType.SCALAR)) return new int[count];
 
 				Func<BufferedBinaryReader, int> intReader = GetIntReader(componentType);
 
 				int[] v = new int[count];
-				if (bufferView != null)
-				{
+				if (bufferView != null) {
 					BufferedBinaryReader reader = new BufferedBinaryReader(bufferView.stream, 1024);
 					reader.Position = bufferView.byteOffset + byteOffset;
 					int byteSkip = byteStride.HasValue ? byteStride.Value - GetComponentSize() : 0;
-					for (int i = 0; i < count; i++)
-					{
+					for (int i = 0; i < count; i++) {
 						v[i] = intReader(reader);
 						reader.Skip(byteSkip);
 					}
 				}
-				if (sparse != null)
-				{
+				if (sparse != null) {
 					Func<BufferedBinaryReader, int> indexIntReader = GetIntReader(sparse.indices.componentType);
 					BufferedBinaryReader indexReader = new BufferedBinaryReader(sparse.indices.bufferView.stream, 1024);
 					indexReader.Position = sparse.indices.bufferView.byteOffset + sparse.indices.byteOffset;
 					int[] indices = new int[sparse.count];
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						indices[i] = indexIntReader(indexReader);
 					}
 					BufferedBinaryReader valueReader = new BufferedBinaryReader(sparse.values.bufferView.stream, 1024);
 					indexReader.Position = sparse.values.bufferView.byteOffset + sparse.values.byteOffset;
-					for (int i = 0; i < sparse.count; i++)
-					{
+					for (int i = 0; i < sparse.count; i++) {
 						int index = indices[i];
 						v[index] = intReader(valueReader);
 					}
@@ -435,34 +373,30 @@ namespace Siccity.GLTFUtility
 				return v;
 			}
 
-			public Func<BufferedBinaryReader, int> GetIntReader(GLType componentType)
-			{
+			public Func<BufferedBinaryReader, int> GetIntReader(GLType componentType) {
 				Func<BufferedBinaryReader, int> readMethod;
-				switch (componentType)
-				{
+				switch (componentType) {
 					case GLType.BYTE:
 						return x => x.ReadSByte();
 					case GLType.UNSIGNED_BYTE:
 						return readMethod = x => x.ReadByte();
 					case GLType.FLOAT:
-						return readMethod = x => (int)x.ReadSingle();
+						return readMethod = x => (int) x.ReadSingle();
 					case GLType.SHORT:
 						return readMethod = x => x.ReadInt16();
 					case GLType.UNSIGNED_SHORT:
 						return readMethod = x => x.ReadUInt16();
 					case GLType.UNSIGNED_INT:
-						return readMethod = x => (int)x.ReadUInt32();
+						return readMethod = x => (int) x.ReadUInt32();
 					default:
 						Debug.LogWarning("No componentType defined");
 						return readMethod = x => x.ReadInt32();
 				}
 			}
 
-			public Func<BufferedBinaryReader, float> GetFloatReader(GLType componentType)
-			{
+			public Func<BufferedBinaryReader, float> GetFloatReader(GLType componentType) {
 				Func<BufferedBinaryReader, float> readMethod;
-				switch (componentType)
-				{
+				switch (componentType) {
 					case GLType.BYTE:
 						return x => x.ReadSByte();
 					case GLType.UNSIGNED_BYTE:
@@ -484,7 +418,7 @@ namespace Siccity.GLTFUtility
 			public Func<BufferedBinaryReader, float> GetNormalizedFloatReader(GLType componentType)
 			{
 				Func<BufferedBinaryReader, float> readMethod;
-				switch (componentType)
+				switch(componentType)
 				{
 					case GLType.BYTE:
 						return x => x.ReadSByte();
@@ -505,32 +439,26 @@ namespace Siccity.GLTFUtility
 			}
 
 			/// <summary> Get the size of the attribute type, in bytes </summary>
-			public int GetComponentSize()
-			{
+			public int GetComponentSize() {
 				return type.ComponentCount() * componentType.ByteSize();
 			}
 
-			public static bool ValidateByteStride(int byteStride)
-			{
+			public static bool ValidateByteStride(int byteStride) {
 				if (byteStride >= 4 && byteStride <= 252 && byteStride % 4 == 0) return true;
 				Debug.Log("ByteStride of " + byteStride + " is invalid. Ignoring.");
 				return false;
 			}
 
-			private static bool ValidateAccessorType(AccessorType type, AccessorType expected)
-			{
+			private static bool ValidateAccessorType(AccessorType type, AccessorType expected) {
 				if (type == expected) return true;
-				else
-				{
+				else {
 					Debug.LogError("Type mismatch! Expected " + expected + " got " + type);
 					return false;
 				}
 			}
 
-			public static bool ValidateAccessorTypeAny(AccessorType type, params AccessorType[] expected)
-			{
-				for (int i = 0; i < expected.Length; i++)
-				{
+			public static bool ValidateAccessorTypeAny(AccessorType type, params AccessorType[] expected) {
+				for (int i = 0; i < expected.Length; i++) {
 					if (type == expected[i]) return true;
 				}
 				Debug.Log("Type mismatch! Expected " + string.Join("or ", expected) + ", got " + type);
@@ -538,8 +466,7 @@ namespace Siccity.GLTFUtility
 			}
 		}
 
-		public ImportResult Import(GLTFBufferView.ImportResult[] bufferViews)
-		{
+		public ImportResult Import(GLTFBufferView.ImportResult[] bufferViews) {
 
 			ImportResult result = new ImportResult();
 			result.bufferView = bufferView.HasValue ? bufferViews[bufferView.Value] : null;
@@ -549,41 +476,33 @@ namespace Siccity.GLTFUtility
 			result.byteOffset = byteOffset;
 			result.byteStride = result.bufferView != null ? result.bufferView.byteStride : null;
 			// Sparse accessor works by overwriting specified indices instead of defining a full data set. This can save space, especially for morph targets
-			if (sparse != null)
-			{
-				result.sparse = new ImportResult.Sparse()
-				{
+			if (sparse != null) {
+				result.sparse = new ImportResult.Sparse() {
 					count = sparse.count,
-					indices = new ImportResult.Sparse.Indices()
-					{
-						bufferView = bufferViews[sparse.indices.bufferView],
-						componentType = sparse.indices.componentType,
-						byteOffset = sparse.indices.byteOffset
-					},
-					values = new ImportResult.Sparse.Values()
-					{
-						bufferView = bufferViews[sparse.values.bufferView],
-						byteOffset = sparse.values.byteOffset
-					}
+						indices = new ImportResult.Sparse.Indices() {
+							bufferView = bufferViews[sparse.indices.bufferView],
+								componentType = sparse.indices.componentType,
+								byteOffset = sparse.indices.byteOffset
+						},
+						values = new ImportResult.Sparse.Values() {
+							bufferView = bufferViews[sparse.values.bufferView],
+								byteOffset = sparse.values.byteOffset
+						}
 				};
 			}
 			return result;
 		}
 
-		public class ImportTask : Importer.ImportTask<ImportResult[]>
-		{
-			public ImportTask(List<GLTFAccessor> accessors, GLTFBufferView.ImportTask bufferViewTask) : base(bufferViewTask)
-			{
-				task = new Task(() =>
-				{
+		public class ImportTask : Importer.ImportTask<ImportResult[]> {
+			public ImportTask(List<GLTFAccessor> accessors, GLTFBufferView.ImportTask bufferViewTask) : base(bufferViewTask) {
+				task = new Task(() => {
 					Result = new ImportResult[accessors.Count];
-					for (int i = 0; i < Result.Length; i++)
-					{
+					for (int i = 0; i < Result.Length; i++) {
 						Result[i] = accessors[i].Import(bufferViewTask.Result);
 					}
 				});
 			}
 		}
-		#endregion
+#endregion
 	}
 }

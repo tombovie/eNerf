@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Siccity.GLTFUtility
-{
+namespace Siccity.GLTFUtility {
 	public enum AlphaMode { OPAQUE, MASK, BLEND }
 	public enum AccessorType { SCALAR, VEC2, VEC3, VEC4, MAT2, MAT3, MAT4 }
 	public enum RenderingMode { POINTS = 0, LINES = 1, LINE_LOOP = 2, LINE_STRIP = 3, TRIANGLES = 4, TRIANGLE_STRIP = 5, TRIANGLE_FAN = 6 }
@@ -10,12 +9,9 @@ namespace Siccity.GLTFUtility
 	public enum CameraType { perspective, orthographic }
 	public enum InterpolationMode { ImportFromFile = -1, LINEAR = 0, STEP = 1, CUBICSPLINE = 2 }
 
-	public static class EnumExtensions
-	{
-		public static int ByteSize(this GLType gltype)
-		{
-			switch (gltype)
-			{
+	public static class EnumExtensions {
+		public static int ByteSize(this GLType gltype) {
+			switch (gltype) {
 				case GLType.BYTE:
 					return sizeof(sbyte);
 				case GLType.UNSIGNED_BYTE:
@@ -29,15 +25,13 @@ namespace Siccity.GLTFUtility
 				case GLType.UNSIGNED_INT:
 					return sizeof(uint);
 				default:
-					Debug.LogError("GLType " + (int)gltype + " not supported!");
+					Debug.LogError("GLType " + (int) gltype + " not supported!");
 					return 0;
 			}
 		}
 
-		public static int ComponentCount(this AccessorType accessorType)
-		{
-			switch (accessorType)
-			{
+		public static int ComponentCount(this AccessorType accessorType) {
+			switch (accessorType) {
 				case AccessorType.SCALAR:
 					return 1;
 				case AccessorType.VEC2:
