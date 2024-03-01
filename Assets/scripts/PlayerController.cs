@@ -86,18 +86,8 @@ public class PlayerController : MonoBehaviour
             animator.ResetTrigger("isDancing");
         }
 
-        // Handle animation transitions
-        if (Input.GetAxisRaw("Vertical") != 0)
-        {
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
-
         //animations
-        //animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
+        animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
         animator.SetBool("isJumping", !characterController.isGrounded);
         //Debug.Log("on ground: " + characterController.isGrounded);
         Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
