@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
         characterController.Move(movementDirection * Time.deltaTime);
 
-        // Apply dancing when the "A" key is pressed
+        // Apply dancing when the "P" key is pressed
         if (Input.GetKey(KeyCode.P))
         {
             animator.SetTrigger("isDancing"); // Trigger the "Dance" animation
@@ -86,9 +86,20 @@ public class PlayerController : MonoBehaviour
             animator.ResetTrigger("isDancing");
         }
 
+        // Handle animation transitions
+        if (Input.GetAxisRaw("Vertical") != 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
         //animations
-        animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
+        //animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
         animator.SetBool("isJumping", !characterController.isGrounded);
-        Debug.Log("on ground: " + characterController.isGrounded);
+        //Debug.Log("on ground: " + characterController.isGrounded);
+        Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
     }
 }
