@@ -18201,7 +18201,7 @@ Transform:
   m_GameObject: {fileID: 879279058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.02674401, w: 0.9996423}
-  m_LocalPosition: {x: -0.03, y: 0.3, z: 0.07}
+  m_LocalPosition: {x: -0.028, y: 0.262, z: 0.07}
   m_LocalScale: {x: 1, y: 0.9706101, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18261,7 +18261,7 @@ MonoBehaviour:
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
+  m_RecycleDelayTime: 0
   m_HoverSocketSnapping: 0
   m_SocketSnappingRadius: 0.1
   m_SocketScaleMode: 0
@@ -18286,8 +18286,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.14285715
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.17936352
+  m_Center: {x: -0.0000000016763799, y: 0.0000000015179905, z: -0.036506347}
 --- !u!1001 &881311206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22588,8 +22588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dccc40045a7588b438449cdf5dbe21c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  rotationSpeed: 4
+  movementSpeed: 2
+  rotationSpeed: 8
   jumpSpeed: 8
   gravity: 20
 --- !u!143 &1184152572
@@ -22648,7 +22648,7 @@ Transform:
   m_GameObject: {fileID: 1184152569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 4.19, y: 0.26, z: -8.29}
+  m_LocalPosition: {x: 3.791, y: 0.275, z: -11.096999}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -23523,11 +23523,11 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 1.68
+    height: 2.78
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 65
+  field of view: 95
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -31949,15 +31949,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.165
+      value: 3.7659998
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.418
+      value: 2.433
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.228001
+      value: -11.035
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -40260,7 +40260,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8426397222396736097, guid: 047a69de90ae30a4f857101f0ec9d35a, type: 3}
+  - {fileID: -6478536213147159724, guid: 1dd8e872f166b0147bb9fa521a10df8b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
