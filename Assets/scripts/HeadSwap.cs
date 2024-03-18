@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeadSwap : MonoBehaviour
 {
-    public GameObject newHead; // Reference to the new left shoe GameObject prefab
+    public GameObject Head; // Reference to the new left shoe GameObject prefab
 
     public GameObject oldHead; // Reference to the old left shoe GameObject
 
@@ -21,7 +21,7 @@ public class HeadSwap : MonoBehaviour
     public void SwapShoes()
     {
         // Instantiate and position the left shoe
-        GameObject newnewhead = Instantiate(newHead, bone);
+        GameObject newnewhead = Instantiate(Head, bone);
         newnewhead.transform.localPosition = leftShoeOffset;
         newnewhead.transform.localRotation = Quaternion.Euler(leftShoeRotation);
         newnewhead.transform.localScale = shoeScale;
