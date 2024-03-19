@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 98588}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.019, z: 0.219}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -606,7 +606,7 @@ Transform:
   m_GameObject: {fileID: 199546884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.161972, y: 0.63, z: -0.367}
+  m_LocalPosition: {x: -0.161972, y: -0.32, z: -0.367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1182,7 +1182,7 @@ Transform:
   m_GameObject: {fileID: 354291168}
   serializedVersion: 2
   m_LocalRotation: {x: -0.034231123, y: 0.24694134, z: 0.01922184, w: 0.96823484}
-  m_LocalPosition: {x: 0.134, y: 1.192, z: 0.255}
+  m_LocalPosition: {x: -0.056, y: 1.205, z: 0.682}
   m_LocalScale: {x: -0.14739145, y: 0.14739154, z: 0.14739153}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1371,7 +1371,7 @@ Transform:
   m_GameObject: {fileID: 462835437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.013, y: 0.972, z: 0.282}
+  m_LocalPosition: {x: 0.013, y: 0.972, z: 0.7399088}
   m_LocalScale: {x: 0.44166332, y: 0.22256, z: 0.42573}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2061,7 +2061,7 @@ Transform:
   m_GameObject: {fileID: 575179994}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.396, y: 1.1585108, z: 0.112}
+  m_LocalPosition: {x: 0.396, y: 1.1585108, z: 0.627}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2159,7 +2159,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 1
-  body: {fileID: 543450652514118516}
+  body: {fileID: 1175164094355944412}
   otherFoot: {fileID: 1304999903}
   speed: 4
   stepDistance: 0.2
@@ -2326,7 +2326,7 @@ Transform:
   m_GameObject: {fileID: 686960635}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.383, y: 0.531, z: -0.531}
+  m_LocalPosition: {x: 0.383, y: -0.52, z: -0.531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3729,7 +3729,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 1
-  body: {fileID: 543450652514118516}
+  body: {fileID: 1175164094355944412}
   otherFoot: {fileID: 608065885}
   speed: 4
   stepDistance: 0.2
@@ -3847,7 +3847,7 @@ Transform:
   m_GameObject: {fileID: 1347184257}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.22}
+  m_LocalPosition: {x: 0, y: 0.079, z: 0.043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6791,7 +6791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5901729005221066678, guid: d508f11b21814584a97092bb382dcb85, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.01209116
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 5901729005221066678, guid: d508f11b21814584a97092bb382dcb85, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7861,7 +7861,7 @@ Transform:
   m_GameObject: {fileID: 1946915310570400102}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.025, y: 0.842, z: -0.642}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8530,6 +8530,9 @@ GameObject:
   - component: {fileID: 1946915310570400108}
   - component: {fileID: 1946915310570400110}
   - component: {fileID: 1946915310570400111}
+  - component: {fileID: 1946915310570400113}
+  - component: {fileID: 1946915310570400112}
+  - component: {fileID: 1946915310570400114}
   m_Layer: 0
   m_Name: dummy Bram Rigged 2.0
   m_TagString: Untagged
@@ -8581,14 +8584,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946915310570400102}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65db1649aded1ab41bd0a04ddc60f9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Head: {fileID: -7949136978043226412, guid: 67817ad0402588643ad2c9bce3685b40, type: 3}
   oldHead: {fileID: 9204841352676228587}
-  bone: {fileID: 5054049728894083423}
+  bone: {fileID: 5596225352718649381}
   leftShoeOffset: {x: 0, y: 0, z: 0}
   rightShoeOffset: {x: 0, y: 0, z: 0}
   leftShoeRotation: {x: 0, y: 0, z: 0}
@@ -8720,7 +8723,7 @@ Animator:
   m_GameObject: {fileID: 1946915310570400102}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 18b238d091e64de48b74409c79da5385, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1720c98616a0f194dae551fe7645b49b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2434ca9878e0ca44da1432d198abe917, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -8773,8 +8776,117 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a144f4019577a4684e3c370e321322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationInputs: []
+  animationInputs:
+  - animationPropertyName: Right Grab
+    action:
+      m_UseReference: 1
+      m_Action:
+        m_Name: Action
+        m_Type: 0
+        m_ExpectedControlType: 
+        m_Id: 9fa0301e-636e-4d05-b710-0ef467368866
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings: []
+        m_Flags: 0
+      m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - animationPropertyName: Right Pinch
+    action:
+      m_UseReference: 1
+      m_Action:
+        m_Name: Action
+        m_Type: 0
+        m_ExpectedControlType: 
+        m_Id: 9fa0301e-636e-4d05-b710-0ef467368866
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings: []
+        m_Flags: 0
+      m_Reference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - animationPropertyName: Left Grab
+    action:
+      m_UseReference: 1
+      m_Action:
+        m_Name: Action
+        m_Type: 0
+        m_ExpectedControlType: 
+        m_Id: 9fa0301e-636e-4d05-b710-0ef467368866
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings: []
+        m_Flags: 0
+      m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - animationPropertyName: Left Pinch
+    action:
+      m_UseReference: 1
+      m_Action:
+        m_Name: Action
+        m_Type: 0
+        m_ExpectedControlType: 
+        m_Id: 9fa0301e-636e-4d05-b710-0ef467368866
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings: []
+        m_Flags: 0
+      m_Reference: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   animator: {fileID: 1946915310570400109}
+--- !u!114 &1946915310570400112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946915310570400102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dccc40045a7588b438449cdf5dbe21c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 1
+  rotationSpeed: 1
+  jumpSpeed: 1
+  gravity: 9
+--- !u!143 &1946915310570400113
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946915310570400102}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0
+  m_Radius: 0
+  m_SlopeLimit: 45
+  m_StepOffset: 0
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1946915310570400114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946915310570400102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d5171302b56904aab8182c1363ac67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUsingKeyboard: 0
+  VRAnimator: {fileID: 9100000, guid: 1720c98616a0f194dae551fe7645b49b, type: 2}
+  WalkingAnimator: {fileID: 9100000, guid: 2434ca9878e0ca44da1432d198abe917, type: 2}
 --- !u!4 &1989673246054641833
 Transform:
   m_ObjectHideFlags: 0

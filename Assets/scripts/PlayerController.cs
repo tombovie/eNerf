@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
         {
             movementDirection.y = jumpSpeed;
         }
+        else if (playerGrounded)  // Reset vertical movement on landing
+        {
+            movementDirection.y = 0f;
+        }
+
         movementDirection.y -= gravity * Time.deltaTime;
 
         characterController.Move(movementDirection * Time.deltaTime);
@@ -91,5 +96,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", !characterController.isGrounded);
         //Debug.Log("on ground: " + characterController.isGrounded);
         Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
+
+
     }
 }
