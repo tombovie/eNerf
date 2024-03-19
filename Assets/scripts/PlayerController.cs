@@ -90,6 +90,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
         animator.SetBool("isJumping", !characterController.isGrounded);
         //Debug.Log("on ground: " + characterController.isGrounded);
-        Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
+        //Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
     }
 }
