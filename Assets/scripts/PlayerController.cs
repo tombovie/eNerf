@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR;
+using UnityEngine.InputSystem.XR;
 
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -20,11 +23,14 @@ public class PlayerController : MonoBehaviour
     private int count = 0;
     private bool movingBackwards = false;
 
+    private XRInputSubsystem inputSystem;  // New variable
+
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        //inputSystem = XRInputSystem.GetInputSystem();  // Get XR Input System
     }
 
     // Update is called once per frame
