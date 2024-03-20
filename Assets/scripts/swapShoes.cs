@@ -88,7 +88,9 @@ public class swapShoes : MonoBehaviour
 
 
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class swapShoes : MonoBehaviour
 {
@@ -137,6 +139,20 @@ public class swapShoes : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SwapShoes();
+        }
+        // Get the list of active XR devices (controllers)
+        List<InputDevice> devices = new List<InputDevice>();
+        InputDevices.GetDevices(devices);
+
+        // Check for Button.one press on any active controller
+        foreach (var device in devices)
+        {
+            if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool isButtonPressed) && isButtonPressed)
+            {
+                // Button.one is pressed on this device
+                SwapShoes();
+                break;
+            }
         }
     }
 }
