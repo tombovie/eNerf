@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR;
+using UnityEngine.InputSystem.XR;
 
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -20,11 +23,14 @@ public class PlayerController : MonoBehaviour
     private int count = 0;
     private bool movingBackwards = false;
 
+    private XRInputSubsystem inputSystem;  // New variable
+
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        //inputSystem = XRInputSystem.GetInputSystem();  // Get XR Input System
     }
 
     // Update is called once per frame
@@ -72,6 +78,11 @@ public class PlayerController : MonoBehaviour
         {
             movementDirection.y = jumpSpeed;
         }
+        else if (playerGrounded)  // Reset vertical movement on landing
+        {
+            movementDirection.y = 0f;
+        }
+
         movementDirection.y -= gravity * Time.deltaTime;
 
         characterController.Move(movementDirection * Time.deltaTime);
@@ -90,6 +101,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isWalking", Input.GetAxisRaw("Vertical") != 0 && movingBackwards == false);
         animator.SetBool("isJumping", !characterController.isGrounded);
         //Debug.Log("on ground: " + characterController.isGrounded);
-        //Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
+        Debug.Log("input: " + Input.GetAxisRaw("Vertical") + " movingbackwards: " + movingBackwards);
+
+
     }
 }

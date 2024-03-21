@@ -10,7 +10,7 @@ public class rotator : MonoBehaviour
     private float rotationSpeed = 20;
 
     public Rigidbody rb;
-    private float floatingForce = 1f;
+    private float floatingForce = 5f;
 
     private void OnTriggerEnter(Collider other)
     {
