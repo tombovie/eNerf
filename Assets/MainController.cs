@@ -34,7 +34,7 @@ public class MainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GetUsingKeyboard());
+        //Debug.Log(GetUsingKeyboard());
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))  // Any keyboard key pressed
         {
             SetUsingKeyboard(true);
