@@ -16,8 +16,7 @@ public class rotator : MonoBehaviour
     {
         rb = other.transform.parent.GetComponent<Rigidbody>();
         if (other.gameObject.tag == targetTag)
-        {
-            rb.useGravity = false;
+        {      
             rb.AddForce(Vector3.up * floatingForce, ForceMode.Impulse); // Apply upward force
         }
     }
@@ -35,10 +34,7 @@ public class rotator : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == targetTag)
-        {
-            rb.useGravity = true;
-        }
+   
     }
 
 }

@@ -12,6 +12,9 @@ public class swapShoes : MonoBehaviour
     public GameObject leftShoe2;
     public GameObject rightShoe2;
 
+    public GameObject leftShoe3;
+    public GameObject rightShoe3;
+
     private GameObject leftShoe;
     private GameObject rightShoe;
 
@@ -107,16 +110,17 @@ public class swapShoes : MonoBehaviour
         {
             leftShoe = leftShoe1;
             rightShoe = rightShoe1;
-            if (leftShoe != null)
-            {
-
-            }
         }
         if (grappedObject.gameObject.name == "Nike air force left rigged")
         {
             leftShoe = leftShoe2;
             rightShoe = rightShoe2;
         }
+        if (grappedObject.gameObject.name == "Nike air max right dummy")
+        {
+            leftShoe = leftShoe3;
+            rightShoe = rightShoe3;
+        }     
     }
 }
 

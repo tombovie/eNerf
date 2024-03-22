@@ -7,6 +7,7 @@ public class isGrabbed : MonoBehaviour
 {
     public delegate void Grabbed(isGrabbed grappedObject);
     public event Grabbed OnGrabbed;
+    public bool grabbed;
 
     private XRGrabInteractable grabInteractable;
 
