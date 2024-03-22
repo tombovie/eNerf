@@ -9,12 +9,12 @@ public class rotator : MonoBehaviour
     private Vector3 rotation = new Vector3(0, 1, 0);
     private float rotationSpeed = 20;
 
-    public Rigidbody rb;
-    private float floatingForce = 5f;
+    private Rigidbody rb;
+    private float floatingForce = 1f;
 
     private void OnTriggerEnter(Collider other)
     {
-        rb = other.GetComponent<Rigidbody>();
+        rb = other.transform.parent.GetComponent<Rigidbody>();
         if (other.gameObject.tag == targetTag)
         {
             rb.useGravity = false;
