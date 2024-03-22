@@ -15,6 +15,9 @@ public class swapShoes : MonoBehaviour
     private GameObject leftShoe;
     private GameObject rightShoe;
 
+    private GameObject currentLeftShoe;
+    private GameObject currentRightShoe;
+
     public GameObject oldLeftShoe; // Reference to the old left shoe GameObject
     public GameObject oldRightShoe; // Reference to the old right shoe GameObject
 
@@ -41,25 +44,38 @@ public class swapShoes : MonoBehaviour
 
     public void SwapShoes()
     {
-        // Instantiate and position the left shoe
-        GameObject newLeftShoe = Instantiate(leftShoe, leftFootBone);
-        newLeftShoe.transform.localPosition = leftShoeOffset;
-        newLeftShoe.transform.localRotation = Quaternion.Euler(leftShoeRotation);
-        newLeftShoe.transform.localScale = shoeScale;
-        newLeftShoe.transform.SetParent(leftFootBone, false); // Parent to the left foot bone
-
-        // Instantiate and position the right shoe
-        GameObject newRightShoe = Instantiate(rightShoe, rightFootBone);
-        newRightShoe.transform.localPosition = rightShoeOffset;
-        newRightShoe.transform.localRotation = Quaternion.Euler(rightShoeRotation);
-        newRightShoe.transform.localScale = shoeScale;
-        newRightShoe.transform.SetParent(rightFootBone, false); // Parent to the right foot bone
+        if (currentLeftShoe != null)
+            oldLeftShoe = currentLeftShoe;
+        if (currentRightShoe != null)
+            oldRightShoe = currentRightShoe;
 
         // Disable the old shoes
-        if (oldLeftShoe != null)
-            oldLeftShoe.SetActive(false);
-        if (oldRightShoe != null)
-            oldRightShoe.SetActive(false);
+        if (oldLeftShoe != null && leftShoe != null)
+            //oldLeftShoe.SetActive(false);
+            Destroy(oldLeftShoe);
+        if (oldRightShoe != null && rightShoe != null)
+            //oldRightShoe.SetActive(false); 
+            Destroy(oldRightShoe);
+
+        // Instantiate and position the left shoe
+        if (leftShoe != null)
+        {
+            currentLeftShoe = Instantiate(leftShoe, leftFootBone);
+            currentLeftShoe.transform.localPosition = leftShoeOffset;
+            currentLeftShoe.transform.localRotation = Quaternion.Euler(leftShoeRotation);
+            currentLeftShoe.transform.localScale = shoeScale;
+            currentLeftShoe.transform.SetParent(leftFootBone, false); // Parent to the left foot bone
+        }
+        
+        // Instantiate and position the right shoe
+        if (rightShoe != null)
+        {
+            currentRightShoe = Instantiate(rightShoe, rightFootBone);
+            currentRightShoe.transform.localPosition = rightShoeOffset;
+            currentRightShoe.transform.localRotation = Quaternion.Euler(rightShoeRotation);
+            currentRightShoe.transform.localScale = shoeScale;
+            currentRightShoe.transform.SetParent(rightFootBone, false); // Parent to the right foot bone
+        }
     }
 
     private void Update()
@@ -87,14 +103,6 @@ public class swapShoes : MonoBehaviour
     private void OnObjectGrabbed(isGrabbed grappedObject)
     {
         Debug.Log("The " + grappedObject.gameObject.name + " object was grabbed!");
-        if (leftShoe != null)
-        {
-            oldLeftShoe = leftShoe;
-        }
-        if (rightShoe != null)
-        {
-            oldRightShoe = rightShoe;
-        }
         if (grappedObject.gameObject.name == "Adidas right dummy bram")
         {
             leftShoe = leftShoe1;
