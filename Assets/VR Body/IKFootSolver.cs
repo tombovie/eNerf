@@ -102,6 +102,21 @@ public class IKFootSolver : MonoBehaviour
         return lerp < 1;
     }
 
+    public void setBody(GameObject bodyCharacter)
+    {
+        body = bodyCharacter.transform;
+    }
+    public void setTerainLayerToDefault()
+    {
+        terrainLayer = 1 << 0; ;
+    }
 
-
+    public void setOtherFoot(IKFootSolver foot)
+    {
+        otherFoot = foot;
+    }
+    public void setFootRotationOffset(Vector3 offset)
+    {
+        footRotOffset = offset;
+    }
 }

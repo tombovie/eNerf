@@ -36,12 +36,35 @@ public class IKTargetFollowVRRig : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = head.ikTarget.position + headBodyPositionOffset;
-        float yaw = head.vrTarget.eulerAngles.y;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
+        if (head.ikTarget != null && head.vrTarget != null && rightHand.ikTarget != null && rightHand.vrTarget != null && leftHand.ikTarget != null && leftHand.vrTarget != null)
+        {
+            transform.position = head.ikTarget.position + headBodyPositionOffset;
+            float yaw = head.vrTarget.eulerAngles.y;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
 
-        head.Map();
-        leftHand.Map();
-        rightHand.Map();
+            head.Map();
+            leftHand.Map();
+            rightHand.Map();
+        }
+    }
+    public void setHeadTarget(Transform vrTarget, Transform ikTarget)
+    {
+        head.vrTarget = vrTarget;
+        head.ikTarget = ikTarget;
+    }
+    public void setLeftHandTarget(Transform vrTarget, Transform ikTarget)
+    {
+        leftHand.vrTarget = vrTarget;
+        leftHand.ikTarget = ikTarget;
+    }
+    public void setRightHandTarget(Transform vrTarget, Transform ikTarget)
+    {
+        rightHand.vrTarget = vrTarget;
+        rightHand.ikTarget = ikTarget;
+    }
+
+    public void setheadBodyPositionOffset(Vector3 values)
+    {
+        headBodyPositionOffset = values;
     }
 }
