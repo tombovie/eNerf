@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEditor.Animations.Rigging;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
@@ -40,6 +41,10 @@ public class buildVRInteraction : MonoBehaviour
         RightArmIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
         // Add TwoBoneIKConstraint component to the RightArmIK GameObject
         TwoBoneIKConstraint ikConstraint = RightArmIK.AddComponent<TwoBoneIKConstraint>();
+        ikConstraint.data.targetPositionWeight = 1;
+        ikConstraint.data.targetRotationWeight = 1;
+        ikConstraint.data.hintWeight = 1;
+        
         // Check if the tipTransform reference is assigned
         // Set the tip variable of the TwoBoneIKConstraint to the right hand
         if (rightHandBones != null)
@@ -77,7 +82,7 @@ public class buildVRInteraction : MonoBehaviour
 
 
 
-        // Create Right arm IK
+        /*// Create Right arm IK
         GameObject LeftArmIK = new GameObject("Left Arm IK");
         LeftArmIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
         // Add TwoBoneIKConstraint component to the RightArmIK GameObject
@@ -116,9 +121,24 @@ public class buildVRInteraction : MonoBehaviour
             Debug.LogWarning("Right hand bones reference not assigned.");
         }
 
+        // Create Right leg IK
+        GameObject RightLegIK = new GameObject("Right Leg IK");
+        RightLegIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
+
+        // Create Left leg IK
+        GameObject LeftLegIK = new GameObject("Left Leg IK");
+        LeftLegIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
+
+        // Create Head IK
+        GameObject HeadIK = new GameObject("Head IK");
+        HeadIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject*/
+
+
+
         // **Corrected Line:**
         // Use RigBuilder.Build() to create the rig instead of ConstraintJob.AlignTransform
         rigBuilder.Build();
+
 
 
 
