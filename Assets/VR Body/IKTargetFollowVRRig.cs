@@ -19,9 +19,9 @@ public class IKTargetFollowVRRig : MonoBehaviour
 {
     [Range(0,1)]
     public float turnSmoothness = 0.1f;
-    public VRMap head;
-    public VRMap leftHand;
-    public VRMap rightHand;
+    public VRMap head = new VRMap();
+    public VRMap leftHand = new VRMap();
+    public VRMap rightHand = new VRMap();
 
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;

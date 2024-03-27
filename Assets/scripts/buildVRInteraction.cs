@@ -268,17 +268,17 @@ public class buildVRInteraction : MonoBehaviour
         HeadTarget.transform.rotation = head.transform .rotation;
 
 
-        /*//For the VR tracking
+        //For the VR tracking
         IKTargetFollowVRRig IKTargetFollowRigScript = gameObject.AddComponent<IKTargetFollowVRRig>();
         if (HeadTarget == null || headVRTarget == null)
         {
             Debug.Log("there was an eeror");
         }
-        IKTargetFollowRigScript.SetHeadTarget(headVRTarget, HeadTarget);
-        IKTargetFollowRigScript.setLeftHandTarget(LeftHandVRTarget, IKTargetLeftArm);
-        IKTargetFollowRigScript.setRightHandTarget(RightHandVRTarget, IKTargetRightArm);
+        IKTargetFollowRigScript.setHeadTarget(headVRTarget.transform, HeadTarget.transform);
+        IKTargetFollowRigScript.setLeftHandTarget(LeftHandVRTarget.transform, IKTargetLeftArm.transform);
+        IKTargetFollowRigScript.setRightHandTarget(RightHandVRTarget.transform, IKTargetRightArm.transform);
 
-        IKTargetFollowRigScript.setheadBodyPositionOffset(new Vector3(0f, -0.54f, 0f));*/
+        IKTargetFollowRigScript.setheadBodyPositionOffset(new Vector3(0f, -0.54f, 0f));
 
         /* // For hands animations
          AnimateOnInput animateOnInput = gameObject.AddComponent<AnimateOnInput>();
