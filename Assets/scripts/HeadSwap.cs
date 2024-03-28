@@ -26,6 +26,7 @@ public class HeadSwap : MonoBehaviour
         newnewhead.transform.localRotation = Quaternion.Euler(leftShoeRotation);
         newnewhead.transform.localScale = shoeScale;
         newnewhead.transform.SetParent(bone, false); // Parent to the left foot bone
+        newnewhead.layer = 7;
 
 
         // Disable the old shoes
