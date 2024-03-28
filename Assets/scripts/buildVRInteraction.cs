@@ -16,7 +16,7 @@ public class buildVRInteraction : MonoBehaviour
     [SerializeField] private GameObject rightHandBones;
     [SerializeField] private GameObject rightFoot;
     [SerializeField] private GameObject leftFoot;
-    [SerializeField] GameObject head;
+    [SerializeField] GameObject neck;
 
     [SerializeField] GameObject headVRTarget;
     [SerializeField] GameObject RightHandVRTarget;
@@ -245,7 +245,7 @@ public class buildVRInteraction : MonoBehaviour
         GameObject HeadIK = new GameObject("Head IK");
         HeadIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
         MultiParentConstraint MultiParentConstraintHeadIK = HeadIK.AddComponent<MultiParentConstraint>();
-        MultiParentConstraintHeadIK.data.constrainedObject = head.transform;
+        MultiParentConstraintHeadIK.data.constrainedObject = neck.transform;
         HeadTarget = new GameObject("Head Target");
         HeadTarget.transform.parent = HeadIK.transform;
 
@@ -264,8 +264,8 @@ public class buildVRInteraction : MonoBehaviour
         MultiParentConstraintHeadIK.data.sourceObjects = newSourceObjects;
 
         //align position and rotation
-        HeadTarget.transform.position = head.transform.position;
-        HeadTarget.transform.rotation = head.transform .rotation;
+        HeadTarget.transform.position = neck.transform.position;
+        HeadTarget.transform.rotation = neck.transform .rotation;
 
 
         //For the VR tracking
