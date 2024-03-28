@@ -4,28 +4,26 @@ using UnityEngine;
 
 public class HeadSwap : MonoBehaviour
 {
-    public GameObject Head; // Reference to the new left shoe GameObject prefab
+    public GameObject newHead; // Reference to the new left shoe GameObject prefab
 
     public GameObject oldHead; // Reference to the old left shoe GameObject
 
-    public Transform bone; // Reference to the bone representing the left foot
+    public Transform neckbone; // Reference to the bone representing the left foot
 
-    public Vector3 leftShoeOffset; // Offset for positioning the left shoe
-    public Vector3 rightShoeOffset; // Offset for positioning the right shoe
+    public Vector3 headOffset; // Offset for positioning the left shoe
 
-    public Vector3 leftShoeRotation; // Rotation for the left shoe
-    public Vector3 rightShoeRotation; // Rotation for the right shoe
+    public Vector3 headRotation; // Rotation for the left shoe
 
-    public Vector3 shoeScale = Vector3.one; // Scale factor for the shoes
+    public Vector3 headScale = Vector3.one; // Scale factor for the shoes
 
     public void SwapShoes()
     {
         // Instantiate and position the left shoe
-        GameObject newnewhead = Instantiate(Head, bone);
-        newnewhead.transform.localPosition = leftShoeOffset;
-        newnewhead.transform.localRotation = Quaternion.Euler(leftShoeRotation);
-        newnewhead.transform.localScale = shoeScale;
-        newnewhead.transform.SetParent(bone, false); // Parent to the left foot bone
+        GameObject newnewhead = Instantiate(newHead, neckbone);
+        newnewhead.transform.localPosition = headOffset;
+        newnewhead.transform.localRotation = Quaternion.Euler(headRotation);
+        newnewhead.transform.localScale = headScale;
+        newnewhead.transform.SetParent(neckbone, false); // Parent to the left foot bone
         newnewhead.layer = 7;
 
 
