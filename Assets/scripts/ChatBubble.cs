@@ -12,10 +12,12 @@ public class ChatBubble : MonoBehaviour
         // Get the current Euler angles
         Vector3 currentRotation = personToLookAt.eulerAngles;
         // Add 180 degrees to the desired axis (e.g., Y-axis)
-        currentRotation.y += 180f;
+        //currentRotation.y += 180f;
+        currentRotation.y += 270f;
         
-      
-        chatBubbleTransform.localRotation = Quaternion.Euler(currentRotation); 
+
+
+        chatBubbleTransform.localRotation = Quaternion.Euler(currentRotation);
         chatBubbleTransform.GetComponent<ChatBubble>().Setup(text);
 
         Destroy(chatBubbleTransform.gameObject, 5f);
@@ -49,5 +51,7 @@ public class ChatBubble : MonoBehaviour
 
         Vector3 offset = new Vector3(-6f, 0f);
         backgroundSpriteRenderer.transform.localPosition = new Vector3(backgroundSpriteRenderer.size.x /2f, 0f) + offset;
+
+        //TextWriter.AddWriter_Static(textMeshPro, text, 0.05f, true, true);
     }
 }

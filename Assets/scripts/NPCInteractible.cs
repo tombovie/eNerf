@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPCInteractible : MonoBehaviour
 {
+    [SerializeField] private string interactText;
+    [SerializeField] private PlayerInteractUI playerInteractUI;
     Animator animator;
     private NPCHeadLookAt npcHeadLookAt;
 
@@ -15,11 +17,17 @@ public class NPCInteractible : MonoBehaviour
 
     public void Interact(Transform InteractingPerson)
     {
-        ChatBubble.Create(transform.transform, new Vector3(0.4f, 1.7f, 0f), InteractingPerson, "hello my friend");
+        playerInteractUI.HideWhileTalking();
+        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "hello my friend");
         //Debug.Log("Interact!");
         animator.SetTrigger("Talking");
 
-        float personHeight = 1.8f;
+        float personHeight = 0.018f;
         npcHeadLookAt.lookAtPosition(InteractingPerson.position + Vector3.up * personHeight);
+    }
+
+    public string GetInteractText()
+    {
+        return interactText;    
     }
 }
