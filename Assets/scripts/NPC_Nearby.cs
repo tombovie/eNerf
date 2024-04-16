@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPC_Nearby : MonoBehaviour
 {
-    private float range = 0.7f;
+    private float range = 0.9f;
 
     // Update is called once per frame
     void Update()
