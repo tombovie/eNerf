@@ -13,7 +13,7 @@ public class ChatBubble : MonoBehaviour
         Vector3 currentRotation = personToLookAt.eulerAngles;
         // Add 180 degrees to the desired axis (e.g., Y-axis)
         //currentRotation.y += 180f;
-        currentRotation.y += 270f;
+        //currentRotation.y += 0f;
         
 
 
@@ -34,11 +34,6 @@ public class ChatBubble : MonoBehaviour
         backgroundSpriteRenderer = transform.Find("Background").GetComponent<SpriteRenderer>();
         iconSpriteRenderer = transform.Find("Icon").GetComponent<SpriteRenderer>();
         textMeshPro = transform.Find("Text").GetComponent<TextMeshPro>();
-    }
-
-    private void Start()
-    {
-        Setup("hello");
     }
 
     private void Setup(string text)

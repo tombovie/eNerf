@@ -18,7 +18,7 @@ public class NPCInteractible : MonoBehaviour
     public void Interact(Transform InteractingPerson)
     {
         playerInteractUI.HideWhileTalking();
-        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "hello my friend");
+        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "Thank you for buying!");
         //Debug.Log("Interact!");
         animator.SetTrigger("Talking");
 
