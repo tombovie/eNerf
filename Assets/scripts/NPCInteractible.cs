@@ -15,10 +15,10 @@ public class NPCInteractible : MonoBehaviour
         npcHeadLookAt = GetComponent<NPCHeadLookAt>();
     }
 
-    public void Interact(Transform InteractingPerson)
+    public void Interact(Transform InteractingPerson, string text)
     {
         playerInteractUI.HideWhileTalking();
-        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "Thank you for buying!");
+        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, text);
         //Debug.Log("Interact!");
         animator.SetTrigger("Talking");
 

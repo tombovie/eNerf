@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class OnStoreEnter : MonoBehaviour
 {
-    private bool start;
+    [SerializeField] private Transform npc;
+    private Animator npcAnimator;
+    private NPCInteractible npcInteractable;
 
-
+    private void Start()
+    {
+        npcInteractable = npc.GetComponent<NPCInteractible>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -18,13 +23,13 @@ public class OnStoreEnter : MonoBehaviour
                 CharacterController characterController = other.GetComponent<CharacterController>();
                 characterController.enabled = false;
 
-                Animator npcAnimator = GameAssets.i.NPC.GetComponent<Animator>();
-                npcAnimator.SetTrigger("talking");
+                StartCoroutine(WaitOneSecond_Loop(other.transform));
+                
             }
         }
     }
 
-    IEnumerator WaitOneSecond_Loop()
+    IEnumerator WaitOneSecond_Loop(Transform player)
     {
         float elapsedTime = 0f;
         while (elapsedTime < 1f)
@@ -32,7 +37,7 @@ public class OnStoreEnter : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        // Code to execute after waiting for 1 second
-        Debug.Log("One second has passed!");
+
+        npcInteractable.Interact(player, "Hello, welcome to the store!");
     }
 }

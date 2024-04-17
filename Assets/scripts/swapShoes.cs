@@ -21,6 +21,12 @@ public class swapShoes : MonoBehaviour
     private GameObject currentLeftShoe;
     private GameObject currentRightShoe;
 
+    private GameObject currentShoePrefab;
+    private Vector3 currentShoePrefabPosition;
+
+
+
+
     public GameObject oldLeftShoe; // Reference to the old left shoe GameObject
     public GameObject oldRightShoe; // Reference to the old right shoe GameObject
 
@@ -47,8 +53,11 @@ public class swapShoes : MonoBehaviour
 
     public void SwapShoes()
     {
+        // For testing:
         /*leftShoe = leftShoe1;
         rightShoe = rightShoe1;*/
+
+        // Working:
         if (currentLeftShoe != null)
             oldLeftShoe = currentLeftShoe;
         if (currentRightShoe != null)
@@ -83,6 +92,19 @@ public class swapShoes : MonoBehaviour
         }
     }
 
+    private void HideCurrentShoePrefab()
+    {
+        if (currentShoePrefab != null) { currentShoePrefab.SetActive(false); }
+    }
+
+    private void ActivateCurrentShoePrefab()
+    {
+        if (currentShoePrefab != null) {
+            currentShoePrefab.transform.position = currentShoePrefabPosition;
+            currentShoePrefab.SetActive(true);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -100,6 +122,7 @@ public class swapShoes : MonoBehaviour
             {
                 // Button.one is pressed on this device
                 SwapShoes();
+                HideCurrentShoePrefab();
                 break;
             }
         }
@@ -107,21 +130,34 @@ public class swapShoes : MonoBehaviour
 
     private void OnObjectGrabbed(isGrabbed grappedObject)
     {
+        if (currentShoePrefab != null && currentShoePrefab.activeSelf == false)
+        {
+            ActivateCurrentShoePrefab();
+        }
         Debug.Log("The " + grappedObject.gameObject.name + " object was grabbed!");
         if (grappedObject.gameObject.name == "Adidas right dummy bram")
         {
             leftShoe = leftShoe1;
             rightShoe = rightShoe1;
+
+            currentShoePrefab = grappedObject.gameObject;
+            currentShoePrefabPosition = grappedObject.transform.position;
         }
         if (grappedObject.gameObject.name == "Nike air force left rigged")
         {
             leftShoe = leftShoe2;
             rightShoe = rightShoe2;
+
+            currentShoePrefab = grappedObject.gameObject;
+            currentShoePrefabPosition = grappedObject.transform.position;
         }
         if (grappedObject.gameObject.name == "Nike air max right dummy")
         {
             leftShoe = leftShoe3;
             rightShoe = rightShoe3;
+
+            currentShoePrefab = grappedObject.gameObject;
+            currentShoePrefabPosition = grappedObject.transform.position;
         }     
     }
 }
