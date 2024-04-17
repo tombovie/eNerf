@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class PlayerInteractUI : MonoBehaviour
 {
+    [SerializeField] private AudioSource interactAudio;
     [SerializeField] private GameObject containerGameObject;
     [SerializeField] private NPC_Nearby npc_nearby;
     [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
 
     private bool talking = false;
+    private bool hasPlayedAudio = false;
+    private bool isAllowedToPlay = false;
+
 
     private void Update()
     {
@@ -28,13 +32,16 @@ public class PlayerInteractUI : MonoBehaviour
 
     private void Show(NPCInteractible npcInteractible)
     {
+        if (interactAudio != null & hasPlayedAudio == false & isAllowedToPlay) { interactAudio.Play(); }
         containerGameObject.SetActive(true);
         interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
+        hasPlayedAudio = true;
     }
 
     private void Hide()
     {
         containerGameObject.SetActive(false);
+        hasPlayedAudio = false;
     }
 
     // Call the coroutine from another function or within Start/Update
@@ -53,6 +60,11 @@ public class PlayerInteractUI : MonoBehaviour
         talking = false;
     }
 
-    
+    public void allowedToPlay()
+    {
+        isAllowedToPlay = true;
+    }
+
+
 
 }

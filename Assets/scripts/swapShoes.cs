@@ -6,6 +6,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class swapShoes : MonoBehaviour
 {
+    [SerializeField] private AudioSource fitShoeAudio;
+
+
     public GameObject leftShoe1; // Reference to the new left shoe GameObject prefab
     public GameObject rightShoe1; // Reference to the new right shoe GameObject prefab
 
@@ -45,6 +48,7 @@ public class swapShoes : MonoBehaviour
     public Vector3 rightShoeRotation; // Rotation for the right shoe
 
     public Vector3 shoeScale = Vector3.one; // Scale factor for the shoes
+
 
     private void Awake()
     {
@@ -129,6 +133,8 @@ public class swapShoes : MonoBehaviour
             {
                 // Button.one is pressed on this device -> We swap the shoes with the new shoes
                 SwapShoes();
+                if (fitShoeAudio != null) { fitShoeAudio.Play(); }
+                
                 // We bring back the previous shoe that we temporarally disabled
                 if (currentShoePrefab != null && currentShoePrefab.activeSelf == false)
                 {

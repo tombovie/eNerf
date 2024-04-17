@@ -5,16 +5,21 @@ using UnityEngine;
 public class OnStoreEnter : MonoBehaviour
 {
     [SerializeField] private Transform npc;
-    
+    [SerializeField] private PlayerInteractUI playerInteractUI;
+
     private Animator npcAnimator;
     private NPCInteractible npcInteractable;
     private AudioSource welcomeAudio;
+    private AudioSource doorAudio;
+
+    
 
 
     private void Start()
     {
         npcInteractable = npc.GetComponent<NPCInteractible>();
         welcomeAudio = transform.GetChild(0).GetComponent<AudioSource>();
+        doorAudio = transform.GetChild(1).GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,14 +28,19 @@ public class OnStoreEnter : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Player Entered the Trigger!");
+                //Debug.Log("Player Entered the Trigger!");
                 CharacterController characterController = other.GetComponent<CharacterController>();
                 characterController.enabled = false;
+                doorAudio.Play();
 
                 StartCoroutine(WaitOneSecond_Loop(other.transform));
                 
             }
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        playerInteractUI.allowedToPlay();
     }
 
     IEnumerator WaitOneSecond_Loop(Transform player)
