@@ -6,6 +6,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class swapShoes : MonoBehaviour
 {
+    [SerializeField] private AudioSource fitShoeAudio;
+
+
     public GameObject leftShoe1; // Reference to the new left shoe GameObject prefab
     public GameObject rightShoe1; // Reference to the new right shoe GameObject prefab
 
@@ -25,6 +28,10 @@ public class swapShoes : MonoBehaviour
     private Vector3 currentShoePrefabPosition;
     private Quaternion currentShoePrefabRotation;
 
+    private GameObject previousShoePrefab;
+    private Vector3 previousShoePrefabPosition;
+    private Quaternion previousShoePrefabRotation;
+
 
 
 
@@ -41,6 +48,7 @@ public class swapShoes : MonoBehaviour
     public Vector3 rightShoeRotation; // Rotation for the right shoe
 
     public Vector3 shoeScale = Vector3.one; // Scale factor for the shoes
+
 
     private void Awake()
     {
@@ -98,12 +106,13 @@ public class swapShoes : MonoBehaviour
         if (currentShoePrefab != null) { currentShoePrefab.SetActive(false); }
     }
 
-    private void ActivateCurrentShoePrefab()
+    private void ActivatePreviousShoePrefab()
     {
-        if (currentShoePrefab != null) {
-            currentShoePrefab.transform.position = currentShoePrefabPosition;
-            currentShoePrefab.transform.rotation = currentShoePrefabRotation;
-            currentShoePrefab.SetActive(true);
+        if (previousShoePrefab != null)
+        {
+            previousShoePrefab.transform.position = previousShoePrefabPosition;
+            previousShoePrefab.transform.rotation = previousShoePrefabRotation;
+            previousShoePrefab.SetActive(true);
         }
     }
 
@@ -122,9 +131,16 @@ public class swapShoes : MonoBehaviour
         {
             if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool isButtonPressed) && isButtonPressed)
             {
-                // Button.one is pressed on this device
+                // Button.one is pressed on this device -> We swap the shoes with the new shoes
                 SwapShoes();
+                if (fitShoeAudio != null) { fitShoeAudio.Play(); }
                 
+                // We bring back the previous shoe that we temporarally disabled
+                if (currentShoePrefab != null && currentShoePrefab.activeSelf == false)
+                {
+                    ActivatePreviousShoePrefab();
+                }
+                // The current shoe prefab we swapped will be temporarally disabled
                 HideCurrentShoePrefab();
                 break;
             }
@@ -133,37 +149,44 @@ public class swapShoes : MonoBehaviour
 
     private void OnObjectGrabbed(isGrabbed grappedObject)
     {
-        if (currentShoePrefab != null && currentShoePrefab.activeSelf == false)
+        // On the first grab, we assign the previousPrefab to the same as the currentPrefab
+        if (previousShoePrefab == null)
         {
-            ActivateCurrentShoePrefab();
+            previousShoePrefab = grappedObject.gameObject;
+            previousShoePrefabPosition = grappedObject.transform.position;
+            previousShoePrefabRotation = grappedObject.transform.rotation;
         }
+        // After the first grab, we move currentPrefab to the previous,
+        // so that we can activate the previous prefab again if the current in swapped
+        else
+        {
+            previousShoePrefab = currentShoePrefab;
+            previousShoePrefabPosition = currentShoePrefabPosition;
+            previousShoePrefabRotation = currentShoePrefabRotation;
+        }
+        // The current prefab is the object we grabbed and we store it's position and rotation, so that we
+        // Can put it back on it's original place after fitting a new shoe
         currentShoePrefab = grappedObject.gameObject;
         currentShoePrefabPosition = grappedObject.transform.position;
         currentShoePrefabRotation = grappedObject.transform.rotation;   
         
 
-        
+        // Check which shoe your holding and assign the correct prefabs that will be swapped
         Debug.Log("The " + grappedObject.gameObject.name + " object was grabbed!");
         if (grappedObject.gameObject.name == "Adidas right dummy bram")
         {
             leftShoe = leftShoe1;
             rightShoe = rightShoe1;
-            /*currentShoePrefabPosition = new Vector3(3.08200002f, 0.959999979f, -3.97600007f);
-            currentShoePrefabRotation = new Quaternion(0f, 0f, 0f, 1f);*/
         }
         if (grappedObject.gameObject.name == "Nike air force left rigged")
         {
             leftShoe = leftShoe2;
             rightShoe = rightShoe2;
-            /*currentShoePrefabPosition = new Vector3(2.28499985f, 1.15900004f, -3.7869997f);
-            currentShoePrefabRotation = new Quaternion(0f, 0.539707065f, 0f, 0.841852903f);*/
         }
         if (grappedObject.gameObject.name == "Nike air max right dummy")
         {
             leftShoe = leftShoe3;
             rightShoe = rightShoe3;
-            /*currentShoePrefabPosition = new Vector3(1.29199982f, 1.02199996f, -3.59317207f);
-            currentShoePrefabRotation = new Quaternion(0f, 0.275808901f, 0, 0.961212456f);*/
         }     
     }
 }
