@@ -5,12 +5,16 @@ using UnityEngine;
 public class OnStoreEnter : MonoBehaviour
 {
     [SerializeField] private Transform npc;
+    
     private Animator npcAnimator;
     private NPCInteractible npcInteractable;
+    private AudioSource welcomeAudio;
+
 
     private void Start()
     {
         npcInteractable = npc.GetComponent<NPCInteractible>();
+        welcomeAudio = transform.GetChild(0).GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -38,6 +42,7 @@ public class OnStoreEnter : MonoBehaviour
             yield return null;
         }
 
-        npcInteractable.Interact(player, "Hello, welcome to the store!");
+        npcInteractable.Greet(player, "Hello, welcome to the store!");
+        welcomeAudio.Play();
     }
 }
