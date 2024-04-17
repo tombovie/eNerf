@@ -23,6 +23,7 @@ public class swapShoes : MonoBehaviour
 
     private GameObject currentShoePrefab;
     private Vector3 currentShoePrefabPosition;
+    private Quaternion currentShoePrefabRotation;
 
 
 
@@ -101,6 +102,7 @@ public class swapShoes : MonoBehaviour
     {
         if (currentShoePrefab != null) {
             currentShoePrefab.transform.position = currentShoePrefabPosition;
+            currentShoePrefab.transform.rotation = currentShoePrefabRotation;
             currentShoePrefab.SetActive(true);
         }
     }
@@ -122,6 +124,7 @@ public class swapShoes : MonoBehaviour
             {
                 // Button.one is pressed on this device
                 SwapShoes();
+                
                 HideCurrentShoePrefab();
                 break;
             }
@@ -134,30 +137,33 @@ public class swapShoes : MonoBehaviour
         {
             ActivateCurrentShoePrefab();
         }
+        currentShoePrefab = grappedObject.gameObject;
+        currentShoePrefabPosition = grappedObject.transform.position;
+        currentShoePrefabRotation = grappedObject.transform.rotation;   
+        
+
+        
         Debug.Log("The " + grappedObject.gameObject.name + " object was grabbed!");
         if (grappedObject.gameObject.name == "Adidas right dummy bram")
         {
             leftShoe = leftShoe1;
             rightShoe = rightShoe1;
-
-            currentShoePrefab = grappedObject.gameObject;
-            currentShoePrefabPosition = grappedObject.transform.position;
+            /*currentShoePrefabPosition = new Vector3(3.08200002f, 0.959999979f, -3.97600007f);
+            currentShoePrefabRotation = new Quaternion(0f, 0f, 0f, 1f);*/
         }
         if (grappedObject.gameObject.name == "Nike air force left rigged")
         {
             leftShoe = leftShoe2;
             rightShoe = rightShoe2;
-
-            currentShoePrefab = grappedObject.gameObject;
-            currentShoePrefabPosition = grappedObject.transform.position;
+            /*currentShoePrefabPosition = new Vector3(2.28499985f, 1.15900004f, -3.7869997f);
+            currentShoePrefabRotation = new Quaternion(0f, 0.539707065f, 0f, 0.841852903f);*/
         }
         if (grappedObject.gameObject.name == "Nike air max right dummy")
         {
             leftShoe = leftShoe3;
             rightShoe = rightShoe3;
-
-            currentShoePrefab = grappedObject.gameObject;
-            currentShoePrefabPosition = grappedObject.transform.position;
+            /*currentShoePrefabPosition = new Vector3(1.29199982f, 1.02199996f, -3.59317207f);
+            currentShoePrefabRotation = new Quaternion(0f, 0.275808901f, 0, 0.961212456f);*/
         }     
     }
 }
