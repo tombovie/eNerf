@@ -16,7 +16,7 @@ public class NPC_Nearby : MonoBehaviour
             {
                 if (collider.TryGetComponent(out NPCInteractible interactible))
                 {
-                    interactible.Interact(transform);
+                    interactible.Interact(transform, "Thank you for buying!");
                 }
             }
         }
