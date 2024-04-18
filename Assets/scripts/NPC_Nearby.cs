@@ -6,19 +6,6 @@ using UnityEngine.XR;
 public class NPC_Nearby : MonoBehaviour
 {
     private float range = 0.9f;
-    private bool isHoldingShoe;
-    private isGrabbed grabbedObject;
-
-    private void Awake()
-    {
-        // Find all grabbable objects (assuming they have the AdidasScript component)
-        var grabbableObjects = FindObjectsOfType<isGrabbed>();
-        foreach (var grabbableObject in grabbableObjects)
-        {
-            grabbableObject.OnGrabbed += OnObjectGrabbed; // Subscribe to the event
-            grabbableObject.OnRelease += OnObjectRelease; // Subscribe to release event
-        }
-    }
 
     // Update is called once per frame
     void Update()
@@ -88,28 +75,8 @@ public class NPC_Nearby : MonoBehaviour
                 }
             }
         }
-
-        // check if the player is holding a shoe and change closestNPC interactText
-        if (isHoldingShoe)
-        {
-            closestNPC.SetInteractText("Do you want to buy \n" + grabbedObject.name);
-        }
-        else
-        {
-            closestNPC.SetInteractText("Feel free to \n look around for a shoe");
-        }
         return closestNPC;
     }
 
-    private void OnObjectGrabbed(isGrabbed GrabbedObject)
-    {
-        isHoldingShoe = true;
-        grabbedObject = GrabbedObject;
-    }
-
-    private void OnObjectRelease(isGrabbed grappedObject)
-    {
-        isHoldingShoe = false;
-        grabbedObject = null;
-    }
+   
 }

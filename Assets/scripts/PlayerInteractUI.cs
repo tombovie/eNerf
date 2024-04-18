@@ -14,6 +14,19 @@ public class PlayerInteractUI : MonoBehaviour
     private bool hasPlayedAudio = false;
     private bool isAllowedToPlay = false;
 
+    private isGrabbed grabbedObject;
+
+
+    private void Awake()
+    {
+        // Find all grabbable objects (assuming they have the AdidasScript component)
+        var grabbableObjects = FindObjectsOfType<isGrabbed>();
+        foreach (var grabbableObject in grabbableObjects)
+        {
+            grabbableObject.OnGrabbed += OnObjectGrabbed; // Subscribe to the event
+            grabbableObject.OnRelease += OnObjectRelease; // Subscribe to release event
+        }
+    }
 
     private void Update()
     {
@@ -38,7 +51,17 @@ public class PlayerInteractUI : MonoBehaviour
         {
             if (interactAudio != null & hasPlayedAudio == false) { interactAudio.Play(); }
             containerGameObject.SetActive(true);
-            interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
+            // If the player is holding a shoe
+            if (grabbedObject != null)
+            {
+                interactTextMeshProUGUI.text = "Do you want to buy\n" + grabbedObject.name;
+            }
+            //if not
+            else
+            {
+                interactTextMeshProUGUI.text = "Go away";
+            }
+            //interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
             hasPlayedAudio = true;
         }
     }
@@ -68,5 +91,15 @@ public class PlayerInteractUI : MonoBehaviour
     public void allowedToPlay()
     {
         isAllowedToPlay = true;
+    }
+
+    private void OnObjectGrabbed(isGrabbed GrabbedObject)
+    {
+        grabbedObject = GrabbedObject;
+    }
+
+    private void OnObjectRelease(isGrabbed grappedObject)
+    {
+        grabbedObject = null;
     }
 }
