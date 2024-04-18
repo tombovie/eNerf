@@ -14,6 +14,19 @@ public class PlayerInteractUI : MonoBehaviour
     private bool hasPlayedAudio = false;
     private bool isAllowedToPlay = false;
 
+    private isGrabbed grabbedObject;
+
+
+    private void Awake()
+    {
+        // Find all grabbable objects (assuming they have the AdidasScript component)
+        var grabbableObjects = FindObjectsOfType<isGrabbed>();
+        foreach (var grabbableObject in grabbableObjects)
+        {
+            grabbableObject.OnGrabbed += OnObjectGrabbed; // Subscribe to the event
+            grabbableObject.OnRelease += OnObjectRelease; // Subscribe to release event
+        }
+    }
 
     private void Update()
     {
@@ -32,10 +45,25 @@ public class PlayerInteractUI : MonoBehaviour
 
     private void Show(NPCInteractible npcInteractible)
     {
-        if (interactAudio != null & hasPlayedAudio == false & isAllowedToPlay) { interactAudio.Play(); }
-        containerGameObject.SetActive(true);
-        interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
-        hasPlayedAudio = true;
+        //On the OnEnterStore, the interact UI should not yet play
+        // Once the player left the collider of the OnStoreEnter, the interact UI can be used when the player comes close to the NPC
+        if (isAllowedToPlay)
+        {
+            if (interactAudio != null & hasPlayedAudio == false) { interactAudio.Play(); }
+            containerGameObject.SetActive(true);
+            // If the player is holding a shoe
+            if (grabbedObject != null)
+            {
+                interactTextMeshProUGUI.text = "Do you want to buy\n" + grabbedObject.name;
+            }
+            //if not
+            else
+            {
+                interactTextMeshProUGUI.text = "Go away";
+            }
+            //interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
+            hasPlayedAudio = true;
+        }
     }
 
     private void Hide()
@@ -49,7 +77,7 @@ public class PlayerInteractUI : MonoBehaviour
     {
         StartCoroutine(HideForSeconds(containerGameObject));
     }
-    private IEnumerator HideForSeconds(GameObject containerGameObject, float duration = 5f)
+    private IEnumerator HideForSeconds(GameObject containerGameObject, float duration = 5.5f)
     {
         talking = true;
         containerGameObject.SetActive(false); // Hide the GameObject
@@ -65,6 +93,13 @@ public class PlayerInteractUI : MonoBehaviour
         isAllowedToPlay = true;
     }
 
+    private void OnObjectGrabbed(isGrabbed GrabbedObject)
+    {
+        grabbedObject = GrabbedObject;
+    }
 
-
+    private void OnObjectRelease(isGrabbed grappedObject)
+    {
+        grabbedObject = null;
+    }
 }

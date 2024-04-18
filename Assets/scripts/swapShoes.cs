@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -50,6 +51,11 @@ public class swapShoes : MonoBehaviour
     public Vector3 shoeScale = Vector3.one; // Scale factor for the shoes
 
 
+    private isGrabbed grabbedObject;
+    public bool shoeInHand = false;
+        
+
+
     private void Awake()
     {
         // Find all grabbable objects (assuming they have the AdidasScript component)
@@ -57,6 +63,7 @@ public class swapShoes : MonoBehaviour
         foreach (var grabbableObject in grabbableObjects)
         {
             grabbableObject.OnGrabbed += OnObjectGrabbed; // Subscribe to the event
+            grabbableObject.OnRelease += OnObjectRelease; // Subscribe to release event
         }
     }
 
@@ -131,63 +138,95 @@ public class swapShoes : MonoBehaviour
         {
             if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool isButtonPressed) && isButtonPressed)
             {
-                // Button.one is pressed on this device -> We swap the shoes with the new shoes
-                SwapShoes();
-                if (fitShoeAudio != null) { fitShoeAudio.Play(); }
-                
-                // We bring back the previous shoe that we temporarally disabled
-                if (currentShoePrefab != null && currentShoePrefab.activeSelf == false)
+                if (shoeInHand)
                 {
-                    ActivatePreviousShoePrefab();
+                    Vector3 position = new Vector3(0f, 0f, 0f);
+                    quaternion rotation = new Quaternion(0, 0, 0, 1); ;
+                    // Check which shoe your holding and assign the correct prefabs that will be swapped
+                    Debug.Log("The " + grabbedObject.gameObject.name + " object was grabbed!");
+                    if (grabbedObject.gameObject.name == "Adidas right dummy bram")
+                    {
+                        leftShoe = leftShoe1;
+                        rightShoe = rightShoe1;
+                        position = new Vector3(3.08200002f, 0.959999979f, -3.90799999f);
+                        rotation = new Quaternion(0, 0, 0, 1);
+                    }
+                    if (grabbedObject.gameObject.name == "Nike air force left rigged")
+                    {
+                        leftShoe = leftShoe2;
+                        rightShoe = rightShoe2;
+                        position = new Vector3(2.19300008f, 1.15900004f, -3.88100004f);
+                        rotation = new Quaternion(0, 0.539707065f, 0, 0.841852903f);
+                    }
+                    if (grabbedObject.gameObject.name == "Nike air max right dummy")
+                    {
+                        leftShoe = leftShoe3;
+                        rightShoe = rightShoe3;
+                        position = new Vector3(1.00899994f, 1.02199996f, -3.6789999f);
+                        rotation = new Quaternion(0, 0.275808901f, 0, 0.961212456f);
+                    }
+
+
+
+                    // On the first grab, we assign the previousPrefab to the same as the currentPrefab
+                    if (previousShoePrefab == null)
+                    {
+                        previousShoePrefab = grabbedObject.gameObject;
+                        previousShoePrefabPosition = position;
+                        previousShoePrefabRotation = rotation;
+                    }
+                    // After the first grab, we move currentPrefab to the previous,
+                    // so that we can activate the previous prefab again if the current in swapped
+                    else
+                    {
+                        previousShoePrefab = currentShoePrefab;
+                        previousShoePrefabPosition = currentShoePrefabPosition;
+                        previousShoePrefabRotation = currentShoePrefabRotation;
+                    }
+                    // The current prefab is the object we grabbed and we store it's position and rotation, so that we
+                    // Can put it back on it's original place after fitting a new shoe
+                    currentShoePrefab = grabbedObject.gameObject;
+                    currentShoePrefabPosition = position;
+                    currentShoePrefabRotation = rotation;
+
+
+
+                    
+
+
+
+
+                    // Button.one is pressed on this device -> We swap the shoes with the new shoes
+                    SwapShoes();
+                    if (fitShoeAudio != null) { fitShoeAudio.Play(); }
+
+                    // We bring back the previous shoe that we temporarally disabled
+                    if (currentShoePrefab != null && currentShoePrefab.activeSelf == false)
+                    {
+                        ActivatePreviousShoePrefab();
+                    }
+                    // The current shoe prefab we swapped will be temporarally disabled
+                    HideCurrentShoePrefab();
+
+                    //You have no longer a shoe in your hand
+                    shoeInHand = false;
                 }
-                // The current shoe prefab we swapped will be temporarally disabled
-                HideCurrentShoePrefab();
+                
                 break;
             }
         }
     }
 
-    private void OnObjectGrabbed(isGrabbed grappedObject)
+    private void OnObjectGrabbed(isGrabbed GrabbedObject)
     {
-        // On the first grab, we assign the previousPrefab to the same as the currentPrefab
-        if (previousShoePrefab == null)
-        {
-            previousShoePrefab = grappedObject.gameObject;
-            previousShoePrefabPosition = grappedObject.transform.position;
-            previousShoePrefabRotation = grappedObject.transform.rotation;
-        }
-        // After the first grab, we move currentPrefab to the previous,
-        // so that we can activate the previous prefab again if the current in swapped
-        else
-        {
-            previousShoePrefab = currentShoePrefab;
-            previousShoePrefabPosition = currentShoePrefabPosition;
-            previousShoePrefabRotation = currentShoePrefabRotation;
-        }
-        // The current prefab is the object we grabbed and we store it's position and rotation, so that we
-        // Can put it back on it's original place after fitting a new shoe
-        currentShoePrefab = grappedObject.gameObject;
-        currentShoePrefabPosition = grappedObject.transform.position;
-        currentShoePrefabRotation = grappedObject.transform.rotation;   
-        
+        shoeInHand = true;
+        grabbedObject = GrabbedObject;
+    }
 
-        // Check which shoe your holding and assign the correct prefabs that will be swapped
-        Debug.Log("The " + grappedObject.gameObject.name + " object was grabbed!");
-        if (grappedObject.gameObject.name == "Adidas right dummy bram")
-        {
-            leftShoe = leftShoe1;
-            rightShoe = rightShoe1;
-        }
-        if (grappedObject.gameObject.name == "Nike air force left rigged")
-        {
-            leftShoe = leftShoe2;
-            rightShoe = rightShoe2;
-        }
-        if (grappedObject.gameObject.name == "Nike air max right dummy")
-        {
-            leftShoe = leftShoe3;
-            rightShoe = rightShoe3;
-        }     
+    private void OnObjectRelease(isGrabbed grappedObject)
+    {
+        shoeInHand = false;
+        grabbedObject = null;
     }
 }
 
