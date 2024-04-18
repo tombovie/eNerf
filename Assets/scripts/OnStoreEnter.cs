@@ -29,10 +29,7 @@ public class OnStoreEnter : MonoBehaviour
             if (other.gameObject.CompareTag("Player"))
             {
                 //Debug.Log("Player Entered the Trigger!");
-                CharacterController characterController = other.GetComponent<CharacterController>();
-                characterController.enabled = false;
                 doorAudio.Play();
-
                 StartCoroutine(WaitOneSecond_Loop(other.transform));
                 
             }
@@ -41,6 +38,10 @@ public class OnStoreEnter : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         playerInteractUI.allowedToPlay();
+        // Disable the collider so that you receive the welcome only once
+        transform.gameObject.SetActive(false);
+        /*CharacterController characterController = other.GetComponent<CharacterController>();
+        characterController.enabled = false;*/
     }
 
     IEnumerator WaitOneSecond_Loop(Transform player)

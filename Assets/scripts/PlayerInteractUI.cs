@@ -32,10 +32,15 @@ public class PlayerInteractUI : MonoBehaviour
 
     private void Show(NPCInteractible npcInteractible)
     {
-        if (interactAudio != null & hasPlayedAudio == false & isAllowedToPlay) { interactAudio.Play(); }
-        containerGameObject.SetActive(true);
-        interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
-        hasPlayedAudio = true;
+        //On the OnEnterStore, the interact UI should not yet play
+        // Once the player left the collider of the OnStoreEnter, the interact UI can be used when the player comes close to the NPC
+        if (isAllowedToPlay)
+        {
+            if (interactAudio != null & hasPlayedAudio == false) { interactAudio.Play(); }
+            containerGameObject.SetActive(true);
+            interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
+            hasPlayedAudio = true;
+        }
     }
 
     private void Hide()
@@ -49,7 +54,7 @@ public class PlayerInteractUI : MonoBehaviour
     {
         StartCoroutine(HideForSeconds(containerGameObject));
     }
-    private IEnumerator HideForSeconds(GameObject containerGameObject, float duration = 5f)
+    private IEnumerator HideForSeconds(GameObject containerGameObject, float duration = 5.5f)
     {
         talking = true;
         containerGameObject.SetActive(false); // Hide the GameObject
@@ -64,7 +69,4 @@ public class PlayerInteractUI : MonoBehaviour
     {
         isAllowedToPlay = true;
     }
-
-
-
 }
