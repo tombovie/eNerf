@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class enablePlayer : MonoBehaviour
@@ -11,6 +13,9 @@ public class enablePlayer : MonoBehaviour
     public GameObject spawnPoint;
     public List<Material> skinColorMaterials;
     public GameObject head_target, right_target, left_target;
+    public GameObject XR_Origin;
+    private bool playerHeightSetted, startLoop;
+    public AnimatorController VRRigAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +62,50 @@ public class enablePlayer : MonoBehaviour
 
         //after bodytypes has been instantiated, assign skincolor
         AssignSkinColor();
+
+        //Assign Hand Animations
+        AssignHandAnimation();
+
+        //set players height after 2s
+        StartCoroutine(WaitOneSecond_Loop());
+
         
+        
+    }
+
+    private void AssignHandAnimation()
+    {
+        currentBodyType.GetComponent<Animator>().runtimeAnimatorController = VRRigAnimator;
+    }
+
+    private void SetPlayerHeight()
+    {
+        //get leftleg of player
+        Transform leftLeg = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg");
+        //if (leftLeg != null) { Debug.Log("Found left leg!"); }
+        //fetch x-angle of this leg && increase camerayoffset
+        Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
+        if (leftLeg.transform.rotation.eulerAngles.x > 20)
+        {
+            // Debug.Log("Increasing the camerayoffset!"); 
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+        }
+        else
+        {
+            playerHeightSetted = true;
+        }
+    }
+
+    IEnumerator WaitOneSecond_Loop()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < 2f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        startLoop = true;
     }
 
     private void AssignTargets()
@@ -71,7 +119,10 @@ public class enablePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       /* if (startLoop && !playerHeightSetted) 
+        {
+            SetPlayerHeight();
+        }*/
     }
 
     private void AssignSkinColor() 
