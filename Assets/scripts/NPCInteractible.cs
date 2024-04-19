@@ -22,7 +22,7 @@ public class NPCInteractible : MonoBehaviour
     public void Greet(Transform InteractingPerson, string text)
     {
         //playerInteractUI.HideWhileTalking();
-        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, text);
+        ChatBubble.CreateForSeconds(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, text, 3);
         //Debug.Log("Interact!");
         animator.SetTrigger("Greeting");
 

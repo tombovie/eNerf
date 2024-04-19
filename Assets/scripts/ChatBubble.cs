@@ -22,6 +22,23 @@ public class ChatBubble : MonoBehaviour
 
         Destroy(chatBubbleTransform.gameObject, 5f);
     }
+    public static void CreateForSeconds(Transform parent, Vector3 localPosition, Transform personToLookAt, string text, float seconds)
+    {
+        Transform chatBubbleTransform = Instantiate(GameAssets.i.pfChatBubble, parent);
+        chatBubbleTransform.localPosition = localPosition;
+        // Get the current Euler angles
+        Vector3 currentRotation = personToLookAt.eulerAngles;
+        // Add 180 degrees to the desired axis (e.g., Y-axis)
+        //currentRotation.y += 180f;
+        //currentRotation.y += 0f;
+
+
+
+        chatBubbleTransform.localRotation = Quaternion.Euler(currentRotation);
+        chatBubbleTransform.GetComponent<ChatBubble>().Setup(text);
+
+        Destroy(chatBubbleTransform.gameObject, seconds);
+    }
 
 
 
