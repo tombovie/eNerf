@@ -78,7 +78,7 @@ public class enablePlayer : MonoBehaviour
         currentBodyType.GetComponent<Animator>().runtimeAnimatorController = VRRigAnimator;
     }
 
-    private void SetPlayerHeight()
+    private void SetPlayerHeight_legAngle()
     {
         //get leftleg of player
         Transform leftLeg = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg");
@@ -86,6 +86,24 @@ public class enablePlayer : MonoBehaviour
         //fetch x-angle of this leg && increase camerayoffset
         Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
         if (leftLeg.transform.rotation.eulerAngles.x > 20)
+        {
+            // Debug.Log("Increasing the camerayoffset!"); 
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+        }
+        else
+        {
+            playerHeightSetted = true;
+        }
+    }
+
+    private void SetPlayerHeight()
+    {
+        //get leftleg of player
+        Transform spine = currentBodyType.transform.Find("Armature/Hips/Spine");
+        if (spine != null) { Debug.Log("Found player's spine!"); }
+        //fetch x-angle of this leg && increase camerayoffset
+        Debug.Log("position-y: " + spine.position.y + " and localposition-y: " + spine.localPosition.y);
+        if (spine.localPosition.y > 20)
         {
             // Debug.Log("Increasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
@@ -119,11 +137,14 @@ public class enablePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /* if (startLoop && !playerHeightSetted) 
+       if (startLoop && !playerHeightSetted) 
         {
-            SetPlayerHeight();
-        }*/
+            SetPlayerHeight_legAngle();
+            //SetPlayerHeight(); --> delete later if not used
+        }
     }
+
+    
 
     private void AssignSkinColor() 
     {
