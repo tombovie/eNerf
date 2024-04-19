@@ -279,7 +279,7 @@ public class buildVRInteraction : MonoBehaviour
         IKTargetFollowRigScript.setLeftHandTarget(LeftHandVRTarget.transform, IKTargetLeftArm.transform);
         IKTargetFollowRigScript.setRightHandTarget(RightHandVRTarget.transform, IKTargetRightArm.transform);
 
-        IKTargetFollowRigScript.setheadBodyPositionOffset(new Vector3(0f, -0.73f, 0.29f));
+        IKTargetFollowRigScript.setheadBodyPositionOffset(new Vector3(0f, -0.73f, 0f));
 
         /* // For hands animations
          AnimateOnInput animateOnInput = gameObject.AddComponent<AnimateOnInput>();

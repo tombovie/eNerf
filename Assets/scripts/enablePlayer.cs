@@ -85,12 +85,14 @@ public class enablePlayer : MonoBehaviour
         //if (leftLeg != null) { Debug.Log("Found left leg!"); }
         //fetch x-angle of this leg && increase camerayoffset
         Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
-        if (leftLeg.transform.rotation.eulerAngles.x > 20 && leftLeg.transform.rotation.eulerAngles.x < 180)
+        if (leftLeg.transform.rotation.eulerAngles.x > 5)
         {
             // Debug.Log("Increasing the camerayoffset!"); 
-            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+            //XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+            Vector3 newPos = XR_Origin.transform.position + new Vector3(0f, 0.005f, 0f);
+            XR_Origin.transform.position = newPos;
         }
-        else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
+        /*else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
         {
             // Debug.Log("Decreasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
@@ -99,7 +101,7 @@ public class enablePlayer : MonoBehaviour
         {
             // Debug.Log("Decreasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
-        }
+        }*/
         else //when value is between 0 and 20 = ideaal
         {
             playerHeightSetted = true;
@@ -150,7 +152,7 @@ public class enablePlayer : MonoBehaviour
        if (startLoop && !playerHeightSetted) 
         {
             SetPlayerHeight_legAngle();
-            //SetPlayerHeight(); --> delete later if not used
+            //SetPlayerHeight(); //--> delete later if not used
         }
     }
 
