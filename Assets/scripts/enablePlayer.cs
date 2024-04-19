@@ -85,12 +85,22 @@ public class enablePlayer : MonoBehaviour
         //if (leftLeg != null) { Debug.Log("Found left leg!"); }
         //fetch x-angle of this leg && increase camerayoffset
         Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
-        if (leftLeg.transform.rotation.eulerAngles.x > 20)
+        if (leftLeg.transform.rotation.eulerAngles.x > 20 && leftLeg.transform.rotation.eulerAngles.x < 180)
         {
             // Debug.Log("Increasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
         }
-        else
+        else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
+        {
+            // Debug.Log("Decreasing the camerayoffset!"); 
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
+        }
+        else if (leftLeg.transform.rotation.eulerAngles.x < 10 && leftLeg.transform.rotation.eulerAngles.x >= 0)
+        {
+            // Debug.Log("Decreasing the camerayoffset!"); 
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
+        }
+        else //when value is between 0 and 20 = ideaal
         {
             playerHeightSetted = true;
         }
