@@ -265,7 +265,7 @@ public class buildVRInteraction : MonoBehaviour
 
         //align position and rotation
         HeadTarget.transform.position = neck.transform.position;
-        HeadTarget.transform.rotation = neck.transform .rotation;
+        HeadTarget.transform.rotation = neck.transform.rotation;
 
 
         //For the VR tracking
@@ -306,6 +306,19 @@ public class buildVRInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void setHeadTarget(GameObject vrTarget)
+    {
+        headVRTarget = vrTarget;
+    }
+    public void setLeftHandTarget(GameObject vrTarget)
+    {
+        LeftHandVRTarget = vrTarget;
+    }
+    public void setRightHandTarget(GameObject vrTarget)
+    {
+        RightHandVRTarget = vrTarget;
     }
 }

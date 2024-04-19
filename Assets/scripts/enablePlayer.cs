@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class enablePlayer : MonoBehaviour
     private GameObject currentBodyType;
     public GameObject spawnPoint;
     public List<Material> skinColorMaterials;
+    public GameObject head_target, right_target, left_target;
 
     // Start is called before the first frame update
     void Start()
@@ -22,15 +24,48 @@ public class enablePlayer : MonoBehaviour
                 currentBodyType = (GameObject) Instantiate(Resources.Load("Basic_vrouw/vrouw_slank"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
                 Debug.Log("body inserted into the scene!");
                 break;
+            case 1:
+                currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_vrouw/vrouw_medium_dik"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                Debug.Log("body inserted into the scene!");
+                break;
+            case 2:
+                currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_vrouw/vrouw_dik"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                Debug.Log("body inserted into the scene!");
+                break;
+            case 3:
+                currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_man/man_slank"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                Debug.Log("body inserted into the scene!");
+                break;
+            case 4:
+                currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_man/man_medium_dik"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                Debug.Log("body inserted into the scene!");
+                break;
+            case 5:
+                currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_man/man_dik"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                Debug.Log("body inserted into the scene!");
+                break;
+ 
             default:
-                //default character
+                //default character?
+
                 break;
 
 
         }
+        //assign VR targets
+        AssignTargets();
 
         //after bodytypes has been instantiated, assign skincolor
         AssignSkinColor();
+        
+    }
+
+    private void AssignTargets()
+    {
+        currentBodyType.GetComponent<buildVRInteraction>().setHeadTarget(head_target);
+        currentBodyType.GetComponent<buildVRInteraction>().setLeftHandTarget(left_target);
+        currentBodyType.GetComponent<buildVRInteraction>().setRightHandTarget(right_target);
+
     }
 
     // Update is called once per frame
@@ -39,11 +74,14 @@ public class enablePlayer : MonoBehaviour
         
     }
 
-    void AssignSkinColor() 
+    private void AssignSkinColor() 
     {
 
         //asign skincolor to head
         Transform head = currentBodyType.transform.Find("ch_head");
+        //set on correct layer (Layer 7: Head)
+        head.gameObject.layer = 7;
+
         if ( head != null) 
         {
             //Debug.Log("head object found");
