@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class OnStoreEnter : MonoBehaviour
 {
     [SerializeField] private Transform npc;
     [SerializeField] private PlayerInteractUI playerInteractUI;
+    [SerializeField] private GameObject startcanvasContainer;
 
     private Animator npcAnimator;
     private NPCInteractible npcInteractable;
     private AudioSource welcomeAudio;
     private AudioSource doorAudio;
-
-    
-
 
     private void Start()
     {
@@ -28,10 +27,7 @@ public class OnStoreEnter : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                //Debug.Log("Player Entered the Trigger!");
-                doorAudio.Play();
-                StartCoroutine(WaitOneSecond_Loop(other.transform));
-                
+                StartCoroutine(WaitOneSecond_Loop(other.transform));   
             }
         }
     }
@@ -40,6 +36,8 @@ public class OnStoreEnter : MonoBehaviour
         playerInteractUI.allowedToPlay();
         // Disable the collider so that you receive the welcome only once
         transform.gameObject.SetActive(false);
+
+        HideStartCanvas();
         /*CharacterController characterController = other.GetComponent<CharacterController>();
         characterController.enabled = false;*/
     }
@@ -52,8 +50,32 @@ public class OnStoreEnter : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        npcInteractable.Greet(player, "Hello, welcome to the store!");
+        doorAudio.Play();
+        elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
         welcomeAudio.Play();
+        npcInteractable.Greet(player, "Hello, welcome to the store!");
+        elapsedTime = 0f;
+        while (elapsedTime < 5f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        ShowStartCanvas();
     }
+
+    private void ShowStartCanvas()
+    {
+        startcanvasContainer.SetActive(true);
+    }
+    private void HideStartCanvas()
+    {
+        startcanvasContainer.SetActive(false);
+    }
+
+
 }

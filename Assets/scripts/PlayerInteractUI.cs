@@ -7,6 +7,7 @@ public class PlayerInteractUI : MonoBehaviour
 {
     [SerializeField] private AudioSource interactAudio;
     [SerializeField] private GameObject containerGameObject;
+    [SerializeField] private GameObject containerPriceTagUI;
     [SerializeField] private NPC_Nearby npc_nearby;
     [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
 
@@ -55,6 +56,7 @@ public class PlayerInteractUI : MonoBehaviour
             if (grabbedObject != null)
             {
                 interactTextMeshProUGUI.text = "Do you want to buy\n" + grabbedObject.name;
+                containerPriceTagUI.SetActive(true);
             }
             //if not
             else
@@ -69,6 +71,7 @@ public class PlayerInteractUI : MonoBehaviour
     private void Hide()
     {
         containerGameObject.SetActive(false);
+        containerPriceTagUI.SetActive(false);
         hasPlayedAudio = false;
     }
 
