@@ -79,6 +79,9 @@ public class enablePlayer : MonoBehaviour
 
         //asign skincolor to head
         Transform head = currentBodyType.transform.Find("ch_head");
+        //set on correct layer (Layer 7: Head)
+        head.gameObject.layer = 7;
+
         if ( head != null) 
         {
             //Debug.Log("head object found");

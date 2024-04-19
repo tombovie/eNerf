@@ -31,6 +31,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
     private void Start()
     {
         PlayerControllerScript = GetComponent<PlayerController>();
+
     }
 
     // Update is called once per frame
