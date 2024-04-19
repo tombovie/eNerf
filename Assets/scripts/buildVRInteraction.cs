@@ -40,6 +40,7 @@ public class buildVRInteraction : MonoBehaviour
         // Create empty GameObject with name 
         GameObject VRIKRig = new GameObject("VR IK Rig");
         VRIKRig.transform.parent = transform; //Parent is current Gameobject
+        VRIKRig.transform.localPosition = new Vector3(0f, 0f, 0f);
         Rig rig = VRIKRig.AddComponent<Rig>();
 
         // Add a RigBuilder component to the parent GameObject (this GameObject)
