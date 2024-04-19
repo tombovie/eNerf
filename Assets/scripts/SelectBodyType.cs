@@ -43,16 +43,16 @@ public class SelectBodyType : MonoBehaviour
     void ChangeBodyType(Button image) {
 
         if (selectedBodyType != null) {
-            Color DeselectedColor = Color.white;
-            DeselectedColor.a = 1;
+            Color DeselectedColor = Color.grey;
+            DeselectedColor.a = 0.3f;
             selectedBodyType.GetComponent<Image>().color = DeselectedColor;
         }
 
         //fetch index of bodytype
         currentSelectedBodyType = bodyTypeButtons.IndexOf(image);
         //change appearance of selected image
-        Color imageSelectedColor = Color.red;
-        imageSelectedColor.a = 0.3f;
+        Color imageSelectedColor = Color.white;
+        imageSelectedColor.a = 1;
         image.GetComponent<Image>().color = imageSelectedColor;
         
         //save selected (to deselect later if needed)
