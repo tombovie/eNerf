@@ -68,4 +68,12 @@ public class GameStartMenu : MonoBehaviour
         mainMenu.SetActive(false);
         options.SetActive(false);
     }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P)) {
+            EnableStartGame();
+        }
+    }
 }

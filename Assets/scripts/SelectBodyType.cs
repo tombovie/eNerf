@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SelectBodyType : MonoBehaviour
 {
@@ -9,6 +11,13 @@ public class SelectBodyType : MonoBehaviour
     private Color selectedSkinButtonColor;
     public Button confirmButton;
     public List<Button> bodyTypeButtons, bodyColorButtons;
+
+    //loading screen
+    public GameObject LoadingScreen;
+    public Image LoadingBarFill;
+    public AudioSource shopAudio;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -87,13 +96,48 @@ public class SelectBodyType : MonoBehaviour
 
     void Confirmed()
     {
+        LoadingScreen.SetActive(true);
+        shopAudio.Stop();
 
         //write current selected bodytype to local data
         PlayerPrefs.SetInt("bodytype", currentSelectedBodyType);
         PlayerPrefs.SetInt("bodycolor", currentSelectedBodyColor);
 
         //confirmed button clicked
-        SceneTransitionManager.singleton.GoToSceneAsync(1);
+        LoadScene(1);
+    }
+
+
+    public void LoadScene(int sceneId) 
+    {
+        StartCoroutine(LoadSceneAsync(sceneId));
+    }
+
+    IEnumerator LoadSceneAsync(int sceneId)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
+
+       
+
+        while (!operation.isDone) 
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+
+            LoadingBarFill.fillAmount = progress;
+
+            yield return null;
+        }
+
+
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Confirmed();
+        }
     }
 
 }
