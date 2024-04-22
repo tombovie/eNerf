@@ -89,7 +89,7 @@ public class enablePlayer : MonoBehaviour
         {
             // Debug.Log("Increasing the camerayoffset!"); 
             //XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
-            Vector3 newPos = XR_Origin.transform.position + new Vector3(0f, 0.005f, 0f);
+            Vector3 newPos = XR_Origin.transform.position + new Vector3(0f, 0.001f, 0f);
             XR_Origin.transform.position = newPos;
         }
         /*else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
@@ -149,11 +149,11 @@ public class enablePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (startLoop && !playerHeightSetted) 
+       /*if (startLoop && !playerHeightSetted) 
         {
             SetPlayerHeight_legAngle();
             //SetPlayerHeight(); //--> delete later if not used
-        }
+        }*/
     }
 
     

@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class swapShoes : MonoBehaviour
 {
-    [SerializeField] private AudioSource fitShoeAudio;
+    private AudioSource fitShoeAudio;
 
 
     public GameObject leftShoe1; // Reference to the new left shoe GameObject prefab
@@ -53,9 +53,12 @@ public class swapShoes : MonoBehaviour
 
     private isGrabbed grabbedObject;
     public bool shoeInHand = false;
-        
 
 
+    private void Start()
+    {
+        fitShoeAudio = transform.parent.GetComponent<AudioSource>();
+    }
     private void Awake()
     {
         // Find all grabbable objects (assuming they have the AdidasScript component)

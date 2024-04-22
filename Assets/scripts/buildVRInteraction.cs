@@ -27,6 +27,8 @@ public class buildVRInteraction : MonoBehaviour
     private GameObject leftForeArmBones;
     private GameObject rightLeg;
     private GameObject leftLeg;
+    private GameObject RightLegIK;
+    private GameObject LeftLegIK;
     GameObject IKTargetRightArm;
     GameObject IKTargetLeftArm;
     GameObject IKTargetRightLeg;
@@ -142,8 +144,9 @@ public class buildVRInteraction : MonoBehaviour
         }
 
         // Create Right leg IK
-        GameObject RightLegIK = new GameObject("Right Leg IK");
+        RightLegIK = new GameObject("Right Leg IK");
         RightLegIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
+
         // Add TwoBoneIKConstraint component to the GameObject
         TwoBoneIKConstraint ikConstraintRightLeg = RightLegIK.AddComponent<TwoBoneIKConstraint>();
         ikConstraintRightLeg.data.targetPositionWeight = 1;
@@ -184,8 +187,9 @@ public class buildVRInteraction : MonoBehaviour
         }
 
         // Create Left leg IK
-        GameObject LeftLegIK = new GameObject("Left Leg IK");
+        LeftLegIK = new GameObject("Left Leg IK");
         LeftLegIK.transform.parent = VRIKRig.transform; //Parent is current Gameobject
+        
         // Add TwoBoneIKConstraint component to the GameObject
         TwoBoneIKConstraint ikConstraintLeftLeg = LeftLegIK.AddComponent<TwoBoneIKConstraint>();
         ikConstraintLeftLeg.data.targetPositionWeight = 1;
@@ -279,7 +283,7 @@ public class buildVRInteraction : MonoBehaviour
         IKTargetFollowRigScript.setLeftHandTarget(LeftHandVRTarget.transform, IKTargetLeftArm.transform);
         IKTargetFollowRigScript.setRightHandTarget(RightHandVRTarget.transform, IKTargetRightArm.transform);
 
-        IKTargetFollowRigScript.setheadBodyPositionOffset(new Vector3(0f, -0.73f, 0f));
+        IKTargetFollowRigScript.setheadBodyPositionOffset(new Vector3(0f, -0.65f, 0f));
 
         /* // For hands animations
          AnimateOnInput animateOnInput = gameObject.AddComponent<AnimateOnInput>();
@@ -298,15 +302,7 @@ public class buildVRInteraction : MonoBehaviour
         // Use RigBuilder.Build() to create the rig instead of ConstraintJob.AlignTransform
         rigBuilder.Build();
 
-
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        StartCoroutine(SetLegIKPosition());
 
     }
 
@@ -322,4 +318,24 @@ public class buildVRInteraction : MonoBehaviour
     {
         RightHandVRTarget = vrTarget;
     }
+
+    /*This function will set the y position of the right and left leg IK to zero,
+        this way the shoes of the player will be on the ground*/
+    IEnumerator SetLegIKPosition()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < 2f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Vector3 newLeftLegIKPos = LeftLegIK.transform.localPosition;
+        newLeftLegIKPos.y = 0;
+        LeftLegIK.transform.localPosition = newLeftLegIKPos;
+
+        Vector3 newRightLegIKPos = RightLegIK.transform.localPosition;
+        newRightLegIKPos.y = 0;
+        RightLegIK.transform.localPosition = newRightLegIKPos;
+    }
 }
+
