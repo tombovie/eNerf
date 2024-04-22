@@ -16,6 +16,7 @@ public class enablePlayer : MonoBehaviour
     public GameObject XR_Origin;
     private bool playerHeightSetted, startLoop;
     public AnimatorController VRRigAnimator;
+    public GameObject LoadingScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -106,6 +107,8 @@ public class enablePlayer : MonoBehaviour
         else //when value is between 0 and 20 = ideaal
         {
             playerHeightSetted = true;
+            //disable loading screen
+            LoadingScreen.SetActive(false);
         }
     }
 
