@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class swapShoes : MonoBehaviour
 {
-    [SerializeField] private AudioSource fitShoeAudio;
+    private AudioSource fitShoeAudio;
 
 
     public GameObject leftShoe1; // Reference to the new left shoe GameObject prefab
@@ -53,8 +53,15 @@ public class swapShoes : MonoBehaviour
 
     private isGrabbed grabbedObject;
     public bool shoeInHand = false;
-        
 
+
+    private void Start()
+    {
+        if (transform.parent != null)
+        {
+            if (transform.parent.TryGetComponent<AudioSource>(out fitShoeAudio)) { }
+        }   
+    }
 
     private void Awake()
     {

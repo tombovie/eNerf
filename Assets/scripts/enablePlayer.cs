@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class enablePlayer : MonoBehaviour
 {
-
+    [SerializeField] private PlayerInteractUI playerInteractUI;
     private int bodyTypeIndex, bodyColorIndex;
     private GameObject currentBodyType;
     public GameObject spawnPoint;
@@ -69,8 +69,9 @@ public class enablePlayer : MonoBehaviour
         //set players height after 2s
         StartCoroutine(WaitOneSecond_Loop());
 
-        
-        
+        playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
+
+
     }
 
     private void AssignHandAnimation()
@@ -85,12 +86,14 @@ public class enablePlayer : MonoBehaviour
         //if (leftLeg != null) { Debug.Log("Found left leg!"); }
         //fetch x-angle of this leg && increase camerayoffset
         Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
-        if (leftLeg.transform.rotation.eulerAngles.x > 20 && leftLeg.transform.rotation.eulerAngles.x < 180)
+        if (leftLeg.transform.rotation.eulerAngles.x > 5)
         {
             // Debug.Log("Increasing the camerayoffset!"); 
-            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+            //XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+            Vector3 newPos = XR_Origin.transform.position + new Vector3(0f, 0.001f, 0f);
+            XR_Origin.transform.position = newPos;
         }
-        else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
+        /*else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
         {
             // Debug.Log("Decreasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
@@ -99,7 +102,7 @@ public class enablePlayer : MonoBehaviour
         {
             // Debug.Log("Decreasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
-        }
+        }*/
         else //when value is between 0 and 20 = ideaal
         {
             playerHeightSetted = true;
@@ -147,11 +150,11 @@ public class enablePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (startLoop && !playerHeightSetted) 
+       /*if (startLoop && !playerHeightSetted) 
         {
             SetPlayerHeight_legAngle();
-            //SetPlayerHeight(); --> delete later if not used
-        }
+            //SetPlayerHeight(); //--> delete later if not used
+        }*/
     }
 
     
