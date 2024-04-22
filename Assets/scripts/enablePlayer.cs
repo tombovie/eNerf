@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class enablePlayer : MonoBehaviour
 {
-
+    [SerializeField] private PlayerInteractUI playerInteractUI;
     private int bodyTypeIndex, bodyColorIndex;
     private GameObject currentBodyType;
     public GameObject spawnPoint;
@@ -69,8 +69,9 @@ public class enablePlayer : MonoBehaviour
         //set players height after 2s
         StartCoroutine(WaitOneSecond_Loop());
 
-        
-        
+        playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
+
+
     }
 
     private void AssignHandAnimation()

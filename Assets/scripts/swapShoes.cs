@@ -57,8 +57,12 @@ public class swapShoes : MonoBehaviour
 
     private void Start()
     {
-        fitShoeAudio = transform.parent.GetComponent<AudioSource>();
+        if (transform.parent != null)
+        {
+            if (transform.parent.TryGetComponent<AudioSource>(out fitShoeAudio)) { }
+        }   
     }
+
     private void Awake()
     {
         // Find all grabbable objects (assuming they have the AdidasScript component)

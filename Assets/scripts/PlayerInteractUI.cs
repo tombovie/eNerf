@@ -7,7 +7,7 @@ public class PlayerInteractUI : MonoBehaviour
 {
     [SerializeField] private AudioSource interactAudio;
     [SerializeField] private GameObject containerGameObject;
-    [SerializeField] private GameObject containerPriceTagUI;
+    [SerializeField] private GameObject containerPriceTagUI; 
     [SerializeField] private NPC_Nearby npc_nearby;
     [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
 
@@ -17,7 +17,7 @@ public class PlayerInteractUI : MonoBehaviour
 
     private isGrabbed grabbedObject;
 
-
+    
     private void Awake()
     {
         // Find all grabbable objects (assuming they have the AdidasScript component)
@@ -104,5 +104,10 @@ public class PlayerInteractUI : MonoBehaviour
     private void OnObjectRelease(isGrabbed grappedObject)
     {
         grabbedObject = null;
+    }
+
+    public void SetNPC_Nearby(NPC_Nearby script)
+    {
+        npc_nearby = script;
     }
 }
