@@ -69,7 +69,7 @@ public class GameStartMenu : MonoBehaviour
         options.SetActive(false);
     }
 
-
+    //for debugging purposes (delete later)
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P)) {
