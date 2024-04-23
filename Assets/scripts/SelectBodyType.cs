@@ -131,7 +131,7 @@ public class SelectBodyType : MonoBehaviour
 
     }
 
-
+    //for debugging purposes (delete later)
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
