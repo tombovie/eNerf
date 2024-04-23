@@ -19,7 +19,7 @@ public class HeadSwap : MonoBehaviour
     public void SwapShoes()
     {
         //fetch current players head
-        newHead = (GameObject) Resources.Load("Heads/Nikki");
+        newHead = (GameObject) Resources.Load("Heads/Kurt");
         // Instantiate and position the left shoe
         GameObject newnewhead = Instantiate(newHead, neckbone);
         newnewhead.transform.localPosition = headOffset;
