@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,10 @@ public class HeadSwap : MonoBehaviour
 
     public void SwapShoes()
     {
+        //get name from local data
+        String currentCharacter = PlayerPrefs.GetString("character");
         //fetch current players head
-        newHead = (GameObject) Resources.Load("Heads/Kurt");
+        newHead = (GameObject) Resources.Load(currentCharacter + "/" + currentCharacter + "_head");
         // Instantiate and position the left shoe
         GameObject newnewhead = Instantiate(newHead, neckbone);
         newnewhead.transform.localPosition = headOffset;
