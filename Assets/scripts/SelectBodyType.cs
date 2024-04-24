@@ -3,14 +3,18 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 public class SelectBodyType : MonoBehaviour
 {
     private int currentSelectedBodyType, currentSelectedBodyColor;
     private Button selectedBodyType, selectedSkinColor;
-    private Color selectedSkinButtonColor;
     public Button confirmButton;
     public List<Button> bodyTypeButtons, bodyColorButtons;
+    public List<GameObject> characters;
+    public GameObject nameInput;
+    public GameObject checkmark;
+    public GameObject keyboard;
 
     //loading screen
     public GameObject LoadingScreen;
@@ -22,10 +26,13 @@ public class SelectBodyType : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //listen to inputfield select
+        nameInput.GetComponent<TMPro.TMP_InputField>().onSelect.AddListener(SelectInputField);
+        //listen to input field changes
+        nameInput.GetComponent<TMPro.TMP_InputField>().onValueChanged.AddListener(SelectCharacter);
         //listen to button activity
         confirmButton.onClick.AddListener(Confirmed);
-
+        
 
         foreach (Button button in bodyTypeButtons)
         {
@@ -48,11 +55,49 @@ public class SelectBodyType : MonoBehaviour
 
     }
 
+    [Obsolete]
+    private void DeSelectInputField()
+    {
+        if (keyboard.active)
+        {
+            keyboard.SetActive(false);
+        }
+    }
+
+    [Obsolete]
+    private void SelectInputField(string text)
+    {
+        if (!keyboard.active) 
+        { 
+            keyboard.SetActive(true);
+        }
+    }
+
+    private void SelectCharacter(string name)
+    {
+        
+        foreach (GameObject character in characters) 
+        {
+            if (character.name == name)
+            {
+                PlayerPrefs.SetString("currentCharacter", name);
+                //change appearance of inputfield
+                checkmark.SetActive(true);
+            }
+            else 
+            {
+                checkmark.SetActive(false);
+            }
+        }
+    }
 
     void ChangeBodyType(Button image) {
 
+        //put away keyboard
+        DeSelectInputField();
+
         if (selectedBodyType != null) {
-            Color DeselectedColor = Color.grey;
+            Color DeselectedColor = new Color(192f, 192f, 192f);
             DeselectedColor.a = 0.3f;
             selectedBodyType.GetComponent<Image>().color = DeselectedColor;
         }
@@ -70,27 +115,34 @@ public class SelectBodyType : MonoBehaviour
 
     void ChangeSkinColor(Button image) 
     {
-        
+        //put away keyboard
+        DeSelectInputField();
 
         //deselect previous if not first selection
         if (selectedSkinColor != null)
         {
-            selectedSkinColor.GetComponent<Image>().color = selectedSkinButtonColor;
+            Outline selectedOutlineComponent = selectedSkinColor.GetComponent<Outline>();
+            Color selectedOutlineColor = selectedOutlineComponent.effectColor;
+            selectedOutlineColor.a = 0f;
+            selectedOutlineComponent.effectColor = selectedOutlineColor;
         }
-
-        //fetch previous color
-        selectedSkinButtonColor = image.GetComponent<Image>().color;
 
         //fetch bodycolor
         currentSelectedBodyColor = bodyColorButtons.IndexOf(image);
-        //change appearance of selected image
-        Color imageSelectedColor = Color.red;
-        imageSelectedColor.a = 0.3f;
-        image.GetComponent<Image>().color = imageSelectedColor;
+
+        Outline outlineComponent = image.GetComponent<Outline>();
+        Color outlineColor = outlineComponent.effectColor;
+        outlineColor.a = 1f;
+
+        if (outlineComponent != null) 
+        {
+            Debug.Log("outlinecoponentfound!");
+            outlineComponent.effectColor = outlineColor;
+        }
 
         //save selected (to deselect later if needed)
         selectedSkinColor = image;
-        
+
     }
 
 
