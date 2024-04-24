@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NPCInteractible : MonoBehaviour
 {
     [SerializeField] private string interactText;
     [SerializeField] private PlayerInteractUI playerInteractUI;
     [SerializeField] private AudioSource cashRegister;
+    [SerializeField] private AudioSource buyAudio;
     Animator animator;
     private NPCHeadLookAt npcHeadLookAt;
 
@@ -33,7 +35,6 @@ public class NPCInteractible : MonoBehaviour
     {
         playerInteractUI.HideWhileTalking();
         ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, text);
-        //Debug.Log("Interact!");
         animator.SetTrigger("Talking");
 
         float personHeight = 0.018f;
@@ -43,14 +44,15 @@ public class NPCInteractible : MonoBehaviour
     {
         if (cashRegister != null) { cashRegister.Play();  }
         playerInteractUI.HideWhileTalking();
-        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "Thank you for buying the shoe!");
-        //Debug.Log("Interact!");
+        if (buyAudio != null) { StartCoroutine(PlayBuyAudio()); }
+        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "Thanks for shopping with us!");
+        
         animator.SetTrigger("Talking");
 
         float personHeight = 0.018f;
         npcHeadLookAt.lookAtPosition(InteractingPerson.position + Vector3.up * personHeight);
 
-        //StartCoroutine(EndGame());
+        StartCoroutine(EndGame());
     }
 
     public string GetInteractText()
@@ -71,7 +73,25 @@ public class NPCInteractible : MonoBehaviour
             yield return null;
         }
 
-        SceneTransitionManager.singleton.GoToScene(2);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // If the current scene is not the sceneIndex 4 (last scene)
+        if (currentSceneIndex < 4) { 
+            SceneTransitionManager.singleton.GoToScene(currentSceneIndex+1); 
+        }
+        else {
+            SceneTransitionManager.singleton.GoToScene(currentSceneIndex-1);
+        }
+    }
+
+    IEnumerator PlayBuyAudio()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        buyAudio.Play();
     }
 
 }

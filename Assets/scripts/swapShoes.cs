@@ -155,21 +155,21 @@ public class swapShoes : MonoBehaviour
                     {
                         leftShoe = leftShoe1;
                         rightShoe = rightShoe1;
-                        position = new Vector3(3.08200002f, 0.959999979f, -3.90799999f);
+                        position = new Vector3(1.76579142f, 0.959999979f, -3.89100003f);
                         rotation = new Quaternion(0, 0, 0, 1);
                     }
                     if (grabbedObject.gameObject.name == "Nike air force left rigged")
                     {
                         leftShoe = leftShoe2;
                         rightShoe = rightShoe2;
-                        position = new Vector3(2.19300008f, 1.15900004f, -3.88100004f);
+                        position = new Vector3(0.864791393f, 1.15900004f, -3.77900004f);
                         rotation = new Quaternion(0, 0.539707065f, 0, 0.841852903f);
                     }
                     if (grabbedObject.gameObject.name == "Nike air max right dummy")
                     {
                         leftShoe = leftShoe3;
                         rightShoe = rightShoe3;
-                        position = new Vector3(1.00899994f, 1.02199996f, -3.6789999f);
+                        position = new Vector3(0.737791419f, 1.02199996f, -4.40100002f);
                         rotation = new Quaternion(0, 0.275808901f, 0, 0.961212456f);
                     }
 
