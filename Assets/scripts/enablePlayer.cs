@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class enablePlayer : MonoBehaviour
 {
@@ -25,9 +26,42 @@ public class enablePlayer : MonoBehaviour
         bodyTypeIndex = PlayerPrefs.GetInt("bodytype");
         bodyColorIndex = PlayerPrefs.GetInt("bodycolor");
 
-        switch (bodyTypeIndex) {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex == 1)
+        {
+            SetBodyTypeIndex();
+            //assign VR targets
+            AssignTargets();
+
+            //after bodytypes has been instantiated, assign skincolor
+            AssignSkinColor();
+
+            //Assign Hand Animations
+            AssignHandAnimation();
+
+            //set players height after 2s
+            StartCoroutine(WaitOneSecond_Loop());
+
+            playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
+        }
+        if (currentSceneIndex == 2)
+        {
+            //get name from local data
+            String currentCharacter = PlayerPrefs.GetString("character");
+            currentBodyType = (GameObject)Instantiate(Resources.Load(currentCharacter+"/"+currentCharacter), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+        }
+        
+        
+
+
+    }
+
+    private void SetBodyTypeIndex()
+    {
+        switch (bodyTypeIndex)
+        {
             case 0:
-                currentBodyType = (GameObject) Instantiate(Resources.Load("Basic_vrouw/vrouw_slank"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_vrouw/vrouw_slank"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
                 Debug.Log("body inserted into the scene!");
                 break;
             case 1:
@@ -50,31 +84,13 @@ public class enablePlayer : MonoBehaviour
                 currentBodyType = (GameObject)Instantiate(Resources.Load("Basic_man/man_dik"), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
                 Debug.Log("body inserted into the scene!");
                 break;
- 
+
             default:
                 //default character?
 
                 break;
-
-
         }
-        //assign VR targets
-        AssignTargets();
-
-        //after bodytypes has been instantiated, assign skincolor
-        AssignSkinColor();
-
-        //Assign Hand Animations
-        AssignHandAnimation();
-
-        //set players height after 2s
-        StartCoroutine(WaitOneSecond_Loop());
-
-        playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
-
-
     }
-
     private void AssignHandAnimation()
     {
         currentBodyType.GetComponent<Animator>().runtimeAnimatorController = VRRigAnimator;
