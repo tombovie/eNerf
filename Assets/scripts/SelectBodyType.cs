@@ -82,7 +82,7 @@ public class SelectBodyType : MonoBehaviour
         {
             if (character.name == name)
             {
-                PlayerPrefs.SetString("currentCharacter", name);
+                PlayerPrefs.SetString("character", name);
                 //change appearance of inputfield
                 checkmark.SetActive(true);
             }
