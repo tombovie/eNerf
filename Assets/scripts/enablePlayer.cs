@@ -153,11 +153,11 @@ public class enablePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /*if (startLoop && !playerHeightSetted) 
+        if (startLoop && !playerHeightSetted)
         {
             SetPlayerHeight_legAngle();
             //SetPlayerHeight(); //--> delete later if not used
-        }*/
+        }
     }
 
     
