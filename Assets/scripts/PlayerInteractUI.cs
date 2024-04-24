@@ -55,7 +55,7 @@ public class PlayerInteractUI : MonoBehaviour
             // If the player is holding a shoe
             if (grabbedObject != null)
             {
-                interactTextMeshProUGUI.text = "Do you want to buy\n" + grabbedObject.name;
+                interactTextMeshProUGUI.text = "\nDo you want to buy\n" + grabbedObject.name;
                 containerPriceTagUI.SetActive(true);
             }
             //if not
