@@ -15,6 +15,8 @@ public class SelectBodyType : MonoBehaviour
     public GameObject nameInput;
     public GameObject checkmark;
     public GameObject keyboard;
+    public GameObject XR_Camera;
+    private float target_progress;
 
     //loading screen
     public GameObject LoadingScreen;
@@ -148,8 +150,12 @@ public class SelectBodyType : MonoBehaviour
 
     void Confirmed()
     {
+        //activate black canvas 
         LoadingScreen.SetActive(true);
         shopAudio.Stop();
+        //cullings mask of camera
+        XR_Camera.GetComponent<Camera>().cullingMask = LayerMask.GetMask("LoadingScreen");
+        XR_Camera.GetComponent<Camera>().clearFlags = CameraClearFlags.SolidColor;
 
         //write current selected bodytype to local data
         PlayerPrefs.SetInt("bodytype", currentSelectedBodyType);
@@ -169,18 +175,17 @@ public class SelectBodyType : MonoBehaviour
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
 
+        operation.allowSceneActivation = false;
        
 
         while (!operation.isDone) 
         {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-
-            LoadingBarFill.fillAmount = progress;
+            target_progress = operation.progress;
 
             yield return null;
         }
 
-
+        operation.allowSceneActivation = true;
     }
 
     //for debugging purposes (delete later)
@@ -190,6 +195,8 @@ public class SelectBodyType : MonoBehaviour
         {
             Confirmed();
         }
+
+        LoadingBarFill.fillAmount = Mathf.MoveTowards(LoadingBarFill.fillAmount, target_progress, 3 * Time.deltaTime);
     }
 
 }
