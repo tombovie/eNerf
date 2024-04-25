@@ -5,6 +5,7 @@ using Unity.XR.CoreUtils;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class enablePlayer : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class enablePlayer : MonoBehaviour
         bodyColorIndex = PlayerPrefs.GetInt("bodycolor");
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        PlayerPrefs.SetInt("previousSceneIndex",currentSceneIndex);
+        Debug.Log(currentSceneIndex);
         if (currentSceneIndex == 1)
         {
             SetBodyTypeIndex();
@@ -100,17 +103,26 @@ public class enablePlayer : MonoBehaviour
     {
         //get leftleg of player
         Transform leftLeg = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg");
-        //if (leftLeg != null) { Debug.Log("Found left leg!"); }
+        //get rightLeg of player
+        Transform rightLeg = currentBodyType.transform.Find("Armature/Hips/RightUpLeg/RightLeg");
+
+        Transform leftLegt = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase");
+        Debug.Log(leftLegt.localPosition);
         //fetch x-angle of this leg && increase camerayoffset
         Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
-        if (leftLeg.transform.rotation.eulerAngles.x > 5)
+        if (((leftLeg.transform.rotation.eulerAngles.x < 10) || (leftLeg.transform.rotation.eulerAngles.x > 355))
+            && ((rightLeg.transform.rotation.eulerAngles.x < 10)) || (rightLeg.transform.rotation.eulerAngles.x > 355))
         {
-            // Debug.Log("Increasing the camerayoffset!"); 
-            //XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
-            Vector3 newPos = XR_Origin.transform.position + new Vector3(0f, 0.001f, 0f);
+            playerHeightSetted = true;
+            //disable loading screen
+            LoadingScreen.SetActive(false);
+
+            /*Vector3 newPos = XR_Origin.transform.position + new Vector3(0f, 0.001f, 0f);
+            Vector3 newPos2 = XR_Origin.transform.GetChild(0).position + new Vector3(0f, 0.001f, 0f);
             XR_Origin.transform.position = newPos;
+            XR_Origin.transform.GetChild(0).position = newPos2;*/
         }
-        /*else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360) 
+        /*else if (leftLeg.transform.rotation.eulerAngles.x >= 180 && leftLeg.transform.rotation.eulerAngles.x <= 360)
         {
             // Debug.Log("Decreasing the camerayoffset!"); 
             XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.008f;
@@ -122,9 +134,8 @@ public class enablePlayer : MonoBehaviour
         }*/
         else //when value is between 0 and 20 = ideaal
         {
-            playerHeightSetted = true;
-            //disable loading screen
-            LoadingScreen.SetActive(false);
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.003f;
+            
         }
     }
 
