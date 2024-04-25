@@ -141,7 +141,15 @@ public class enablePlayer : MonoBehaviour
     private void SetPlayerHeight()
     {
         Transform leftLegt = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase");
-        Transform neck = currentBodyType.transform.Find("Armature/Hips/Spine/Spine1/Spine2/Neck");
+        if (leftLegt == null)
+        {
+            leftLegt = currentBodyType.transform.Find("Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase");
+        }
+        Transform neck = currentBodyType.transform.Find("Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck");
+        if (neck == null)
+        {
+            neck = currentBodyType.transform.Find("Armature/Hips/Spine/Spine1/Spine2/Neck");
+        }
         float length = neck.position.y - leftLegt.position.y;
 
         //Debug.Log(neck.position.y);
@@ -198,6 +206,7 @@ public class enablePlayer : MonoBehaviour
     {
         if (startLoop && !playerHeightSetted)
         {
+
             SetPlayerHeight(); 
         }
        

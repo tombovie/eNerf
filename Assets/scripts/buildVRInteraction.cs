@@ -39,6 +39,17 @@ public class buildVRInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Access the XR Origin instance in the scene
+        GameObject xrOrigin = GameObject.FindWithTag("XR Origin");
+        if (xrOrigin != null)
+        {
+            // assign vr targets
+            setHeadTarget(xrOrigin.transform.Find("Camera Offset/Main Camera/Head VR Target").gameObject);
+            setLeftHandTarget(xrOrigin.transform.Find("Camera Offset/Left Controller/Left Hand VR Target").gameObject);
+            setRightHandTarget(xrOrigin.transform.Find("Camera Offset/Right Controller/Right Hand VR Target").gameObject);
+        }
+        else { Debug.LogWarning("XR Origin not found"); }
+
         // Create empty GameObject with name 
         GameObject VRIKRig = new GameObject("VR IK Rig");
         VRIKRig.transform.parent = transform; //Parent is current Gameobject
