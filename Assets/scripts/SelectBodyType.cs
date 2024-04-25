@@ -175,7 +175,7 @@ public class SelectBodyType : MonoBehaviour
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
 
-        operation.allowSceneActivation = false;
+        //operation.allowSceneActivation = false;
        
 
         while (!operation.isDone) 
@@ -185,7 +185,7 @@ public class SelectBodyType : MonoBehaviour
             yield return null;
         }
 
-        operation.allowSceneActivation = true;
+        //operation.allowSceneActivation = true;
     }
 
     //for debugging purposes (delete later)
