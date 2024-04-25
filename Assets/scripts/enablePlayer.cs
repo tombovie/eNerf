@@ -106,10 +106,9 @@ public class enablePlayer : MonoBehaviour
         //get rightLeg of player
         Transform rightLeg = currentBodyType.transform.Find("Armature/Hips/RightUpLeg/RightLeg");
 
-        Transform leftLegt = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase");
-        Debug.Log(leftLegt.localPosition);
+        
         //fetch x-angle of this leg && increase camerayoffset
-        Debug.Log(leftLeg.transform.rotation.eulerAngles.x);
+        /*Debug.Log(leftLeg.transform.rotation.eulerAngles.x);*/
         if (((leftLeg.transform.rotation.eulerAngles.x < 10) || (leftLeg.transform.rotation.eulerAngles.x > 355))
             && ((rightLeg.transform.rotation.eulerAngles.x < 10)) || (rightLeg.transform.rotation.eulerAngles.x > 355))
         {
@@ -141,15 +140,32 @@ public class enablePlayer : MonoBehaviour
 
     private void SetPlayerHeight()
     {
-        //get leftleg of player
-        Transform spine = currentBodyType.transform.Find("Armature/Hips/Spine");
-        if (spine != null) { Debug.Log("Found player's spine!"); }
-        //fetch x-angle of this leg && increase camerayoffset
-        Debug.Log("position-y: " + spine.position.y + " and localposition-y: " + spine.localPosition.y);
-        if (spine.localPosition.y > 20)
+        Transform leftLegt = currentBodyType.transform.Find("Armature/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase");
+        Transform neck = currentBodyType.transform.Find("Armature/Hips/Spine/Spine1/Spine2/Neck");
+        float length = neck.position.y - leftLegt.position.y;
+
+        //Debug.Log(neck.position.y);
+        //Debug.Log(length);
+
+        //Check if player is floating (too large) or crouching (too small)
+        if (neck.position.y > 1.5)
         {
-            // Debug.Log("Increasing the camerayoffset!"); 
-            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.008f;
+            // floating
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.01f;
+        }
+
+        //fetch difference of the length between neck and feet && increase camerayoffset
+        if (length < 0.5)
+        {
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.15f;
+        }
+        if ((length > 0.5) && (length < 1))
+        {
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.08f;
+        }
+        if (length < 1.35)
+        {
+            XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.01f;
         }
         else
         {
@@ -160,7 +176,7 @@ public class enablePlayer : MonoBehaviour
     IEnumerator WaitOneSecond_Loop()
     {
         float elapsedTime = 0f;
-        while (elapsedTime < 2f)
+        while (elapsedTime < 0.5f)
         {
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -182,9 +198,9 @@ public class enablePlayer : MonoBehaviour
     {
         if (startLoop && !playerHeightSetted)
         {
-            SetPlayerHeight_legAngle();
-            //SetPlayerHeight(); //--> delete later if not used
+            SetPlayerHeight(); 
         }
+       
     }
 
     
