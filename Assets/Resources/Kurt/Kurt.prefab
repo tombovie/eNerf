@@ -1775,6 +1775,7 @@ GameObject:
   - component: {fileID: 1902534228039420957}
   - component: {fileID: 1523774101224320560}
   - component: {fileID: 7415210982917150973}
+  - component: {fileID: 5993732237819665117}
   m_Layer: 0
   m_Name: Kurt
   m_TagString: Untagged
@@ -2014,6 +2015,33 @@ MonoBehaviour:
   leftShoeRotation: {x: -120, y: 180, z: 0}
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
+  shoeInHand: 0
+--- !u!143 &5993732237819665117
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3739690146176061518}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.14
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.84, z: 0}
 --- !u!1 &3864198528173285560
 GameObject:
   m_ObjectHideFlags: 0

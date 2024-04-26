@@ -52,6 +52,11 @@ public class enablePlayer : MonoBehaviour
             //get name from local data
             String currentCharacter = PlayerPrefs.GetString("character");
             currentBodyType = (GameObject)Instantiate(Resources.Load(currentCharacter+"/"+currentCharacter), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+
+            //set players height after 2s
+            StartCoroutine(WaitOneSecond_Loop());
+
+            playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
         }
         
         
@@ -145,10 +150,18 @@ public class enablePlayer : MonoBehaviour
         {
             leftLegt = currentBodyType.transform.Find("Armature/mixamorig:Hips/mixamorig:LeftUpLeg/mixamorig:LeftLeg/mixamorig:LeftFoot/mixamorig:LeftToeBase");
         }
+        if (leftLegt == null)
+        {
+            Debug.Log("LeftLegt not found!");
+        }
         Transform neck = currentBodyType.transform.Find("Armature/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck");
         if (neck == null)
         {
             neck = currentBodyType.transform.Find("Armature/Hips/Spine/Spine1/Spine2/Neck");
+        }
+        if (neck == null)
+        {
+            Debug.Log("neck not found!");
         }
         float length = neck.position.y - leftLegt.position.y;
 
