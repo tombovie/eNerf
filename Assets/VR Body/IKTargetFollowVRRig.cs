@@ -8,6 +8,7 @@ public class VRMap
     public Transform ikTarget;
     public Vector3 trackingPositionOffset;
     public Vector3 trackingRotationOffset;
+    
     public void Map()
     {
         ikTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
@@ -46,6 +47,20 @@ public class IKTargetFollowVRRig : MonoBehaviour
             head.Map();
             leftHand.Map();
             rightHand.Map();
+        }
+
+
+        //fetch head rotation
+        float headRotation = head.ikTarget.gameObject.transform.localEulerAngles.x;
+        Debug.Log("headrotation x value: " + headRotation);
+        //update z value of head offset
+        if(headRotation > 45)
+        {
+            headBodyPositionOffset.z = 0.10f;
+        }
+        else
+        {
+            headBodyPositionOffset.z = 0f;
         }
     }
     public void setHeadTarget(Transform vrTarget, Transform ikTarget)

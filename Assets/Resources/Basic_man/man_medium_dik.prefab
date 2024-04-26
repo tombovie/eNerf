@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: man_medium_dik
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -255,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65db1649aded1ab41bd0a04ddc60f9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newHead: {fileID: 5681690425952629714, guid: 23c85e41ee7965b43af14c20dab3fd07, type: 3}
   oldHead: {fileID: 7956478603942030417}
   neckbone: {fileID: 8160036962551339633}
   headOffset: {x: 0, y: 0, z: 0}
@@ -273,7 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba41193ae4ae7f341a204b4454b84d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fitShoeAudio: {fileID: 0}
   leftShoe1: {fileID: -7949136978043226412, guid: b344ebeba2d220f42a1af41ffcbb8840, type: 3}
   rightShoe1: {fileID: -7949136978043226412, guid: df54255c79e35b84d88c31fd5bff0055, type: 3}
   leftShoe2: {fileID: -7949136978043226412, guid: 09831df65966a144295113618e5e2b78, type: 3}

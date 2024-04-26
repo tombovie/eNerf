@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 2523622751951504671}
   m_Layer: 0
   m_Name: man_dik
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -699,7 +699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba41193ae4ae7f341a204b4454b84d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fitShoeAudio: {fileID: 0}
   leftShoe1: {fileID: -7949136978043226412, guid: b344ebeba2d220f42a1af41ffcbb8840, type: 3}
   rightShoe1: {fileID: -7949136978043226412, guid: df54255c79e35b84d88c31fd5bff0055, type: 3}
   leftShoe2: {fileID: -7949136978043226412, guid: 09831df65966a144295113618e5e2b78, type: 3}
