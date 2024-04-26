@@ -77,7 +77,16 @@ public class NPCInteractible : MonoBehaviour
         //save current scene in local data
         PlayerPrefs.SetInt("previousSceneIndex", currentSceneIndex);
         //goto transition scene
-        SceneTransitionManager.singleton.GoToSceneAsync(4);
+        if(currentSceneIndex == 3)
+        {
+            SceneTransitionManager.singleton.GoToScene(0);
+        }
+        else
+        {
+            SceneTransitionManager.singleton.GoToScene(4);
+
+        }
+
 
         /*// If the current scene is not the sceneIndex 4 (last scene)
         if (currentSceneIndex < 4) { 
