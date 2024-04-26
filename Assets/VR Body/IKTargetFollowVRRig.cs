@@ -27,7 +27,6 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
     private GameObject XR_Origin_camera;
-    private bool headPosAdjusted;
 
     PlayerController PlayerControllerScript;
 
@@ -41,13 +40,11 @@ public class IKTargetFollowVRRig : MonoBehaviour
             // assign vr targets
             Debug.LogWarning("XR Origin not found");
         }
-
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        Debug.Log(headPosAdjusted);
         if (head.ikTarget != null && head.vrTarget != null && rightHand.ikTarget != null && rightHand.vrTarget != null && leftHand.ikTarget != null && leftHand.vrTarget != null)
         {
             transform.position = head.ikTarget.position + headBodyPositionOffset;
@@ -61,76 +58,63 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
 
         //fetch head rotation
-
         float headRotationX = XR_Origin_camera.transform.localEulerAngles.x;
         float headRotationY = transform.localEulerAngles.y;
         Debug.Log("headrotation x value: " + headRotationX);
         Debug.Log("headrotation y value: " + headRotationY);
 
-        //update z value of head offset
-        if (headRotationY > 315 || headRotationY <= 45) //eerste kwadrant (vooraanzicht)
+        if (CheckIfHeadDown(headRotationX))
         {
-            if (CheckIfHeadDown(headRotationX) && !headPosAdjusted)
+            //update z value of head offset
+            if (headRotationY > 315 || headRotationY <= 45) //eerste kwadrant (vooraanzicht)
             {
-                headPosAdjusted = true;
-                headBodyPositionOffset.z = -0.2f;
+                if (CheckIfHeadDown(headRotationX))
+                {
+
+                    headBodyPositionOffset.z = -0.2f;
+                }
             }
-            else
+            if (headRotationY > 45 && headRotationY <= 135) //tweede kwadrant (zijaanzicht-rechts)
             {
-                headPosAdjusted = false;
-                headBodyPositionOffset.z = 0f;
+                if (CheckIfHeadDown(headRotationX))
+                {
+
+                    headBodyPositionOffset.x = -0.2f;
+                }
+            }
+            if (headRotationY > 135 && headRotationY <= 225) //derde kwadrant (achteraanzicht)
+            {
+                if (CheckIfHeadDown(headRotationX))
+                {
+
+                    headBodyPositionOffset.z = 0.2f;
+                }
+            }
+            if (headRotationY > 225 && headRotationY <= 315) //vierde kwadrant (zijaanzicht-links)
+            {
+                if (CheckIfHeadDown(headRotationX))
+                {
+                    headBodyPositionOffset.x = 0.2f;
+                }
             }
         }
-        if (headRotationY > 45 && headRotationY <= 135) //tweede kwadrant (zijaanzicht-rechts)
+        else
         {
-            if (CheckIfHeadDown(headRotationX) && !headPosAdjusted)
-            {
-                headPosAdjusted = true;
-                headBodyPositionOffset.x = -0.2f;
-            }
-            else
-            {
-                headPosAdjusted = false;
-                headBodyPositionOffset.x = 0f;
-            }
-        }
-        if (headRotationY > 135 && headRotationY <= 225) //derde kwadrant (achteraanzicht)
-        {
-            if (CheckIfHeadDown(headRotationX) && !headPosAdjusted)
-            {
-                headPosAdjusted = true;
-                headBodyPositionOffset.z = 0.2f;
-            }
-            else
-            {
-                headPosAdjusted = false;
-                headBodyPositionOffset.z = 0f;
-            }
-        }
-        if (headRotationY > 225 && headRotationY <= 315) //vierde kwadrant (zijaanzicht-links)
-        {
-            if (CheckIfHeadDown(headRotationX) && !headPosAdjusted)
-            {
-                headPosAdjusted = true;
-                headBodyPositionOffset.x = 0.2f;
-            }
-            else
-            {
-                headPosAdjusted = false;
-                headBodyPositionOffset.x = 0f;
-            }
+            headBodyPositionOffset.x = 0f;
+            headBodyPositionOffset.z = 0f;
         }
     }
 
     private bool CheckIfHeadDown(float angle)
     {
         if (angle > 45 && angle < 180)
-        {
-            
+        {        
             return true;
         }
-
-        return false;
+        else
+        {
+            return false;
+        }    
     }
     public void setHeadTarget(Transform vrTarget, Transform ikTarget)
     {
