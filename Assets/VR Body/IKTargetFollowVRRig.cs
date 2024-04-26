@@ -1,4 +1,5 @@
 ﻿using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 [System.Serializable]
@@ -26,7 +27,9 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
+    private GameObject XR_Origin;
     private GameObject XR_Origin_camera;
+    private bool XR_Origin_higher;
 
     PlayerController PlayerControllerScript;
 
@@ -40,7 +43,8 @@ public class IKTargetFollowVRRig : MonoBehaviour
             // assign vr targets
             Debug.LogWarning("XR Origin not found");
         }
-    }
+        XR_Origin = GameObject.FindWithTag("XR Origin");
+        }
 
     // Update is called once per frame
     void LateUpdate()
@@ -71,7 +75,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
                 if (CheckIfHeadDown(headRotationX))
                 {
 
-                    headBodyPositionOffset.z = -0.2f;
+                    headBodyPositionOffset.z = -0.3f;
                 }
             }
             if (headRotationY > 45 && headRotationY <= 135) //tweede kwadrant (zijaanzicht-rechts)
@@ -79,7 +83,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
                 if (CheckIfHeadDown(headRotationX))
                 {
 
-                    headBodyPositionOffset.x = -0.2f;
+                    headBodyPositionOffset.x = -0.3f;
                 }
             }
             if (headRotationY > 135 && headRotationY <= 225) //derde kwadrant (achteraanzicht)
@@ -87,21 +91,32 @@ public class IKTargetFollowVRRig : MonoBehaviour
                 if (CheckIfHeadDown(headRotationX))
                 {
 
-                    headBodyPositionOffset.z = 0.2f;
+                    headBodyPositionOffset.z = 0.3f;
                 }
             }
             if (headRotationY > 225 && headRotationY <= 315) //vierde kwadrant (zijaanzicht-links)
             {
                 if (CheckIfHeadDown(headRotationX))
                 {
-                    headBodyPositionOffset.x = 0.2f;
+                    headBodyPositionOffset.x = 0.3f;
                 }
             }
+            if (!XR_Origin_higher)
+            {
+                SetXR_Origin_higher(true);
+                XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset + 0.3f;
+            }
+            
         }
         else
         {
             headBodyPositionOffset.x = 0f;
             headBodyPositionOffset.z = 0f;
+            if (XR_Origin_higher)
+            {
+                SetXR_Origin_higher(false);
+               XR_Origin.GetComponent<XROrigin>().CameraYOffset = XR_Origin.GetComponent<XROrigin>().CameraYOffset - 0.3f;
+            }
         }
     }
 
@@ -115,6 +130,10 @@ public class IKTargetFollowVRRig : MonoBehaviour
         {
             return false;
         }    
+    }
+    private void SetXR_Origin_higher(bool v)
+    {
+        XR_Origin_higher = v;
     }
     public void setHeadTarget(Transform vrTarget, Transform ikTarget)
     {
