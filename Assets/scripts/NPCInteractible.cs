@@ -13,6 +13,7 @@ public class NPCInteractible : MonoBehaviour
     private NPCHeadLookAt npcHeadLookAt;
 
     private string interactUIText;
+    private string action;
 
 
     private void Awake()
@@ -54,6 +55,17 @@ public class NPCInteractible : MonoBehaviour
 
         StartCoroutine(EndGame());
     }
+    public void Talk(Transform InteractingPerson)
+    {
+        playerInteractUI.HideWhileTalking();
+        if (buyAudio != null) { StartCoroutine(PlayBuyAudio()); }
+        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "You can bring me a shoe you want to buy!");
+
+        animator.SetTrigger("Talking");
+
+        float personHeight = 0.018f;
+        npcHeadLookAt.lookAtPosition(InteractingPerson.position + Vector3.up * personHeight);
+    }
 
     public string GetInteractText()
     {
@@ -63,11 +75,19 @@ public class NPCInteractible : MonoBehaviour
     {
         interactText = t;
     }
+    public void SetAction(string actionvar)
+    {
+        action = actionvar;
+    }
+    public string GetAction()
+    {
+        return action;
+    }
 
     IEnumerator EndGame()
     {
         float elapsedTime = 0f;
-        while (elapsedTime < 5f)
+        while (elapsedTime < 4f)
         {
             elapsedTime += Time.deltaTime;
             yield return null;

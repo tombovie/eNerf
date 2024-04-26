@@ -57,11 +57,13 @@ public class PlayerInteractUI : MonoBehaviour
             {
                 interactTextMeshProUGUI.text = "\nDo you want to buy\n" + grabbedObject.name;
                 containerPriceTagUI.SetActive(true);
+                npcInteractible.SetAction("Buy");
             }
             //if not
             else
             {
-                interactTextMeshProUGUI.text = "Go away";
+                interactTextMeshProUGUI.text = "Talk to me";
+                npcInteractible.SetAction("Talk");
             }
             //interactTextMeshProUGUI.text = npcInteractible.GetInteractText();
             hasPlayedAudio = true;
