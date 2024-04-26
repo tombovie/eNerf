@@ -74,13 +74,18 @@ public class NPCInteractible : MonoBehaviour
         }
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        // If the current scene is not the sceneIndex 4 (last scene)
+        //save current scene in local data
+        PlayerPrefs.SetInt("previousSceneIndex", currentSceneIndex);
+        //goto transition scene
+        SceneTransitionManager.singleton.GoToSceneAsync(4);
+
+        /*// If the current scene is not the sceneIndex 4 (last scene)
         if (currentSceneIndex < 4) { 
             SceneTransitionManager.singleton.GoToScene(currentSceneIndex+1); 
         }
         else {
             SceneTransitionManager.singleton.GoToScene(currentSceneIndex-1);
-        }
+        }*/
     }
 
     IEnumerator PlayBuyAudio()
