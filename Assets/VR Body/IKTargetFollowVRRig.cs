@@ -8,7 +8,7 @@ public class VRMap
     public Transform ikTarget;
     public Vector3 trackingPositionOffset;
     public Vector3 trackingRotationOffset;
-    
+
     public void Map()
     {
         ikTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
@@ -18,7 +18,7 @@ public class VRMap
 
 public class IKTargetFollowVRRig : MonoBehaviour
 {
-    [Range(0,1)]
+    [Range(0, 1)]
     public float turnSmoothness = 0.1f;
     public VRMap head = new VRMap();
     public VRMap leftHand = new VRMap();
@@ -26,12 +26,20 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
+    private GameObject XR_Origin_camera;
 
     PlayerController PlayerControllerScript;
 
     private void Start()
     {
         PlayerControllerScript = GetComponent<PlayerController>();
+        // Access the XR Origin instance in the scene
+        XR_Origin_camera = GameObject.FindWithTag("MainCamera");
+        if (XR_Origin_camera == null)
+        {
+            // assign vr targets
+            Debug.LogWarning("XR Origin not found");
+        }
 
     }
 
@@ -51,17 +59,66 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
 
         //fetch head rotation
-        float headRotation = head.ikTarget.gameObject.transform.localEulerAngles.x;
-        Debug.Log("headrotation x value: " + headRotation);
+
+        float headRotationX = XR_Origin_camera.transform.localEulerAngles.x;
+        float headRotationY = XR_Origin_camera.transform.localEulerAngles.y;
+        Debug.Log("headrotation x value: " + headRotationX);
+        Debug.Log("headrotation y value: " + headRotationY);
+
         //update z value of head offset
-        if(headRotation > 45)
+        if (headRotationY > 315 && headRotationY <= 45) //eerste kwadrant (vooraanzicht)
         {
-            headBodyPositionOffset.z = 0.10f;
+            if (CheckIfHeadDown(headRotationX))
+            {
+                headBodyPositionOffset.z = 0.1f;
+            }
+            else
+            {
+                headBodyPositionOffset.z = 0f;
+            }
         }
-        else
+        if (headRotationY > 45 && headRotationY <= 135) //tweede kwadrant (zijaanzicht-rechts)
         {
-            headBodyPositionOffset.z = 0f;
+            if (CheckIfHeadDown(headRotationX))
+            {
+                headBodyPositionOffset.x = 0.1f;
+            }
+            else
+            {
+                headBodyPositionOffset.x = 0f;
+            }
         }
+        if (headRotationY > 135 && headRotationY <= 225) //derde kwadrant (achteraanzicht)
+        {
+            if (CheckIfHeadDown(headRotationX))
+            {
+                headBodyPositionOffset.z = -0.1f;
+            }
+            else
+            {
+                headBodyPositionOffset.z = 0f;
+            }
+        }
+        if (headRotationY > 225 && headRotationY <=315) //vierde kwadrant (zijaanzicht-links)
+        {
+            if (CheckIfHeadDown(headRotationX))
+            {
+                headBodyPositionOffset.x = -0.1f;
+            }
+            else
+            {
+                headBodyPositionOffset.x = 0f;
+            }
+        }
+    }
+
+    private bool CheckIfHeadDown(float angle)
+    {
+        if (angle > 45)
+        {
+            return true;
+        }
+        return false;
     }
     public void setHeadTarget(Transform vrTarget, Transform ikTarget)
     {
