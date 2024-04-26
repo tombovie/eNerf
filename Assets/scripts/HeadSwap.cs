@@ -17,7 +17,7 @@ public class HeadSwap : MonoBehaviour
 
     public Vector3 headScale = Vector3.one; // Scale factor for the shoes
 
-    public void SwapShoes()
+    public void SwapHead()
     {
         //get name from local data
         String currentCharacter = PlayerPrefs.GetString("character");
@@ -42,7 +42,7 @@ public class HeadSwap : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SwapShoes();
+            SwapHead();
         }
     }
 }

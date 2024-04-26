@@ -63,6 +63,7 @@ public class enablePlayer : MonoBehaviour
             StartCoroutine(WaitOneSecond_Loop());
 
             playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
+            currentBodyType.GetComponent<HeadSwap>().SwapHead();
         }
         if (currentSceneIndex == 3)
         {
