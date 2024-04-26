@@ -38,7 +38,15 @@ public class NPC_Nearby : MonoBehaviour
                 {
                     if (collider.TryGetComponent(out NPCInteractible interactible))
                     {
-                        interactible.Buy(transform);
+                        if (interactible.GetAction().Equals("Talk"))
+                        {
+                            interactible.Talk(transform);
+                        }
+                        else if (interactible.GetAction().Equals("Buy"))
+                        {
+                            interactible.Buy(transform);
+                        }
+                        else { Debug.Log("Not a valid action");  }
                     }
                 }
                 break;
@@ -46,6 +54,7 @@ public class NPC_Nearby : MonoBehaviour
         }
     }
 
+    // Checks if there is an ncp nearby and if there are multiple, it chooses the closest
     public NPCInteractible GetInteractibleObject()
     {
         List<NPCInteractible> NPCInteractibleList = new List<NPCInteractible>();
@@ -77,6 +86,4 @@ public class NPC_Nearby : MonoBehaviour
         }
         return closestNPC;
     }
-
-   
 }
