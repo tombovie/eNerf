@@ -49,17 +49,34 @@ public class enablePlayer : MonoBehaviour
         }
         if (currentSceneIndex == 2)
         {
-            //get name from local data
-            String currentCharacter = PlayerPrefs.GetString("character");
-            currentBodyType = (GameObject)Instantiate(Resources.Load(currentCharacter+"/"+currentCharacter), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+            SetBodyTypeIndex();
+            //assign VR targets
+            AssignTargets();
+
+            //after bodytypes has been instantiated, assign skincolor
+            AssignSkinColor();
+
+            //Assign Hand Animations
+            AssignHandAnimation();
 
             //set players height after 2s
             StartCoroutine(WaitOneSecond_Loop());
 
             playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
         }
-        
-        
+        if (currentSceneIndex == 3)
+        {
+            //get name from local data
+            String currentCharacter = PlayerPrefs.GetString("character");
+            currentBodyType = (GameObject)Instantiate(Resources.Load(currentCharacter + "/" + currentCharacter), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+
+            //set players height after 2s
+            StartCoroutine(WaitOneSecond_Loop());
+
+            playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
+        }
+
+
 
 
     }

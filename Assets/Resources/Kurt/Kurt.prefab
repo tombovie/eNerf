@@ -1776,6 +1776,7 @@ GameObject:
   - component: {fileID: 1523774101224320560}
   - component: {fileID: 7415210982917150973}
   - component: {fileID: 5993732237819665117}
+  - component: {fileID: 1325763416347279753}
   m_Layer: 0
   m_Name: Kurt
   m_TagString: Untagged
@@ -2042,6 +2043,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.84, z: 0}
+--- !u!114 &1325763416347279753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3739690146176061518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567f1259efdf080499341e4e68817039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3864198528173285560
 GameObject:
   m_ObjectHideFlags: 0
