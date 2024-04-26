@@ -9,6 +9,7 @@ public class NPCInteractible : MonoBehaviour
     [SerializeField] private PlayerInteractUI playerInteractUI;
     [SerializeField] private AudioSource cashRegister;
     [SerializeField] private AudioSource buyAudio;
+    [SerializeField] private AudioSource talkAudio;
     Animator animator;
     private NPCHeadLookAt npcHeadLookAt;
 
@@ -58,8 +59,8 @@ public class NPCInteractible : MonoBehaviour
     public void Talk(Transform InteractingPerson)
     {
         playerInteractUI.HideWhileTalking();
-        if (buyAudio != null) { StartCoroutine(PlayBuyAudio()); }
-        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "You can bring me a shoe you want to buy!");
+        if (talkAudio != null) { talkAudio.Play(); }
+        ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "You can bring me a \nshoe you want to buy!");
 
         animator.SetTrigger("Talking");
 

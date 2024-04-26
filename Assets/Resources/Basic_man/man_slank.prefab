@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 913bdf55fd4012c4991f7d3f85b1253e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.26625752
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913bdf55fd4012c4991f7d3f85b1253e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.020001054
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913bdf55fd4012c4991f7d3f85b1253e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.9726319
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913bdf55fd4012c4991f7d3f85b1253e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -103,13 +103,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 0.01
-  m_Radius: 0.0005555556
+  m_Height: 1.23
+  m_Radius: 0.11
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!114 &4261771007504120304
 MonoBehaviour:
   m_ObjectHideFlags: 0
