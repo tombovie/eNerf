@@ -21,8 +21,33 @@ public class continueNextScene : MonoBehaviour
         continueButton.onClick.AddListener(OnContinueClicked);
         previousSceneIndex = PlayerPrefs.GetInt("previousSceneIndex");
 
-        nextSceneIndex = previousSceneIndex + 1;
-       
+        //nextSceneIndex = previousSceneIndex + 1;
+
+        //take a random scene that is not taken yet
+        List<Scene> scenes = new List<Scene>(SceneManager.GetAllScenes());
+        scenes.RemoveAt(4); //delete transitionscene
+        scenes.RemoveAt(0); //remove startscene
+        //if already completed a scene, delete it from the list
+        if (PlayerPrefs.HasKey("completedScene"))
+        {
+            scenes.RemoveAt(PlayerPrefs.GetInt("completedScene"));
+        }
+
+        //remove previous played scene
+        int temp = 0;
+        foreach(Scene scene in scenes)
+        {
+            if(scene.buildIndex == previousSceneIndex)
+            {
+                temp = scenes.IndexOf(scene);
+            }
+        }
+        scenes.RemoveAt(temp);
+
+        //fetch new random scene from list and return the buildindex
+        nextSceneIndex = scenes[UnityEngine.Random.Range(0, scenes.Count - 1)].buildIndex;
+        //set scene to be completed
+        PlayerPrefs.SetInt("completedScene", previousSceneIndex);
     }
 
     private void OnContinueClicked()

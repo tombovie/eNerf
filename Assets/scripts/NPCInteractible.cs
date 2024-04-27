@@ -97,25 +97,37 @@ public class NPCInteractible : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         //save current scene in local data
         PlayerPrefs.SetInt("previousSceneIndex", currentSceneIndex);
-        //goto transition scene
-        if(currentSceneIndex == 3)
+
+        //take a random scene that is not taken yet
+        List<Scene> scenes = new List<Scene>(SceneManager.GetAllScenes());
+        scenes.RemoveAt(4); //delete transitionscene
+        scenes.RemoveAt(0); //remove startscene
+        //if already completed a scene, delete it from the list
+        if (PlayerPrefs.HasKey("completedScene"))
+        {
+            scenes.RemoveAt(PlayerPrefs.GetInt("completedScene"));
+        }
+
+        //remove previous played scene
+        int temp = 0;
+        foreach (Scene scene in scenes)
+        {
+            if (scene.buildIndex == currentSceneIndex)
+            {
+                temp = scenes.IndexOf(scene);
+            }
+        }
+        scenes.RemoveAt(temp);
+
+        //go to next scene
+        if(scenes.Count < 2) //meaning the last scene has been played --> go to start scene
         {
             SceneTransitionManager.singleton.GoToScene(0);
         }
         else
         {
             SceneTransitionManager.singleton.GoToScene(4);
-
         }
-
-
-        /*// If the current scene is not the sceneIndex 4 (last scene)
-        if (currentSceneIndex < 4) { 
-            SceneTransitionManager.singleton.GoToScene(currentSceneIndex+1); 
-        }
-        else {
-            SceneTransitionManager.singleton.GoToScene(currentSceneIndex-1);
-        }*/
     }
 
     IEnumerator PlayBuyAudio()

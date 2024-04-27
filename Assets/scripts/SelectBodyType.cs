@@ -162,7 +162,10 @@ public class SelectBodyType : MonoBehaviour
         PlayerPrefs.SetInt("bodycolor", currentSelectedBodyColor);
 
         //confirmed button clicked
-        LoadScene(1);
+        //LoadScene(1);
+        //start random scene
+        Scene[] scenes = SceneManager.GetAllScenes();
+        float sceneId = UnityEngine.Random.Range(1, scenes.Length - 2); // - 2 ==> exclude startscene and transitionscene
     }
 
 
