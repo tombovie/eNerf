@@ -27,7 +27,7 @@ public class continueNextScene : MonoBehaviour
         {
             if (PlayerPrefs.HasKey("sceneCompleted" + sceneIndex))
             {
-                Debug.Log("index to remove: " + sceneIndex);
+                //Debug.Log("index to remove: " + sceneIndex);
                 toRemove.Add(sceneIndex);
             }
         }
