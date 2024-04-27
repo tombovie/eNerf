@@ -64,8 +64,8 @@ public class IKTargetFollowVRRig : MonoBehaviour
         //fetch head rotation
         float headRotationX = XR_Origin_camera.transform.localEulerAngles.x;
         float headRotationY = transform.localEulerAngles.y;
-        Debug.Log("headrotation x value: " + headRotationX);
-        Debug.Log("headrotation y value: " + headRotationY);
+/*        Debug.Log("headrotation x value: " + headRotationX);
+        Debug.Log("headrotation y value: " + headRotationY);*/
 
         if (CheckIfHeadDown(headRotationX))
         {

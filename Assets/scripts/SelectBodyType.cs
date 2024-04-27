@@ -28,6 +28,8 @@ public class SelectBodyType : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //reset PlayerPrefs (deletes all keys and values)
+        PlayerPrefs.DeleteAll();
         //listen to inputfield select
         nameInput.GetComponent<TMPro.TMP_InputField>().onSelect.AddListener(SelectInputField);
         //listen to input field changes
@@ -115,6 +117,7 @@ public class SelectBodyType : MonoBehaviour
         selectedBodyType = image;
     }
 
+    [Obsolete]
     void ChangeSkinColor(Button image) 
     {
         //put away keyboard
@@ -161,11 +164,13 @@ public class SelectBodyType : MonoBehaviour
         PlayerPrefs.SetInt("bodytype", currentSelectedBodyType);
         PlayerPrefs.SetInt("bodycolor", currentSelectedBodyColor);
 
-        //confirmed button clicked
-        //LoadScene(1);
-        //start random scene
-        Scene[] scenes = SceneManager.GetAllScenes();
-        LoadScene(UnityEngine.Random.Range(1, scenes.Length - 2)); // - 2 ==> exclude startscene and transitionscene
+          
+       //create list with all testscenes and select a random one
+       List<int> scenesIndices = new List<int>(new int[] {1,2,3});
+       int sceneId= scenesIndices[UnityEngine.Random.Range(0, scenesIndices.Count)]; //second argument is exlusive. first one is inclusive (see docs online)
+       PlayerPrefs.SetInt("sceneCompleted" + sceneId, sceneId);
+       LoadScene(sceneId);
+
     }
 
 

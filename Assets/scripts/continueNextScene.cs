@@ -19,35 +19,27 @@ public class continueNextScene : MonoBehaviour
     void Start()
     {
         continueButton.onClick.AddListener(OnContinueClicked);
-        previousSceneIndex = PlayerPrefs.GetInt("previousSceneIndex");
-
-        //nextSceneIndex = previousSceneIndex + 1;
 
         //take a random scene that is not taken yet
-        List<Scene> scenes = new List<Scene>(SceneManager.GetAllScenes());
-        scenes.RemoveAt(4); //delete transitionscene
-        scenes.RemoveAt(0); //remove startscene
-        //if already completed a scene, delete it from the list
-        if (PlayerPrefs.HasKey("completedScene"))
+        List<int> scenes = new List<int>(new int[] { 1, 2, 3 });
+        List<int> toRemove = new();
+        foreach (int sceneIndex in scenes)
         {
-            scenes.RemoveAt(PlayerPrefs.GetInt("completedScene"));
-        }
-
-        //remove previous played scene
-        int temp = 0;
-        foreach(Scene scene in scenes)
-        {
-            if(scene.buildIndex == previousSceneIndex)
+            if (PlayerPrefs.HasKey("sceneCompleted" + sceneIndex))
             {
-                temp = scenes.IndexOf(scene);
+                Debug.Log("index to remove: " + sceneIndex);
+                toRemove.Add(sceneIndex);
             }
         }
-        scenes.RemoveAt(temp);
+        foreach (int sceneIndex in toRemove)
+        {
+            scenes.Remove(sceneIndex);
+        }
 
-        //fetch new random scene from list and return the buildindex
-        nextSceneIndex = scenes[UnityEngine.Random.Range(0, scenes.Count - 1)].buildIndex;
-        //set scene to be completed
-        PlayerPrefs.SetInt("completedScene", previousSceneIndex);
+        //take random scene from remaining
+        nextSceneIndex = scenes[UnityEngine.Random.Range(0, scenes.Count)]; //second argument is exlusive. first one is inclusive (see docs online)
+        PlayerPrefs.SetInt("sceneCompleted"+nextSceneIndex, nextSceneIndex); //increase scene counter
+
     }
 
     private void OnContinueClicked()
@@ -76,7 +68,10 @@ public class continueNextScene : MonoBehaviour
     //for debugging purposes (delete later)
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnContinueClicked();
+        }
         LoadingBarFill.fillAmount = Mathf.MoveTowards(LoadingBarFill.fillAmount, target_progress, 3 * Time.deltaTime);
     }
 

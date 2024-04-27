@@ -44,11 +44,11 @@ public class NPCInteractible : MonoBehaviour
     }
     public void Buy(Transform InteractingPerson)
     {
-        if (cashRegister != null) { cashRegister.Play();  }
+        if (cashRegister != null) { cashRegister.Play(); }
         playerInteractUI.HideWhileTalking();
         if (buyAudio != null) { StartCoroutine(PlayBuyAudio()); }
         ChatBubble.Create(transform.transform, new Vector3(0f, 1.9f, -0.2f), InteractingPerson, "Thanks for shopping with us!");
-        
+
         animator.SetTrigger("Talking");
 
         float personHeight = 0.018f;
@@ -70,7 +70,7 @@ public class NPCInteractible : MonoBehaviour
 
     public string GetInteractText()
     {
-        return interactText;    
+        return interactText;
     }
     public void SetInteractText(string t)
     {
@@ -94,11 +94,9 @@ public class NPCInteractible : MonoBehaviour
             yield return null;
         }
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        //save current scene in local data
-        PlayerPrefs.SetInt("previousSceneIndex", currentSceneIndex);
+      
 
-        //take a random scene that is not taken yet
+        /*//take a random scene that is not taken yet
         List<Scene> scenes = new List<Scene>(SceneManager.GetAllScenes());
         scenes.RemoveAt(4); //delete transitionscene
         scenes.RemoveAt(0); //remove startscene
@@ -126,8 +124,43 @@ public class NPCInteractible : MonoBehaviour
         }
         else
         {
-            SceneTransitionManager.singleton.GoToScene(4);
+            int sceneIndex = Random.Range(0,scenes.Count - 1);
+            SceneTransitionManager.singleton.GoToScene(scenes[sceneIndex].buildIndex);
+        }*/
+
+        //take a random scene that is not taken yet
+        List<int> scenes = new List<int>(new int[] { 1, 2, 3 });
+        List<int> toRemove = new();
+        foreach (int sceneIndex in scenes)
+        {
+            if(PlayerPrefs.HasKey("sceneCompleted" + sceneIndex))
+            {
+                Debug.Log("index to remove: " + sceneIndex);
+                toRemove.Add(sceneIndex);
+            }
         }
+        foreach(int sceneIndex in toRemove)
+        {
+            scenes.Remove(sceneIndex);
+        }
+
+        for(int sceneIndex = 0; sceneIndex < scenes.Count; sceneIndex++)
+        {
+            Debug.Log("\t " + scenes[sceneIndex]);
+        }
+
+        if(scenes.Count == 0)
+        {
+            Debug.Log("Going to the startscene");
+            SceneTransitionManager.singleton.GoToScene(0); //startscene
+        }
+        else
+        {
+            Debug.Log("Going to the transitionscene");
+            SceneTransitionManager.singleton.GoToScene(4); //transition scene
+
+        }
+
     }
 
     IEnumerator PlayBuyAudio()
@@ -140,5 +173,17 @@ public class NPCInteractible : MonoBehaviour
         }
         buyAudio.Play();
     }
+
+    //for debugging purposes (delete later)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            StartCoroutine(EndGame());
+        }
+
+    }
+
+
 
 }
