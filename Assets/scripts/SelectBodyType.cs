@@ -165,7 +165,7 @@ public class SelectBodyType : MonoBehaviour
         //LoadScene(1);
         //start random scene
         Scene[] scenes = SceneManager.GetAllScenes();
-        float sceneId = UnityEngine.Random.Range(1, scenes.Length - 2); // - 2 ==> exclude startscene and transitionscene
+        LoadScene(UnityEngine.Random.Range(1, scenes.Length - 2)); // - 2 ==> exclude startscene and transitionscene
     }
 
 
