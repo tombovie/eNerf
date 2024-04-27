@@ -17,6 +17,7 @@ public class SelectBodyType : MonoBehaviour
     public GameObject keyboard;
     public GameObject XR_Camera;
     private float target_progress;
+    private bool nameFound;
 
     //loading screen
     public GameObject LoadingScreen;
@@ -79,18 +80,21 @@ public class SelectBodyType : MonoBehaviour
 
     private void SelectCharacter(string name)
     {
-        
         foreach (GameObject character in characters) 
         {
-            if (character.name == name)
+            Debug.Log("checking character: " + character.name + " with name: " + name);
+            if (character.name == name || character.name.ToLower() == name) //ignore case sensitive
             {
                 PlayerPrefs.SetString("character", name);
                 //change appearance of inputfield
                 checkmark.SetActive(true);
+                nameFound = true;
+                break;
             }
             else 
             {
                 checkmark.SetActive(false);
+                nameFound = false;
             }
         }
     }
@@ -153,6 +157,7 @@ public class SelectBodyType : MonoBehaviour
 
     void Confirmed()
     {
+        if (!nameFound) { return; } //if name not found, do not proceed
         //activate black canvas 
         LoadingScreen.SetActive(true);
         shopAudio.Stop();
@@ -202,6 +207,10 @@ public class SelectBodyType : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             Confirmed();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            nameInput.GetComponent<TMPro.TMP_InputField>().Select();
         }
 
         LoadingBarFill.fillAmount = Mathf.MoveTowards(LoadingBarFill.fillAmount, target_progress, 3 * Time.deltaTime);

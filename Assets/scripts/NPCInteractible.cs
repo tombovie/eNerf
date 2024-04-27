@@ -135,7 +135,7 @@ public class NPCInteractible : MonoBehaviour
         {
             if(PlayerPrefs.HasKey("sceneCompleted" + sceneIndex))
             {
-                Debug.Log("index to remove: " + sceneIndex);
+                //Debug.Log("index to remove: " + sceneIndex);
                 toRemove.Add(sceneIndex);
             }
         }
@@ -151,12 +151,12 @@ public class NPCInteractible : MonoBehaviour
 
         if(scenes.Count == 0)
         {
-            Debug.Log("Going to the startscene");
+            //Debug.Log("Going to the startscene");
             SceneTransitionManager.singleton.GoToScene(0); //startscene
         }
         else
         {
-            Debug.Log("Going to the transitionscene");
+            //Debug.Log("Going to the transitionscene");
             SceneTransitionManager.singleton.GoToScene(4); //transition scene
 
         }
