@@ -13,7 +13,6 @@ public class GameStartMenu : MonoBehaviour
     public Button startButton;
     public Button quitButton;
 
-    public List<Button> returnButtons;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +23,6 @@ public class GameStartMenu : MonoBehaviour
         startButton.onClick.AddListener(EnableStartGame);
         quitButton.onClick.AddListener(QuitGame);
 
-        foreach (var item in returnButtons)
-        {
-            item.onClick.AddListener(EnableMainMenu);
-        }
     }
 
     public void QuitGame()
