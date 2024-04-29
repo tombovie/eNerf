@@ -122,7 +122,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
     private bool CheckIfHeadDown(float angle)
     {
-        if (angle > 45 && angle < 180)
+        if (angle > 75 && angle < 180)
         {        
             return true;
         }
