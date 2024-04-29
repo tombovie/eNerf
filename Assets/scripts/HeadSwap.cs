@@ -22,7 +22,8 @@ public class HeadSwap : MonoBehaviour
         //get name from local data
         String currentCharacter = PlayerPrefs.GetString("character");
         //fetch current players head
-        newHead = (GameObject) Resources.Load(currentCharacter + "/" + currentCharacter + "_head");
+        newHead = (GameObject)Resources.Load(currentCharacter + "/" + currentCharacter + "_head");
+
         // Instantiate and position the left shoe
         GameObject newnewhead = Instantiate(newHead, neckbone);
         newnewhead.transform.localPosition = headOffset;

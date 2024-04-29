@@ -18,7 +18,7 @@ public class IKFootSolver : MonoBehaviour
     [SerializeField] Vector3 footOffset = default;
 
     public Vector3 footRotOffset;
-    public float footYPosOffset = 0.03f;
+    public float footYPosOffset = 0.05f;
 
     public float rayStartYOffset = 0;
     public float rayLength = 1.5f;
