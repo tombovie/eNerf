@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -17,7 +16,7 @@ public class enablePlayer : MonoBehaviour
     public GameObject head_target, right_target, left_target;
     public GameObject XR_Origin;
     private bool playerHeightSetted, startLoop;
-    public AnimatorController VRRigAnimator;
+    public RuntimeAnimatorController VRRigAnimator;
     public GameObject LoadingScreen;
 
     // Start is called before the first frame update
