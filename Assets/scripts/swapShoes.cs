@@ -76,9 +76,9 @@ public class swapShoes : MonoBehaviour
 
     public void SwapShoes()
     {
-        // For testing:
+        /*// For testing:
         leftShoe = leftShoe1;
-        rightShoe = rightShoe1;
+        rightShoe = rightShoe1;*/
 
         // Working:
         if (currentLeftShoe != null)
