@@ -1066,7 +1066,7 @@ Animator:
   m_GameObject: {fileID: 3064019580426197980}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e3aa6545748653f4cb650f33b08c25ae, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1720c98616a0f194dae551fe7645b49b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1186,8 +1186,8 @@ MonoBehaviour:
   oldRightShoe: {fileID: 3820421056896136271}
   leftFootBone: {fileID: 6828640756171475757}
   rightFootBone: {fileID: 898751870260147031}
-  leftShoeOffset: {x: -0.18, y: 0.034, z: -0.057}
-  rightShoeOffset: {x: 0.111, y: 0.091, z: -0.034}
+  leftShoeOffset: {x: -0.149, y: 0.07, z: -0.036}
+  rightShoeOffset: {x: 0.145, y: 0.06, z: -0.052}
   leftShoeRotation: {x: -120, y: 180, z: 0}
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
