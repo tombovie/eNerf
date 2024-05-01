@@ -54,6 +54,8 @@ public class swapShoes : MonoBehaviour
     private isGrabbed grabbedObject;
     public bool shoeInHand = false;
 
+    public bool TestSetup;
+
 
     private void Start()
     {
@@ -76,43 +78,47 @@ public class swapShoes : MonoBehaviour
 
     public void SwapShoes()
     {
-        /*// For testing:
-        leftShoe = leftShoe1;
-        rightShoe = rightShoe1;*/
+        if (TestSetup)
+        {
+            // For testing:
+            leftShoe = leftShoe1;
+            rightShoe = rightShoe1;
+        }
 
         // Working:
         if (currentLeftShoe != null)
-            oldLeftShoe = currentLeftShoe;
+        oldLeftShoe = currentLeftShoe;
         if (currentRightShoe != null)
-            oldRightShoe = currentRightShoe;
+        oldRightShoe = currentRightShoe;
 
         // Disable the old shoes
         if (oldLeftShoe != null && leftShoe != null)
-            //oldLeftShoe.SetActive(false);
-            Destroy(oldLeftShoe);
+        //oldLeftShoe.SetActive(false);
+        Destroy(oldLeftShoe);
         if (oldRightShoe != null && rightShoe != null)
-            //oldRightShoe.SetActive(false); 
-            Destroy(oldRightShoe);
+        //oldRightShoe.SetActive(false); 
+        Destroy(oldRightShoe);
 
         // Instantiate and position the left shoe
         if (leftShoe != null)
         {
-            currentLeftShoe = Instantiate(leftShoe, leftFootBone);
-            currentLeftShoe.transform.localPosition = leftShoeOffset;
-            currentLeftShoe.transform.localRotation = Quaternion.Euler(leftShoeRotation);
-            currentLeftShoe.transform.localScale = shoeScale;
-            currentLeftShoe.transform.SetParent(leftFootBone, false); // Parent to the left foot bone
+        currentLeftShoe = Instantiate(leftShoe, leftFootBone);
+        currentLeftShoe.transform.localPosition = leftShoeOffset;
+        currentLeftShoe.transform.localRotation = Quaternion.Euler(leftShoeRotation);
+        currentLeftShoe.transform.localScale = shoeScale;
+        currentLeftShoe.transform.SetParent(leftFootBone, false); // Parent to the left foot bone
         }
-        
+
         // Instantiate and position the right shoe
         if (rightShoe != null)
         {
-            currentRightShoe = Instantiate(rightShoe, rightFootBone);
-            currentRightShoe.transform.localPosition = rightShoeOffset;
-            currentRightShoe.transform.localRotation = Quaternion.Euler(rightShoeRotation);
-            currentRightShoe.transform.localScale = shoeScale;
-            currentRightShoe.transform.SetParent(rightFootBone, false); // Parent to the right foot bone
+        currentRightShoe = Instantiate(rightShoe, rightFootBone);
+        currentRightShoe.transform.localPosition = rightShoeOffset;
+        currentRightShoe.transform.localRotation = Quaternion.Euler(rightShoeRotation);
+        currentRightShoe.transform.localScale = shoeScale;
+        currentRightShoe.transform.SetParent(rightFootBone, false); // Parent to the right foot bone
         }
+        
     }
 
     private void HideCurrentShoePrefab()
