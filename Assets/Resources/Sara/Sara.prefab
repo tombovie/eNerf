@@ -3159,12 +3159,13 @@ MonoBehaviour:
   oldRightShoe: {fileID: 2815931904873129500}
   leftFootBone: {fileID: 7363670490800002687}
   rightFootBone: {fileID: 2662938254421531534}
-  leftShoeOffset: {x: -0.18, y: 0.034, z: -0.057}
-  rightShoeOffset: {x: 0.111, y: 0.091, z: -0.034}
-  leftShoeRotation: {x: -120, y: 180, z: 0}
-  rightShoeRotation: {x: -120, y: 180, z: 0}
+  leftShoeOffset: {x: -0.1615, y: 0.0792, z: -0.0618}
+  rightShoeOffset: {x: 0.125, y: 0.0807, z: -0.0593}
+  leftShoeRotation: {x: -131, y: 180, z: 0}
+  rightShoeRotation: {x: -130, y: 180, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
   shoeInHand: 0
+  TestSetup: 0
 --- !u!143 &210491333190060502
 CharacterController:
   m_ObjectHideFlags: 0
