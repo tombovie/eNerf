@@ -55,7 +55,12 @@ public class PlayerInteractUI : MonoBehaviour
             // If the player is holding a shoe
             if (grabbedObject != null)
             {
-                interactTextMeshProUGUI.text = "\nDo you want to buy\n" + grabbedObject.name;
+                string shoeName = "";
+                if (grabbedObject.gameObject.name == "Adidas right dummy bram") { shoeName = "Adidas Original"; }
+                if (grabbedObject.gameObject.name == "Nike air force left rigged") { shoeName = "Nike air force"; }
+                if (grabbedObject.gameObject.name == "Nike air max right dummy") { shoeName = "Nike air max"; }
+
+                interactTextMeshProUGUI.text = "\nDo you want to buy\n" + shoeName;
                 containerPriceTagUI.SetActive(true);
                 npcInteractible.SetAction("Buy");
             }

@@ -499,8 +499,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.25
   m_Radius: 0.26
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.64, z: 0}
@@ -715,6 +715,7 @@ MonoBehaviour:
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 0.01, y: 0.01, z: 0.01}
   shoeInHand: 0
+  TestSetup: 0
 --- !u!114 &2523622751951504671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5026282730422834685}
   - component: {fileID: 8338905852326044006}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ch_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

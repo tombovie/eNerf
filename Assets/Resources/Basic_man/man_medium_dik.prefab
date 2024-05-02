@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.18802929
+      value: -0.12669161
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.020001054
+      value: 0.020001173
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.7404171
+      value: -2.0041044
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -47,6 +47,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8294691966302611101, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b3fd2b43802c63746a8cbad0d33a545b, type: 3}
       propertyPath: m_Name
@@ -155,8 +159,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.21
   m_Radius: 0.09
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.66, z: 0}
@@ -292,6 +296,7 @@ MonoBehaviour:
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 0.01, y: 0.01, z: 0.01}
   shoeInHand: 0
+  TestSetup: 0
 --- !u!114 &7253246166315135364
 MonoBehaviour:
   m_ObjectHideFlags: 0
