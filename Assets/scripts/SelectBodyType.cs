@@ -24,6 +24,7 @@ public class SelectBodyType : MonoBehaviour
     public Image LoadingBarFill;
     public AudioSource shopAudio;
 
+    [SerializeField] private AverageFrameRateLogger frameRateLogger;
 
 
     // Start is called before the first frame update
@@ -174,6 +175,8 @@ public class SelectBodyType : MonoBehaviour
        List<int> scenesIndices = new List<int>(new int[] {1,2,3});
        int sceneId= scenesIndices[UnityEngine.Random.Range(0, scenesIndices.Count)]; //second argument is exlusive. first one is inclusive (see docs online)
        PlayerPrefs.SetInt("sceneCompleted" + sceneId, sceneId);
+
+       frameRateLogger.printFR();
        LoadScene(sceneId);
 
     }

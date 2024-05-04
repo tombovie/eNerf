@@ -2481,7 +2481,6 @@ GameObject:
   - component: {fileID: 6272460461888619344}
   - component: {fileID: 2002709950418092988}
   - component: {fileID: 8897612969687478438}
-  - component: {fileID: 8383842041326066878}
   m_Layer: 0
   m_Name: Lara
   m_TagString: Player
@@ -2499,8 +2498,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.25218964, y: 0.113289475, z: -3.3088202}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7733275827152281756}
   - {fileID: 3484697817565081915}
@@ -2639,10 +2638,10 @@ MonoBehaviour:
   oldRightShoe: {fileID: 1916825208588457078}
   leftFootBone: {fileID: 241781024622583083}
   rightFootBone: {fileID: 5564570120882330349}
-  leftShoeOffset: {x: -0.18, y: 0.034, z: -0.057}
-  rightShoeOffset: {x: 0.111, y: 0.091, z: -0.034}
-  leftShoeRotation: {x: -120, y: 180, z: 0}
-  rightShoeRotation: {x: -120, y: 180, z: 0}
+  leftShoeOffset: {x: -0.166, y: 0.085, z: 0.005}
+  rightShoeOffset: {x: 0.145, y: 0.091, z: -0.03}
+  leftShoeRotation: {x: -120, y: -165, z: 0}
+  rightShoeRotation: {x: -120, y: 174, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
   shoeInHand: 0
   TestSetup: 0
@@ -2684,23 +2683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567f1259efdf080499341e4e68817039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8383842041326066878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5472665517065700804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65db1649aded1ab41bd0a04ddc60f9b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oldHead: {fileID: 4996597011794168186}
-  neckbone: {fileID: 2243850876728447297}
-  headOffset: {x: 0, y: 0, z: 0}
-  headRotation: {x: 0, y: 0, z: 0}
-  headScale: {x: 1, y: 1, z: 1}
 --- !u!1 &5582466466289471844
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class NPCInteractible : MonoBehaviour
     [SerializeField] private AudioSource cashRegister;
     [SerializeField] private AudioSource buyAudio;
     [SerializeField] private AudioSource talkAudio;
+    [SerializeField] private AverageFrameRateLogger frameRateLogger;
     Animator animator;
     private NPCHeadLookAt npcHeadLookAt;
 
@@ -54,6 +55,11 @@ public class NPCInteractible : MonoBehaviour
         float personHeight = 0.018f;
         npcHeadLookAt.lookAtPosition(InteractingPerson.position + Vector3.up * personHeight);
 
+        //Save average frameRate
+        frameRateLogger.printFR();
+        Debug.Log("printed avg");
+
+        //Go to next scene or end
         StartCoroutine(EndGame());
     }
     public void Talk(Transform InteractingPerson)
@@ -88,7 +94,7 @@ public class NPCInteractible : MonoBehaviour
     IEnumerator EndGame()
     {
         float elapsedTime = 0f;
-        while (elapsedTime < 4f)
+        while (elapsedTime < 3.5f)
         {
             elapsedTime += Time.deltaTime;
             yield return null;

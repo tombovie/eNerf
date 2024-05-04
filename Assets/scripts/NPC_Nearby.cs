@@ -6,6 +6,7 @@ using UnityEngine.XR;
 public class NPC_Nearby : MonoBehaviour
 {
     private float range = 1.1f;
+    private bool bought;
 
     // Update is called once per frame
     void Update()
@@ -42,8 +43,10 @@ public class NPC_Nearby : MonoBehaviour
                         {
                             interactible.Talk(transform);
                         }
-                        else if (interactible.GetAction().Equals("Buy"))
+                        else if (interactible.GetAction().Equals("Buy") && !bought)
                         {
+                            bought = true;
+                            Debug.Log(interactible.name);
                             interactible.Buy(transform);
                         }
                         else { Debug.Log("Not a valid action");  }

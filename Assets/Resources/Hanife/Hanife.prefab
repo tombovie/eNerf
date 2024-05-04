@@ -1694,7 +1694,6 @@ GameObject:
   - component: {fileID: 3166562644540699570}
   - component: {fileID: 4770129576043955677}
   - component: {fileID: 2622722577686182996}
-  - component: {fileID: 3907666336439987043}
   m_Layer: 0
   m_Name: Hanife
   m_TagString: Player
@@ -1852,7 +1851,7 @@ MonoBehaviour:
   oldRightShoe: {fileID: 5327856747487746011}
   leftFootBone: {fileID: 5440208743738231139}
   rightFootBone: {fileID: 6850415864467007012}
-  leftShoeOffset: {x: -0.1333, y: 0.068, z: -0.0499}
+  leftShoeOffset: {x: -0.138, y: 0.0745, z: -0.0463}
   rightShoeOffset: {x: 0.1583, y: 0.0708, z: -0.0459}
   leftShoeRotation: {x: -120, y: 180, z: 0}
   rightShoeRotation: {x: -120, y: 180, z: 0}
@@ -1897,23 +1896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567f1259efdf080499341e4e68817039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3907666336439987043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7312239419741510945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65db1649aded1ab41bd0a04ddc60f9b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oldHead: {fileID: 8609258086965239114}
-  neckbone: {fileID: 7917739534565179821}
-  headOffset: {x: 0, y: 0, z: 0}
-  headRotation: {x: 0, y: 0, z: 0}
-  headScale: {x: 1, y: 1, z: 1}
 --- !u!1 &7400367808396613858
 GameObject:
   m_ObjectHideFlags: 0

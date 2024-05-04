@@ -60,7 +60,7 @@ public class PlayerInteractUI : MonoBehaviour
                 if (grabbedObject.gameObject.name == "Nike air force left rigged") { shoeName = "Nike air force"; }
                 if (grabbedObject.gameObject.name == "Nike air max right dummy") { shoeName = "Nike air max"; }
 
-                interactTextMeshProUGUI.text = "\nDo you want to buy\n" + shoeName;
+                interactTextMeshProUGUI.text = "\nDo you want to buy\n" + shoeName + "?";
                 containerPriceTagUI.SetActive(true);
                 npcInteractible.SetAction("Buy");
             }

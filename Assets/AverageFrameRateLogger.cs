@@ -18,8 +18,20 @@ public class AverageFrameRateLogger : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
-
+        DateTime currentTime = DateTime.Now;
+        string formattedTime = currentTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+        string filePath = Path.Combine(Application.persistentDataPath, "average_fps.txt");
+        string averageText = "Scene started at" + " timestamp: " + formattedTime + "\n";
+        if (!File.Exists(filePath))
+        {
+            Debug.Log("don't exist");
+            File.WriteAllText(filePath, averageText);
+        }
+        else
+        {
+            Debug.Log("exist");
+            File.AppendAllText(filePath, averageText);
+        }
         // Cache strings and create array
         {
             for (int i = 0; i < _cacheNumbersAmount; i++)
@@ -52,21 +64,29 @@ public class AverageFrameRateLogger : MonoBehaviour
             _currentAveraged = (int)Math.Round(average / _averageFromAmount);
             _averageCounter = (_averageCounter + 1) % _averageFromAmount;
         }
-
-        
     }
 
-    private void OnApplicationQuit()
+    public void printFR()
     {
+        // Timestamp
+        DateTime currentTime = DateTime.Now;
+        string formattedTime = currentTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+
         // Put in txt file
         // Write average FPS to a text file
-        string filePath = Application.dataPath + "/Out/average_fps.txt"; // Path within your project's data folder
-        string averageText = "Current scene: " + SceneManager.GetActiveScene().name +
-            " Average FPS" + PlayerPrefs.GetString("character") + ": " + _currentAveraged.ToString() + "\n";
+        string filePath = Path.Combine(Application.persistentDataPath, "average_fps.txt");
+        string averageText = "Current scene: " + SceneManager.GetActiveScene().name + " PlayerName: " + PlayerPrefs.GetString("character") +
+            " Average FPS"  + ": " + _currentAveraged.ToString() + " timestamp: " + formattedTime + "\n";
         if (!File.Exists(filePath))
         {
+            Debug.Log("don't exist");
             File.WriteAllText(filePath, averageText);
         }
-        File.AppendAllText(filePath, averageText);
+        else
+        {
+            Debug.Log("exist");
+            File.AppendAllText(filePath, averageText);
+        }
+        
     }
 }
