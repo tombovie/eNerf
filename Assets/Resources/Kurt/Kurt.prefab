@@ -1042,8 +1042,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.3214942, y: 0.113289595, z: -5.4296756}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6682987368263676963}
   - {fileID: 2184798273243335020}
@@ -1188,6 +1188,7 @@ MonoBehaviour:
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
   shoeInHand: 0
+  TestSetup: 0
 --- !u!143 &7503494842518404729
 CharacterController:
   m_ObjectHideFlags: 0

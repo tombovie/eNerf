@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 // Based on: https://forum.unity.com/threads/fps-counter.505495/
@@ -16,10 +17,15 @@ public class AverageFrameRateLogger : MonoBehaviour
     private int _averageCounter = 0;
     private int _currentAveraged;
 
+    private DateTime startTime;
+    private DateTime endTime;
+    private double amountOfFrames;
+
     void Awake()
     {
-        DateTime currentTime = DateTime.Now;
-        string formattedTime = currentTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+        startTime = DateTime.Now;
+
+        string formattedTime = startTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
         string filePath = Path.Combine(Application.persistentDataPath, "average_fps.txt");
         string averageText = "Scene started at" + " timestamp: " + formattedTime + "\n";
         if (!File.Exists(filePath))
@@ -43,6 +49,7 @@ public class AverageFrameRateLogger : MonoBehaviour
     }
     void Update()
     {
+        amountOfFrames++;
         // Sample
         {
             var currentFrame = (int)Math.Round(1f / Time.smoothDeltaTime); // If your game modifies Time.timeScale, use unscaledDeltaTime and smooth manually (or not).
@@ -69,14 +76,20 @@ public class AverageFrameRateLogger : MonoBehaviour
     public void printFR()
     {
         // Timestamp
-        DateTime currentTime = DateTime.Now;
-        string formattedTime = currentTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+        endTime = DateTime.Now;
+        string formattedTime = endTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+
+        TimeSpan timeSpan = endTime.Subtract(startTime);
+        // Get the difference in seconds
+        double seconds = timeSpan.TotalSeconds;
+
+        double avg = amountOfFrames / seconds;
 
         // Put in txt file
         // Write average FPS to a text file
         string filePath = Path.Combine(Application.persistentDataPath, "average_fps.txt");
         string averageText = "Current scene: " + SceneManager.GetActiveScene().name + " PlayerName: " + PlayerPrefs.GetString("character") +
-            " Average FPS"  + ": " + _currentAveraged.ToString() + " timestamp: " + formattedTime + "\n";
+            " Average FPS"  + ": " + _currentAveraged.ToString() + " timestamp: " + formattedTime + " avg:" + avg + " frames:" + amountOfFrames + " seconds: " + seconds + "\n";
         if (!File.Exists(filePath))
         {
             Debug.Log("don't exist");
