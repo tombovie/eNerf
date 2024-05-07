@@ -1431,8 +1431,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.0034256, y: 0.113289475, z: -5.5744}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5126539109865506924}
   - {fileID: 8356789017567649252}
@@ -1571,9 +1571,9 @@ MonoBehaviour:
   oldRightShoe: {fileID: 8293262172947474458}
   leftFootBone: {fileID: 1844411118130167383}
   rightFootBone: {fileID: 5008238544077052841}
-  leftShoeOffset: {x: -0.18, y: 0.034, z: -0.057}
-  rightShoeOffset: {x: 0.111, y: 0.091, z: -0.034}
-  leftShoeRotation: {x: -120, y: 180, z: 0}
+  leftShoeOffset: {x: -0.141, y: 0.069, z: -0.009}
+  rightShoeOffset: {x: 0.153, y: 0.06, z: -0.052}
+  leftShoeRotation: {x: -120, y: 190, z: 0}
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
   shoeInHand: 0
