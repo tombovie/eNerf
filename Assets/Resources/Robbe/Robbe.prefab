@@ -3200,6 +3200,7 @@ GameObject:
   - component: {fileID: 3486141585077758479}
   - component: {fileID: 4537912969754461112}
   - component: {fileID: 3286221613764546571}
+  - component: {fileID: 7466523011411728747}
   m_Layer: 0
   m_Name: Robbe
   m_TagString: Player
@@ -3217,8 +3218,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.224013, y: 0.020000577, z: -3.9975789}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.97, y: 0.97, z: 0.97}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4933200236894669367}
   - {fileID: 107938249308552362}
@@ -3262,7 +3263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 8289223653924510895}
   leftHandBones: {fileID: 6588815892483023849}
-  rightHandBones: {fileID: 0}
+  rightHandBones: {fileID: 1948468317000791950}
   rightFoot: {fileID: 6388698355499541858}
   leftFoot: {fileID: 762464314255623001}
   neck: {fileID: 715184991852504432}
@@ -3359,8 +3360,8 @@ MonoBehaviour:
   rightFootBone: {fileID: 2921222776936149944}
   leftShoeOffset: {x: -0.1331, y: 0.0956, z: -0.0294}
   rightShoeOffset: {x: 0.166, y: 0.089, z: -0.031}
-  leftShoeRotation: {x: -126, y: 185, z: 0}
-  rightShoeRotation: {x: -128, y: 175, z: 0}
+  leftShoeRotation: {x: -120, y: 185, z: 0}
+  rightShoeRotation: {x: -122, y: 175, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
   shoeInHand: 0
   TestSetup: 0
@@ -3402,6 +3403,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567f1259efdf080499341e4e68817039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7466523011411728747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289223653924510895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms:
+  - {fileID: 5693226755512514356}
+  - {fileID: 6921489773496672869}
+  - {fileID: 8255506217945015795}
+  - {fileID: 6963206665869776089}
+  - {fileID: 6285074197649386892}
+  - {fileID: 3089989619943629037}
+  - {fileID: 9079047858182788264}
+  - {fileID: 8706475376553894495}
+  - {fileID: 913308341944471049}
+  - {fileID: 2554975556065782490}
+  - {fileID: 8394413505130828273}
+  - {fileID: 8119516427813833169}
+  - {fileID: 543792045006928538}
+  - {fileID: 8199617970239412048}
+  - {fileID: 2178027581812270616}
+  - {fileID: 7323855152830015871}
+  - {fileID: 6963329456785336645}
+  - {fileID: 7112042532993367570}
+  - {fileID: 6800930880469234449}
+  - {fileID: 2089193357278929983}
+  - {fileID: 3057122547764501292}
+  - {fileID: 3512302286423377682}
+  - {fileID: 2229278387439375004}
+  - {fileID: 6629220217656738363}
+  - {fileID: 2881431284825914850}
+  - {fileID: 8443927755140655396}
+  - {fileID: 4491284383900532162}
+  - {fileID: 6975016706348942603}
+  - {fileID: 1268947462367742875}
+  - {fileID: 8685014478114709247}
+  - {fileID: 7682909252861435943}
+  - {fileID: 376373627985949258}
+  - {fileID: 602941523176478845}
+  - {fileID: 1691389123718357072}
+  - {fileID: 8454356429149045163}
+  - {fileID: 4781784491921963792}
+  - {fileID: 7824897075731188375}
+  - {fileID: 3628759265756099197}
+  - {fileID: 4608768891150496298}
+  - {fileID: 3469631405914966893}
+  - {fileID: 3916517704473621279}
+  - {fileID: 4207642679481202081}
+  - {fileID: 4554602243089576026}
+  - {fileID: 383953638162889948}
+  - {fileID: 825785357937854150}
+  - {fileID: 2539016034731310070}
+  - {fileID: 1193646836784678836}
+  - {fileID: 7626973309010703672}
+  - {fileID: 7581469587871218752}
+  - {fileID: 1203837283212120651}
+  - {fileID: 6484230018275768561}
+  - {fileID: 7946594359900799934}
+  - {fileID: 7898796391109576713}
+  - {fileID: 5696117819807816722}
+  - {fileID: 2252750956093723548}
+  - {fileID: 4495035079216449909}
+  - {fileID: 240282958195330925}
+  - {fileID: 5844568821148926537}
+  - {fileID: 7706529186390759367}
+  - {fileID: 9161637945182417767}
+  - {fileID: 4181744427838282507}
+  - {fileID: 7483162287471516352}
+  - {fileID: 266399043619477180}
+  - {fileID: 2921222776936149944}
+  - {fileID: 6594993904993720888}
+  - {fileID: 968506270708174174}
 --- !u!1 &8364249924888531524
 GameObject:
   m_ObjectHideFlags: 0
