@@ -2086,7 +2086,6 @@ GameObject:
   - component: {fileID: 3777168179697045333}
   - component: {fileID: 5768993359514776857}
   - component: {fileID: 5540109132460015561}
-  - component: {fileID: 1524799104967646452}
   m_Layer: 0
   m_Name: Joke
   m_TagString: Player
@@ -2104,8 +2103,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.64903617, y: 0.113289714, z: -5.862051}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9700001, y: 0.9700001, z: 0.9700001}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6818332680462777321}
   - {fileID: 7449328261789579349}
@@ -2243,9 +2242,9 @@ MonoBehaviour:
   oldLeftShoe: {fileID: 1128627442236128150}
   oldRightShoe: {fileID: 646833864995054182}
   leftFootBone: {fileID: 1570967803002532586}
-  rightFootBone: {fileID: 0}
-  leftShoeOffset: {x: -0.18, y: 0.034, z: -0.057}
-  rightShoeOffset: {x: 0.111, y: 0.091, z: -0.034}
+  rightFootBone: {fileID: 445175766949700970}
+  leftShoeOffset: {x: -0.1438, y: 0.068, z: -0.038}
+  rightShoeOffset: {x: 0.1456, y: 0.073, z: -0.044}
   leftShoeRotation: {x: -120, y: 180, z: 0}
   rightShoeRotation: {x: -120, y: 180, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
@@ -2289,23 +2288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567f1259efdf080499341e4e68817039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1524799104967646452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472989007513986361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65db1649aded1ab41bd0a04ddc60f9b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oldHead: {fileID: 3075352695903445419}
-  neckbone: {fileID: 8636642363985569029}
-  headOffset: {x: 0, y: 0, z: 0}
-  headRotation: {x: 0, y: 0, z: 0}
-  headScale: {x: 1, y: 1, z: 1}
 --- !u!1 &4492995230730674475
 GameObject:
   m_ObjectHideFlags: 0

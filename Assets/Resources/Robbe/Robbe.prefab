@@ -440,8 +440,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8790871595598116345}
   - component: {fileID: 5022810478027609170}
-  m_Layer: 7
-  m_Name: ch_head
+  m_Layer: 0
+  m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 7979105186981794808}
   - component: {fileID: 8649301352820097437}
   - component: {fileID: 1721756477359452275}
-  - component: {fileID: 7917742731160744984}
+  - component: {fileID: 7476600091143163761}
   m_Layer: 0
   m_Name: Robbe
   m_TagString: Player
@@ -818,8 +818,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.020473, y: 0.019999504, z: -5.8780694}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9700001, y: 0.9700001, z: 0.9700001}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 473606248893535777}
   - {fileID: 3960719855663547148}
@@ -958,10 +958,10 @@ MonoBehaviour:
   oldRightShoe: {fileID: 3239631381165665739}
   leftFootBone: {fileID: 8347370374136513041}
   rightFootBone: {fileID: 5689764806675074627}
-  leftShoeOffset: {x: -0.1412, y: 0.067, z: -0.049}
-  rightShoeOffset: {x: 0.1386, y: 0.0805, z: -0.0401}
-  leftShoeRotation: {x: -120, y: 180, z: 0}
-  rightShoeRotation: {x: -120, y: 180, z: 0}
+  leftShoeOffset: {x: -0.1331, y: 0.0956, z: -0.0294}
+  rightShoeOffset: {x: 0.166, y: 0.089, z: -0.031}
+  leftShoeRotation: {x: -126, y: 185, z: 0}
+  rightShoeRotation: {x: -128, y: 175, z: 0}
   shoeScale: {x: 1, y: 1, z: 1}
   shoeInHand: 0
   TestSetup: 0
@@ -1003,7 +1003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567f1259efdf080499341e4e68817039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7917742731160744984
+--- !u!114 &7476600091143163761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1012,14 +1012,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 2888357737320260963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65db1649aded1ab41bd0a04ddc60f9b1, type: 3}
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oldHead: {fileID: 1469871790393678072}
-  neckbone: {fileID: 2643006640240977515}
-  headOffset: {x: 0, y: 0, z: 0}
-  headRotation: {x: 0, y: 0, z: 0}
-  headScale: {x: 1, y: 1, z: 1}
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms:
+  - {fileID: 1558847603804826217}
+  - {fileID: 7834821211477532093}
+  - {fileID: 2093828243627125343}
+  - {fileID: 5902792171668524857}
+  - {fileID: 2194028615064387094}
+  - {fileID: 2351461730018058032}
+  - {fileID: 2643006640240977515}
+  - {fileID: 8562441207969151718}
+  - {fileID: 2225655838716607169}
+  - {fileID: 4193057920763011651}
+  - {fileID: 5683256763715416670}
+  - {fileID: 8131217349143820895}
+  - {fileID: 1559619283703236240}
+  - {fileID: 5817403396256289424}
+  - {fileID: 2491676367988123108}
+  - {fileID: 2198636370272515024}
+  - {fileID: 1247456554807880874}
+  - {fileID: 8406746317193513535}
+  - {fileID: 6222143940096715712}
+  - {fileID: 404367165809716435}
+  - {fileID: 1640940673432531238}
+  - {fileID: 1353808111003223219}
+  - {fileID: 1660757816384305761}
+  - {fileID: 2534434172348621125}
+  - {fileID: 4056384332414851850}
+  - {fileID: 1718528053969943954}
+  - {fileID: 6038669677275002978}
+  - {fileID: 8347370374136513041}
+  - {fileID: 4178121701543702761}
+  - {fileID: 4324443179068122873}
+  - {fileID: 2800214509366467348}
+  - {fileID: 5689764806675074627}
+  - {fileID: 4262739145841724059}
+  - {fileID: 6639088572833338988}
 --- !u!1 &2940085291008056850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,8 +1545,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3960719855663547148}
   - component: {fileID: 1080731202931917993}
-  m_Layer: 0
-  m_Name: Body
+  m_Layer: 7
+  m_Name: ch_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
