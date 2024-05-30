@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//From https://youtu.be/v47lmqfrQ9s?si=yjBdbnTdoESY9vPJ
 public class IKFootSolver : MonoBehaviour
 {
     public bool isMovingForward;
