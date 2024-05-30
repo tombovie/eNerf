@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class HeadSwap : MonoBehaviour
 {
-    private GameObject newHead; // Reference to the new left shoe GameObject prefab
+    private GameObject newHead; // Reference to the new head GameObject prefab
 
-    public GameObject oldHead; // Reference to the old left shoe GameObject
+    public GameObject oldHead; // Reference to the old head GameObject
 
-    public Transform neckbone; // Reference to the bone representing the left foot
+    public Transform neckbone; // Reference to the neck bone
 
-    public Vector3 headOffset; // Offset for positioning the left shoe
+    public Vector3 headOffset; // Offset for positioning the head
 
-    public Vector3 headRotation; // Rotation for the left shoe
+    public Vector3 headRotation; // Rotation for the head
 
-    public Vector3 headScale = Vector3.one; // Scale factor for the shoes
+    public Vector3 headScale = Vector3.one; // Scale factor for the head
 
     public void SwapHead()
     {
@@ -24,16 +24,16 @@ public class HeadSwap : MonoBehaviour
         //fetch current players head
         newHead = (GameObject)Resources.Load(currentCharacter + "/" + currentCharacter + "_head");
 
-        // Instantiate and position the left shoe
+        // Instantiate and position head
         GameObject newnewhead = Instantiate(newHead, neckbone);
         newnewhead.transform.localPosition = headOffset;
         newnewhead.transform.localRotation = Quaternion.Euler(headRotation);
         newnewhead.transform.localScale = headScale;
-        newnewhead.transform.SetParent(neckbone, false); // Parent to the left foot bone
+        newnewhead.transform.SetParent(neckbone, false); 
         newnewhead.layer = 7;
 
 
-        // Disable the old shoes
+        // Disable the old head
         if (oldHead != null)
             oldHead.SetActive(false);
         

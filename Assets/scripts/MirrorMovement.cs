@@ -8,7 +8,7 @@ public class MirrorMovement : MonoBehaviour
     public Transform mirror;
     private Vector3 mirrorPosition;
     private Vector3 mirrorEulerAngles;
-    // Start is called before the first frame update
+    
     void Start()
     {
         mirrorPosition = mirror.position;

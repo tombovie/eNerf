@@ -10,8 +10,8 @@ public class swapShoes : MonoBehaviour
     private AudioSource fitShoeAudio;
 
 
-    public GameObject leftShoe1; // Reference to the new left shoe GameObject prefab
-    public GameObject rightShoe1; // Reference to the new right shoe GameObject prefab
+    public GameObject leftShoe1; // Reference to one of the left shoe GameObject prefabs
+    public GameObject rightShoe1; // Reference to one of the right shoe GameObject prefabs
 
     public GameObject leftShoe2;
     public GameObject rightShoe2;

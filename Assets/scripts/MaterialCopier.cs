@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MaterialCopier : MonoBehaviour
 {
-    public GameObject[] sourceGameObjects; // Array of GameObjects containing materials to copy
-    public GameObject[] targetGameObjects; // Array of GameObjects to copy materials to
+    public GameObject[] sourceGameObjects; // Array of GameObjects containing materials that we want to copy
+    public GameObject[] targetGameObjects; // Array of GameObjects to where we want to copy the mat
 
     void Start()
     {
@@ -14,20 +14,20 @@ public class MaterialCopier : MonoBehaviour
 
     void CopyMaterials()
     {
-        // Check if source and target arrays have the same length
+        // Same length?
         if (sourceGameObjects.Length != targetGameObjects.Length)
         {
             Debug.LogError("Source and target GameObject arrays must have the same length!");
             return;
         }
 
-        // Loop through each pair of source and target objects
+        // Loop through each pair of the array objects
         for (int i = 0; i < sourceGameObjects.Length; i++)
         {
             GameObject sourceObject = sourceGameObjects[i];
             GameObject targetObject = targetGameObjects[i];
 
-            // Get renderers from source and target
+            // Get renderers 
             Renderer[] sourceRenderers = sourceObject.GetComponentsInChildren<Renderer>();
             Renderer[] targetRenderers = targetObject.GetComponentsInChildren<Renderer>();
 

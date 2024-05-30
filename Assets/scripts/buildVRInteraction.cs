@@ -36,7 +36,7 @@ public class buildVRInteraction : MonoBehaviour
 
     GameObject HeadTarget;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         // Access the XR Origin instance in the scene
@@ -272,8 +272,7 @@ public class buildVRInteraction : MonoBehaviour
         MultiParentConstraintHeadIK.data.constrainedRotationYAxis = true;
         MultiParentConstraintHeadIK.data.constrainedRotationZAxis = true;
 
-        //Set the source objects array
-        // Assuming you have a reference to the constraint and a Transform to add
+        //Set the source objects array - assuming you have a reference to the constraint and a Transform to add
         WeightedTransform WeightedTransformHeadTarget = new WeightedTransform { transform = HeadTarget.transform, weight = 1f }; // Set weight as needed
         WeightedTransformArray newSourceObjects = new WeightedTransformArray();
         newSourceObjects.Add(WeightedTransformHeadTarget);
@@ -307,10 +306,6 @@ public class buildVRInteraction : MonoBehaviour
          animateOnInput.animationInputs = newAnimationsInput;*/
 
 
-
-
-        // **Corrected Line:**
-        // Use RigBuilder.Build() to create the rig instead of ConstraintJob.AlignTransform
         rigBuilder.Build();
 
         StartCoroutine(SetLegIKPosition());

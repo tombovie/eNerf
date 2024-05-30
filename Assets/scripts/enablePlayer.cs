@@ -19,7 +19,6 @@ public class enablePlayer : MonoBehaviour
     public RuntimeAnimatorController VRRigAnimator;
     public GameObject LoadingScreen;
 
-    // Start is called before the first frame update
     void Start()
     {
         //fetch local data from startscene
@@ -41,7 +40,7 @@ public class enablePlayer : MonoBehaviour
             //Assign Hand Animations
             AssignHandAnimation();
 
-            //set players height after 2s
+            //set players height after 0.5s
             StartCoroutine(WaitOneSecond_Loop());
 
             playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
@@ -58,7 +57,7 @@ public class enablePlayer : MonoBehaviour
             //Assign Hand Animations
             AssignHandAnimation();
 
-            //set players height after 2s
+            //set players height after 0.5s
             StartCoroutine(WaitOneSecond_Loop());
 
             playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());
@@ -70,7 +69,7 @@ public class enablePlayer : MonoBehaviour
             String currentCharacter = PlayerPrefs.GetString("character");
             currentBodyType = (GameObject)Instantiate(Resources.Load(currentCharacter + "/" + currentCharacter), spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
 
-            //set players height after 2s
+            //set players height after 0.5s
             StartCoroutine(WaitOneSecond_Loop());
 
             playerInteractUI.SetNPC_Nearby(currentBodyType.GetComponent<NPC_Nearby>());

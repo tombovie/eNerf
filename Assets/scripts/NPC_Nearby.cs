@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+//Adapted from: https://www.youtube.com/watch?v=LdoImzaY6M4
 
 public class NPC_Nearby : MonoBehaviour
 {

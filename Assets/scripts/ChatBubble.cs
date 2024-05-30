@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+//Adapted from: https://www.youtube.com/watch?v=K13WnNL1OYM
 
 public class ChatBubble : MonoBehaviour
 {

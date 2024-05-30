@@ -18,8 +18,6 @@ public class MainController : MonoBehaviour
     [SerializeField] RuntimeAnimatorController WalkingAnimator;
 
 
-
-    // Start is called before the first frame update
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -31,11 +29,10 @@ public class MainController : MonoBehaviour
         rb = GetComponent<RigBuilder>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Debug.Log(GetUsingKeyboard());
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))  // Any keyboard key pressed
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) 
         {
             SetUsingKeyboard(true);
             playerController.enabled = true;

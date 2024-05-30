@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+//Adapted from: https://www.youtube.com/watch?v=LdoImzaY6M4
 
 public class NPCHeadLookAt : MonoBehaviour
 {
