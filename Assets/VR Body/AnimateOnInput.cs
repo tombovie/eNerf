@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//From https://youtu.be/v47lmqfrQ9s?si=yjBdbnTdoESY9vPJ
 [System.Serializable]
 public class AnimationInput
 {
