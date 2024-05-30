@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//From https://youtu.be/apnfGuMI0Dc?si=sAD2mKHZ9lyVttQ9
 public class FadeScreen : MonoBehaviour
 {
     public bool fadeOnStart = true;
