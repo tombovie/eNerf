@@ -31,13 +31,13 @@ public class isGrabbed : MonoBehaviour
 
     private void OnGrabEnter(XRBaseInteractor interactor)
     {
-        OnGrabbed?.Invoke(this); // Raise the custom event when grabbed
+        OnGrabbed?.Invoke(this); // This event OnGrabbed is invoked if we grab
         grabbed = true;
     }
 
-    private void OnGrabExit(XRBaseInteractor interactor) // No changes here
+    private void OnGrabExit(XRBaseInteractor interactor) 
     {
-        OnRelease?.Invoke(this); // Raise the custom event when grab exits
+        OnRelease?.Invoke(this); // If we release, the OnRelease event in invoked
         grabbed = false;
     }
 }
