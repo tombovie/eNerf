@@ -25,7 +25,7 @@ public class AverageFrameRateLogger : MonoBehaviour
     {
         startTime = DateTime.Now;
 
-        string formattedTime = startTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+        string formattedTime = startTime.ToString("HH:mm:ss"); 
         string filePath = Path.Combine(Application.persistentDataPath, "average_fps.txt");
         string averageText = "Scene started at" + " timestamp: " + formattedTime + "\n";
         if (!File.Exists(filePath))
@@ -38,7 +38,7 @@ public class AverageFrameRateLogger : MonoBehaviour
             Debug.Log("exist");
             File.AppendAllText(filePath, averageText);
         }
-        // Cache strings and create array
+        
         {
             for (int i = 0; i < _cacheNumbersAmount; i++)
             {
@@ -50,9 +50,8 @@ public class AverageFrameRateLogger : MonoBehaviour
     void Update()
     {
         amountOfFrames++;
-        // Sample
         {
-            var currentFrame = (int)Math.Round(1f / Time.smoothDeltaTime); // If your game modifies Time.timeScale, use unscaledDeltaTime and smooth manually (or not).
+            var currentFrame = (int)Math.Round(1f / Time.smoothDeltaTime); 
             if (currentFrame > 0)
             {
                 _frameRateSamples[_averageCounter] = currentFrame;
@@ -77,7 +76,7 @@ public class AverageFrameRateLogger : MonoBehaviour
     {
         // Timestamp
         endTime = DateTime.Now;
-        string formattedTime = endTime.ToString("HH:mm:ss");  // "HH" for 24-hour format, "hh" for 12-hour format
+        string formattedTime = endTime.ToString("HH:mm:ss"); 
 
         TimeSpan timeSpan = endTime.Subtract(startTime);
         // Get the difference in seconds
