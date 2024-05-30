@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+//From https://youtu.be/apnfGuMI0Dc?si=sAD2mKHZ9lyVttQ9
 public class SceneTransitionManager : MonoBehaviour
 {
     public FadeScreen fadeScreen;
